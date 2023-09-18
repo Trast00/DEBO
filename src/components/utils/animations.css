@@ -1,0 +1,67 @@
+/* animations.css */
+
+@keyframes slideAndFadeFromBottom {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideAndFadeFromTop {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideAndFadeFromRight {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-fade-from-bottom {
+  animation-name: slideAndFadeFromBottom;
+}
+
+.slide-fade-from-top {
+  animation-name: slideAndFadeFromTop;
+}
+
+.slide-fade-from-right {
+  animation-name: slideAndFadeFromRight;
+}
+
+.animate-hide {
+  opacity: 0;
+}
+
+.animate {
+  position: relative;
+  animation-duration: 800ms;
+  animation-fill-mode: forwards;
+}
+
+.animate-delay-1s {
+  animation-delay: 1s;
+}
+
+.animate-delay-2s {
+  animation-delay: 2s;
+}

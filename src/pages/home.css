@@ -1,0 +1,99 @@
+.hero {
+    color: white;
+    width: 100%;
+    min-height: 500px;
+    background-size: cover;
+    background-image: radial-gradient(#0c518682 15%, #0320368a 35%, #000D17 150%), url("https://fiches-pratiques.decision-achats.fr/Assets/Img/FICHEPRATIQUE/2019/2/337057/Comment-publier-appel-offres--LE.jpg");
+}
+
+/* header */
+
+header {
+    padding: 6px 24px;
+    justify-content: space-between;
+}
+
+/* logo */
+
+.hero .logo {
+    gap: 12px;
+}
+
+.hero .logo img {
+    width: 34px;
+    height: 34px;
+    border-radius: 3px;
+    background-color: pink;
+}
+
+.hero .logo h1 {
+    color: white;
+    font-size: 1rem;
+}
+
+/* hero-heading text */
+.hero main {
+    padding-bottom: 120px;
+}
+
+
+.hero main .subheading {
+    letter-spacing:  4px;
+}
+
+.hero main h2 {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.btn-hero {
+    border: 3px solid white;
+    background: transparent;
+    border-radius: 50px;
+    padding: 8px 32px;
+    color: white;
+    font-weight: 700;
+    transition-duration: 400ms;
+}
+
+.btn-hero:hover {
+    background-color: white;
+    color: var(--color-primary);
+}
+
+.hero .btn-hero {
+    margin-top: 60px;
+}
+
+/* services */
+.card {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    border-radius: 3px;
+    border: 0.8px solid #d3d3d3;
+}
+
+
+.services {
+    position: relative;
+    top: -60px;
+    height: 140px;
+    width: 50%;
+    min-width: 340px;
+    margin: auto;
+}
+
+.divisor {
+    width: 0.8px;
+    height: 80%;
+    background-color: #d3d3d3;
+}
+
+.services .service {
+    height: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
