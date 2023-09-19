@@ -15,9 +15,7 @@ const Home = () => {
                 </h1>
             </div>
             <div>
-                <p>Contact</p>
-                <p>dickoallassane1997@gmail.com</p>
-                <p>+223 94369736</p>
+                <p>+223 94369736 | dickoallassane1997@gmail.com</p>
             </div>
         </header>
         <main className='flex-center column max-content-flex '>
@@ -98,7 +96,7 @@ const Home = () => {
     </section>
 
     <section className='flex-center column section contact-section'>
-        <h2>Contactez Nous dès maintenant !</h2>
+        <h2>Contactez Nous Dès Maintenant !</h2>
         <form action="" className='flex-center column'>
             <input type="email" name="email" id="email" placeholder='address email (eg lnd.afrique@gmail.com)' required />
             <textarea type="email" name="message" id="email" placeholder='Message' required/>
