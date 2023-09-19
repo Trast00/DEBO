@@ -14,7 +14,7 @@ const Home = () => {
             <div className='flex-center logo'>
                 <img src="" alt="Logo de Debo" />
                 <h1>
-                    <a href="#" className='no-style'>Debo Service</a>
+                    <a href="/" className='no-style'>Debo Service</a>
                 </h1>
             </div>
             <div>
@@ -53,7 +53,7 @@ const Home = () => {
     <section className='features-sections'>
         <div className='row wrap feature'>
             <div className='max-content-flex flex-center'>
-                <img src="#" alt="image 1" />
+                <img src="#" alt="1" />
             </div>
             <div className='max-content-flex flex-center column feature-content'>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
@@ -71,7 +71,7 @@ const Home = () => {
         </div>
         <div className='row wrap feature'>
             <div className='max-content-flex flex-center'>
-                <img src="#" alt="image 1" />
+                <img src="#" alt="1" />
             </div>
             <div className='max-content-flex flex-center column'>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
