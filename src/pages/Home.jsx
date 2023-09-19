@@ -1,6 +1,9 @@
 import React from 'react'
 import '../components/utils/utils.css';
 import './home.css';
+import { RiTeamFill } from 'react-icons/ri'
+import { BsNewspaper } from 'react-icons/bs'
+import { FaDollarSign } from 'react-icons/fa'
 
 
 const Home = () => {
@@ -27,21 +30,21 @@ const Home = () => {
     <ul className='card services flex-center'>
         <li className='flex-center column max-content-flex service'>
             <div className="flex-center max-content-flex">
-                <img src="#" alt="icons" />
+                <RiTeamFill />
             </div>
             <p>Nos Experts</p>
         </li>
         <div className="divisor"></div>
         <li className='flex-center column max-content-flex service'>
             <div className="flex-center max-content-flex">
-                <img src="#" alt="icons" />
+                <BsNewspaper />
             </div>
             <p>Nos Experts</p>
         </li>
         <div className="divisor"></div>
         <li className='flex-center column max-content-flex service'>
             <div className="flex-center max-content-flex">
-                <img src="#" alt="icons" />
+                <FaDollarSign />
             </div>
             <p>Nos Experts</p>
         </li>
@@ -59,7 +62,7 @@ const Home = () => {
         </div>
         <div className='row wrap feature'>
             <div className='max-content-flex flex-center'>
-                <img src="#" alt="image 1" />
+                <RiTeamFill />
             </div>
             <div className='max-content-flex flex-center column'>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
@@ -100,7 +103,7 @@ const Home = () => {
         <form action="" className='flex-center column'>
             <input type="email" name="email" id="email" placeholder='address email (eg lnd.afrique@gmail.com)' required />
             <textarea type="email" name="message" id="email" placeholder='Message' required/>
-            <button type="submit" className='btn-hero-reversed'>Envoyer</button>
+            <button type="submit" className='btn-hero-reversed flex-center'>Envoyer</button>
         </form>
     </section>
       
