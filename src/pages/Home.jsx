@@ -48,8 +48,35 @@ const Home = () => {
             <p>Nos Experts</p>
         </li>
     </ul>
-    <section>
 
+    <section className='features-sections'>
+        <div className='row wrap feature'>
+            <div className='max-content-flex flex-center'>
+                <img src="#" alt="image 1" />
+            </div>
+            <div className='max-content-flex flex-center column feature-content'>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
+                <button className='btn-hero-reversed'>En Savoir Plus</button>
+            </div>
+        </div>
+        <div className='row wrap feature'>
+            <div className='max-content-flex flex-center'>
+                <img src="#" alt="image 1" />
+            </div>
+            <div className='max-content-flex flex-center column'>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
+                <button className='btn-hero-reversed'>En Savoir Plus</button>
+            </div>
+        </div>
+        <div className='row wrap feature'>
+            <div className='max-content-flex flex-center'>
+                <img src="#" alt="image 1" />
+            </div>
+            <div className='max-content-flex flex-center column'>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat tempora distinctio soluta aut amet fugit blanditiis rerum officia. Rerum fugiat alias, necessitatibus provident deserunt nulla quibusdam eius accusantium eveniet vero!</p>
+                <button className='btn-hero-reversed'>En Savoir Plus</button>
+            </div>
+        </div>
     </section>
       
     </>

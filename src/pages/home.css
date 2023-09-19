@@ -3,7 +3,8 @@
     width: 100%;
     min-height: 500px;
     background-size: cover;
-    background-image: radial-gradient(#0c518682 15%, #0320368a 35%, #000D17 150%), url("https://fiches-pratiques.decision-achats.fr/Assets/Img/FICHEPRATIQUE/2019/2/337057/Comment-publier-appel-offres--LE.jpg");
+    /* background-image: radial-gradient(#0c518682 15%, #0320368a 35%, #000D17 150%), url("https://fiches-pratiques.decision-achats.fr/Assets/Img/FICHEPRATIQUE/2019/2/337057/Comment-publier-appel-offres--LE.jpg");*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.815), rgba(0, 0, 0, 0.815)), url("https://fiches-pratiques.decision-achats.fr/Assets/Img/FICHEPRATIQUE/2019/2/337057/Comment-publier-appel-offres--LE.jpg");
 }
 
 /* header */
@@ -47,10 +48,11 @@ header {
 }
 
 .btn-hero {
+    cursor: pointer;
     border: 3px solid white;
     background: transparent;
     border-radius: 50px;
-    padding: 8px 32px;
+    padding: 12px 32px;
     color: white;
     font-weight: 700;
     transition-duration: 400ms;
@@ -58,7 +60,23 @@ header {
 
 .btn-hero:hover {
     background-color: white;
-    color: var(--color-primary);
+    color: black;
+}
+
+.btn-hero-reversed {
+    cursor: pointer;
+    border: 3px solid black;
+    background: black;
+    border-radius: 50px;
+    padding: 8px 32px;
+    color: white;
+    font-weight: 700;
+    transition-duration: 400ms;
+}
+
+.btn-hero-reversed:hover {
+    background: transparent;
+    color: black;
 }
 
 .hero .btn-hero {
@@ -96,4 +114,21 @@ header {
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-primary);
+}
+
+.features-sections {
+    margin-top: 60px;
+}
+
+.features-sections .feature {
+    margin-top: 150px;
+}
+
+.features-sections .feature p {
+    padding: 24px 60px;
+    text-align: center;
+}
+
+.features-sections .feature:nth-child(2) {
+    flex-direction: row-reverse;
 }
