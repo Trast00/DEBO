@@ -95,7 +95,15 @@ const Home = () => {
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis maxime fugit porro quam eum numquam dignissimos, sit voluptatem soluta, nesciunt officia consequatur sed rem fuga tempora, perspiciatis corrupti? Neque, est.</p>
             </li>
         </ul>
+    </section>
 
+    <section className='flex-center column section contact-section'>
+        <h2>Contactez Nous dès maintenant !</h2>
+        <form action="" className='flex-center column'>
+            <input type="email" name="email" id="email" placeholder='address email (eg lnd.afrique@gmail.com)' required />
+            <textarea type="email" name="message" id="email" placeholder='Message' required/>
+            <button type="submit" className='btn-hero-reversed'>Envoyer</button>
+        </form>
     </section>
       
     </>
