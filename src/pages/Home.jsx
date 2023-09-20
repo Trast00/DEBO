@@ -78,6 +78,25 @@ const Home = () => {
             </div>
         </div>
     </section>
+    <section className='flex-center column faq-sections'>
+        <h2>Question Frequente</h2>
+
+        <ul className='list-question'>
+            <li className='column question'>
+                <h4>What kind of work can I do on Focusmate?</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis maxime fugit porro quam eum numquam dignissimos, sit voluptatem soluta, nesciunt officia consequatur sed rem fuga tempora, perspiciatis corrupti? Neque, est.</p>
+            </li>
+            <li className='column question'>
+                <h4>What kind of work can I do on Focusmate?</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis maxime fugit porro quam eum numquam dignissimos, sit voluptatem soluta, nesciunt officia consequatur sed rem fuga tempora, perspiciatis corrupti? Neque, est.</p>
+            </li>
+            <li className='column question'>
+                <h4>What kind of work can I do on Focusmate?</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis maxime fugit porro quam eum numquam dignissimos, sit voluptatem soluta, nesciunt officia consequatur sed rem fuga tempora, perspiciatis corrupti? Neque, est.</p>
+            </li>
+        </ul>
+
+    </section>
       
     </>
   )
