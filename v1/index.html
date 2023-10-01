@@ -45,9 +45,11 @@
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0" id="home">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="index.html" class="navbar-brand p-0">
-                    <h1 class="m-0">Debo</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                <a href="index.html" class="navbar-brand p-0 d-flex flex-row align-items-center">
+
+                  <img src="img/logocolored.jpeg" class="logo-colored" alt="Logo">
+                  <img src="img/logowhite.png" class="logo-white" alt="Logo">
+                  <h1 class="m-0">Debo</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -55,7 +57,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
                         <a href="#home" class="nav-item nav-link active">Accueil</a>
-                        <a href="#about" class="nav-item nav-link">A Propos</a>
+                        <a href="#about" class="nav-item nav-link">À Propos</a>
                         <a href="#feature" class="nav-item nav-link">Services</a>
                         <a href="#pricing" class="nav-item nav-link">Tarifs</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
@@ -63,13 +65,20 @@
                     <a href="#contact" class="btn btn-primary-gradient rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Obtenir un fichier gratuit </a>
                 </div>
             </nav>
-
+            
             <div class="container-xxl bg-primary hero-header">
-                <div class="container px-lg-5">
+              <div class="d-flex justify-content-end px-4 px-lg-5 py-3 py-lg-0 contact-hero">
+
+                <div class="d-flex flex-column justify-content-end">
+                  <p><i class="fa fa-phone-alt me-3"></i>+223 74 46 98 59</p>
+                  <p><i class="fa fa-envelope me-3"></i>debo@deboinfo.com</p>
+                </div>
+              </div>
+              <div class="container px-lg-5">
                     <div class="row g-5">
                         <div class="col-lg-8 text-center text-lg-start">
                             <h1 class="text-white mb-4 animated slideInDown">Informez vous des appels d'offres dans tous les pays de l'UEMOA</h1>
-                            <p class="text-white pb-3 animated slideInDown">Vous serez informé des appels d'offres au Mali, Niger, Burnika faso, Benin, Togo, Sénegal, Côte d'ivoire Guinée Bissau, que vous soyez un bureau d'ingenieur conseil, ou une entreprise.<br/>Nos experts se charge aussi des montages des dossier de manifestation d'intérêt</p>
+                            <p class="text-white pb-3 animated slideInDown">Informez-vous sur les nouvelles opportunités au Mali,Niger,Togo,Benin,Sénegal,Côte d'ivoire,Guinée Bissau et confiez-nous la préparation de vos manifestation d'intérêt qui sera traité en un temps record grâce à nos puissants utils.</p>
                             <a href="information.html" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill me-3 animated slideInLeft">Pourquoi Nous Choisir ?</a>
                             <a href="payement.html" class="btn btn-secondary-gradient py-sm-3 px-4 px-sm-5 rounded-pill animated slideInRight">S'abonner</a>
                         </div>
@@ -84,11 +93,11 @@
         <!-- About Start -->
         <div class="container-xxl py-5" id="about">
             <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
+                <div class="row g-5 align-items-center justify-content-evenly">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <h5 class="text-primary-gradient fw-medium">Pourquoi Nous Choisir ?</h5>
-                        <h1 class="mb-4">Ne passez plus à coter d’opportunités de marché intéressantes</h1>
-                        <p class="mb-4">Economisez en temps et en argent en décidant de travailler en nous. Qu'il s’agit de chercher les marchés intéressants ou de monter les manifestations d’intérêt...</p>
+                        <h1 class="mb-4">Ne passez plus à côté d’opportunité de marché intéressant</h1>
+                        <p class="mb-4">Économisez en temps et en argent en décidant de travailler en nous. Qu'il s’agit de chercher les marchés intéressants ou de monter les manifestations d’intérêt...</p>
                         <div class="row g-4 mb-4">
                             <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
                                 <div class="d-flex">
@@ -114,8 +123,8 @@
                         </div>
                         <a href="information.html" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Voir Plus</a>
                     </div>
-                    <div class="col-lg-6">
-                        <img class="img-fluid wow fadeInUp" data-wow-delay="0.5s" src="img/about.png">
+                    <div class="row col-lg-6 align-items-center p-4">
+                        <img class="img-fluid wow fadeInUp bgImage" data-wow-delay="0.5s" src="img/imghome1.png">
                     </div>
                 </div>
             </div>
@@ -125,15 +134,15 @@
         <!-- About Start -->
         <div class="container-xxl py-5" id="sources">
             <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
+                <div class="row g-5 align-items-center justify-content-evenly">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <h5 class="text-primary-gradient fw-medium">Nos Source</h5>
                         <h1 class="mb-4">Plus de 50 sources dans les 8 pays de l’UEMOA</h1>
-                        <p class="mb-4">Notre équipe surveilles plusieurs sources à passant par les collectivités, marché privé, marché de l’état, marché des organisations international...Nous travaillons constamment à augmenter nos sources...</p>
+                        <p class="mb-4">collectivités, marché privé, marché de l’état, marché des organisations international...</p>
                         <a href="information.html" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Voir Plus</a>
                     </div>
-                    <div class="col-lg-6">
-                        <img class="img-fluid wow fadeInUp" data-wow-delay="0.5s" src="img/about.png">
+                    <div class="row col-lg-6 align-items-center p-4">
+                        <img class="img-fluid wow fadeInUp bgImage pb-0" data-wow-delay="0.5s" src="img/imghome2.png">
                     </div>
                 </div>
             </div>
@@ -143,24 +152,18 @@
         <!-- Screenshot Start -->
         <div class="container-xxl py-5">
           <div class="container py-5 px-lg-5">
-              <div class="row g-5 align-items-center">
+              <div class="row g-5 align-items-center justify-content-evenly">
                   <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
                       <h5 class="text-primary-gradient fw-medium">Nos Services</h5>
                       <h1 class="mb-4">Informez vous des appels d'offre!</h1>
-                      <p class="mb-4">Notre service est destiné aux entreprises et au bureaux d'ingénieurs conseils qui souhaitent obtenir plus de marché, nous les aidons à s'informé des tous les appels d'offres dans tous les pays de l'UEMOA afin de rester compétitive</p>
+                      <p class="mb-4">Service est destiné aux entreprises et aux bureaux d'ingénieurs conseils qui souhaitent obtenir plus de marché, nous les aidons à s'informer de tous les appels d'offre dans tous les pays de l'UEMOA afin de rester compétitive</p>
                       <p><i class="fa fa-check text-primary-gradient me-3"></i>Vous receverez un email tous les 2 jours contenant la liste de tous les appels d'offres et avis a manifestation d'intrêt colllecter par notree équipe</p>
-                      <p><i class="fa fa-check text-primary-gradient me-3"></i>Il vous suffit de cliquer sur le marché qui vous interesse afin d'être dirigié vers le document ou le site web original</p>
-                      <p class="mb-4"><i class="fa fa-check text-primary-gradient me-3"></i>Nous suivons plusieurs sources de marché public, privé, collectivité etc... dans les pays de l'UEMOA</p>
+                      <p><i class="fa fa-check text-primary-gradient me-3"></i>Cliquez simplement sur le marché qui vous intéresse pour accéder au document original ou au site Web.</p>
+                      <p class="mb-4"><i class="fa fa-check text-primary-gradient me-3"></i>Nous suivons de nombreuses sources de marché public, privé, collectif etc... dans les pays de l'UEMOA.</p>
                       <a href="information.html" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Voir Plus</a>
                   </div>
-                  <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
-                      <div class="owl-carousel screenshot-carousel">
-                          <img class="img-fluid" src="img/screenshot-1.png" alt="">
-                          <img class="img-fluid" src="img/screenshot-2.png" alt="">
-                          <img class="img-fluid" src="img/screenshot-3.png" alt="">
-                          <img class="img-fluid" src="img/screenshot-4.png" alt="">
-                          <img class="img-fluid" src="img/screenshot-5.png" alt="">
-                      </div>
+                  <div class="row col-lg-4 align-items-center p-4">
+                    <img class="img-fluid wow fadeInUp bgImage" data-wow-delay="0.5s" src="img/imghome3.png">
                   </div>
               </div>
           </div>
@@ -170,24 +173,16 @@
       <!-- Screenshot Start -->
       <div class="container-xxl py-5">
         <div class="container py-5 px-lg-5">
-            <div class="row g-5 align-items-center">
+            <div class="row g-5 align-items-center justify-content-evenly">
                 <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="text-primary-gradient fw-medium">Nos Services</h5>
-                    <h1 class="mb-4">Montage de dossier en moins de 24h !</h1>
-                    <p class="mb-4">Notre service est destiné aux entreprises qui souhaite obtenir plus de marché, nous les aidons en réalisant autant de montage de dossier qu'il souhaite et cela en un temps records</p>
-                    <p><i class="fa fa-check text-primary-gradient me-3"></i>Nous préparons jusqu'à manifestation d'intérêt pour vous</p>
-                    <p><i class="fa fa-check text-primary-gradient me-3"></i>Recevez votre dossier monté le jour même</p>
-                    <p class="mb-4"><i class="fa fa-check text-primary-gradient me-3"></i>Une equipe d'ingenieurs qualifié avec plusieurs années d'experience</p>
+                    <h1 class="mb-4">Montage de manifestation d'intérêt en moins de 24h !</h1>
+                    <p class="mb-4">Nos outils puissants sont en mesure de monter les expressions d'intérêt plus rapidement et plus efficacement...</p>
+                    <p><i class="fa fa-check text-primary-gradient me-3"></i>Obtenez votre dossier le jour même.</p>
                     <a href="information.html" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Voir Plus</a>
                 </div>
-                <div class="col-lg-4 d-flex justify-content-center justify-content-lg-end wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="owl-carousel screenshot-carousel">
-                        <img class="img-fluid" src="img/screenshot-1.png" alt="">
-                        <img class="img-fluid" src="img/screenshot-2.png" alt="">
-                        <img class="img-fluid" src="img/screenshot-3.png" alt="">
-                        <img class="img-fluid" src="img/screenshot-4.png" alt="">
-                        <img class="img-fluid" src="img/screenshot-5.png" alt="">
-                    </div>
+                <div class="row col-lg-4 align-items-center p-4">
+                  <img class="img-fluid wow fadeInUp bgImage px-0" data-wow-delay="0.5s" src="img/imghome4.png">
                 </div>
             </div>
         </div>
@@ -200,9 +195,9 @@
           <div class="container py-5 px-lg-5">
               <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                   <h5 class="text-primary-gradient fw-medium">Les interressés</h5>
-                  <h1 class="mb-5">Qui sont les interessé</h1>
+                  <h1 class="mb-5">Qui sont les intéressés</h1>
               </div>
-              <div class="row g-4">
+              <div class="row g-4 justify-content-evenly">
                   <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                       <div class="feature-item bg-light rounded p-4">
                           <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
@@ -221,42 +216,6 @@
                           <p class="m-0">Vous ête une entreprise de contruction BTP installée au Mali, Sénégal, Côte d'Ivoire, Burkina Faso, Niger, Togon Benin, Guinée Bissau alors vous êtes concerncé par nos services..</p>
                       </div>
                   </div>
-                  <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                      <div class="feature-item bg-light rounded p-4">
-                          <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                              <i class="fa fa-edit text-white fs-4"></i>
-                          </div>
-                          <h5 class="mb-3">Editable Data</h5>
-                          <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                      <div class="feature-item bg-light rounded p-4">
-                          <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                              <i class="fa fa-shield-alt text-white fs-4"></i>
-                          </div>
-                          <h5 class="mb-3">Fully Secured</h5>
-                          <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                      <div class="feature-item bg-light rounded p-4">
-                          <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                              <i class="fa fa-cloud text-white fs-4"></i>
-                          </div>
-                          <h5 class="mb-3">Cloud Storage</h5>
-                          <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                      <div class="feature-item bg-light rounded p-4">
-                          <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle mb-4" style="width: 60px; height: 60px;">
-                              <i class="fa fa-mobile-alt text-white fs-4"></i>
-                          </div>
-                          <h5 class="mb-3">Fully Responsive</h5>
-                          <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                      </div>
-                  </div>
               </div>
           </div>
       </div>
@@ -264,43 +223,43 @@
 
 
 
-        <!-- Process Start -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="text-primary-gradient fw-medium">Comment marche le montage des manifestation d'intérêt</h5>
-                    <h1 class="mb-5">3 Etapes Simple</h1>
-                </div>
-                <div class="row gy-5 gx-4 justify-content-center">
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-cog fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">Choisir les avis de manifestations d'intérêt</h5>
-                            <p class="mb-0">Envoyez-nous les avis à manifestation d'ontérêt que vous souhaitez qu'on prépare pour vous.<br/><br/><br/></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-address-card fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">Envoyez-nous les informations</h5>
-                            <p class="mb-0">Envoyez nous les informations de votre bureau(les références, la présentation... ) si vous ne l'avez jamais fait.<br/>Envoyez nous aussi les informations des bureaux avec lesquelles vous voulez postuler en groupement</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
-                                <i class="fa fa-check fa-3x text-white"></i>
-                            </div>
-                            <h5 class="mt-4 mb-3">Recevez votre dossier</h5>
-                            <p class="mb-0">Votre dossier sera traité en moins de 24h !<br/>Nous garderons vos informations si le souhaitez pour ne pas avoir à repeter le processus<br/><br/><br/></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Process Start -->
+      <div class="container-xxl py-5">
+          <div class="container py-5 px-lg-5">
+              <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
+                  <h5 class="text-primary-gradient fw-medium">Comment marche le montage de manifestation d'intérêt</h5>
+                  <h1 class="mb-5">3 Etapes Simple</h1>
+              </div>
+              <div class="row gy-5 gx-4 justify-content-center">
+                  <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
+                      <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
+                          <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
+                              <i class="fa fa-cog fa-3x text-white"></i>
+                          </div>
+                          <h5 class="mt-4 mb-3">Choisir les avis de manifestations d'intérêt</h5>
+                          <p class="mb-0">Envoyez-nous les avis à manifestation d'intérêt que vous souhaitez qu'on prépare pour vous.<br/><br/><br/></p>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.3s">
+                      <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
+                          <div class="d-inline-flex align-items-center justify-content-center bg-secondary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
+                              <i class="fa fa-address-card fa-3x text-white"></i>
+                          </div>
+                          <h5 class="mt-4 mb-3">Envoyez-nous les informations</h5>
+                          <p class="mb-0">Envoyez-nous les informations de votre bureau(les références, la présentation... ) si vous ne l'avez jamais fait.<br/>Envoyez-nous aussi les informations des bureaux avec lesquelles vous voulez postuler en groupement</p>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.5s">
+                      <div class="position-relative bg-light rounded pt-5 pb-4 px-4">
+                          <div class="d-inline-flex align-items-center justify-content-center bg-primary-gradient rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
+                              <i class="fa fa-check fa-3x text-white"></i>
+                          </div>
+                          <h5 class="mt-4 mb-3">Recevez votre dossier</h5>
+                          <p class="mb-0">Votre dossier sera traité dans moins de 24 heures ! <br/>Nous conserverons vos informations si vous le souhaitez afin de ne pas avoir à répéter la procédure.<br/><br/><br/></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
         <!-- Process Start -->
 
@@ -314,10 +273,10 @@
                 <div class="tab-class text-center pricing wow fadeInUp" data-wow-delay="0.1s">
                     <ul class="nav nav-pills d-inline-flex justify-content-center bg-primary-gradient rounded-pill mb-5">
                         <li class="nav-item">
-                            <button class="nav-link active" data-bs-toggle="pill" href="#tab-1">Formule Classique</button>
+                            <button class="nav-link active" data-bs-toggle="pill" href="#tab-1">Restez information des appels d'offre dans les pays de l'UEMOA</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="pill" href="#tab-2">Formule Sur-Mesure</button>
+                            <button class="nav-link" data-bs-toggle="pill" href="#tab-2">Montage de Manifestation d'intérêt</button>
                         </li>
                     </ul>
                     <div class="tab-content text-start">
@@ -332,7 +291,7 @@
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
                                                 20.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Month</small>
+                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
                                             </h1>
                                             <div class="d-flex justify-content-between mb-3"><span>Satisfait ou rembourser</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                             <div class="d-flex justify-content-between mb-3"><span>Service Client 7j/7</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
@@ -344,11 +303,11 @@
                                     <div class="bg-light rounded border">
                                         <div class="border-bottom p-4 mb-4">
                                             <h4 class="text-primary-gradient mb-1">6 Mois</h4>
-                                            <span>100.000 Fcfa</span>
+                                            <span>90.000 Fcfa</span>
                                         </div>
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
-                                                16.666<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
+                                                15.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
                                                     class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
                                                   </h1>
                                                   <div class="d-flex justify-content-between mb-3"><span>Satisfait ou rembourser</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
@@ -361,11 +320,11 @@
                                     <div class="bg-light rounded">
                                         <div class="border-bottom p-4 mb-4">
                                             <h4 class="text-primary-gradient mb-1">12 Mois</h4>
-                                            <span>180.000 Fcfa</span>
+                                            <span>120.000 Fcfa</span>
                                         </div>
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
-                                                15.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
+                                                10.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
                                             
                                               class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
                                             </h1>
@@ -382,14 +341,14 @@
                                 <div class="col-lg-4">
                                     <div class="bg-light rounded">
                                         <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">1 Mois</h4>
+                                            <h4 class="text-primary-gradient mb-1">10 MI</h4>
                                         </div>
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
-                                                100.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
-                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
+                                                50.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
+                                                    class="align-bottom" style="font-size: 16px; line-height: 40px;"></small>
                                             </h1>
-                                            <div class="d-flex justify-content-between mb-3"><span>50 dossiers par mois</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
+                                            <div class="d-flex justify-content-between mb-3"><span>10 Manifestation d'intérêt</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                             <div class="d-flex justify-content-between mb-3"><span>Satisfait ou rembourser</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                               <div class="d-flex justify-content-between mb-3"><span>Service Client 7j/7</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                            
@@ -401,14 +360,14 @@
                                 <div class="col-lg-4">
                                     <div class="bg-light rounded border">
                                         <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">6 Mois</h4>
+                                            <h4 class="text-primary-gradient mb-1">25 MI</h4>
                                         </div>
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
                                                 85.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
                                                     class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
                                             </h1>
-                                            <div class="d-flex justify-content-between mb-3"><span>50 dossiers par mois</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
+                                            <div class="d-flex justify-content-between mb-3"><span>25 Manifestation d'intérêt</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                             <div class="d-flex justify-content-between mb-3"><span>Satisfait ou rembourser</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                               <div class="d-flex justify-content-between mb-3"><span>Service Client 7j/7</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                            
@@ -420,14 +379,14 @@
                                 <div class="col-lg-4">
                                     <div class="bg-light rounded">
                                         <div class="border-bottom p-4 mb-4">
-                                            <h4 class="text-primary-gradient mb-1">12 Mois</h4>
+                                            <h4 class="text-primary-gradient mb-1">50 MI</h4>
                                         </div>
                                         <div class="p-4 pt-0">
                                             <h1 class="mb-3">
-                                                70.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
+                                                100.000<small class="align-top" style="font-size: 22px; line-height: 45px;">Fcfa</small><small
                                                     class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Mois</small>
                                             </h1>
-                                            <div class="d-flex justify-content-between mb-3"><span>50 dossiers par mois</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
+                                            <div class="d-flex justify-content-between mb-3"><span>50 Manifestation d'intérêt</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                             <div class="d-flex justify-content-between mb-3"><span>Satisfait ou rembourser</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                               <div class="d-flex justify-content-between mb-3"><span>Service Client 7j/7</span><i class="fa fa-check text-primary-gradient pt-1"></i></div>
                                            
@@ -454,29 +413,29 @@
                     <div class="col-lg-9">
                         <div class="wow fadeInUp" data-wow-delay="0.3s">
                             <p class="text-center mb-4"></a>.</p>
-                            <form>
+                            <form action="https://formspree.io/f/xzblkrvw" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
                                             <label for="name">Votre nom</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                                             <label for="email">Votre email</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                            <label for="subject">Objet</label>
+                                           
+                                          
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                            <textarea class="form-control" placeholder="Leave a message here" name="message" id="message" style="height: 150px"></textarea>
                                             <label for="message">Message</label>
                                         </div>
                                     </div>
@@ -498,48 +457,36 @@
             <div class="container py-5 px-lg-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Address</h4>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                        <h4 class="text-white mb-4">Adresse</h4>
+                        <p><i class="fa fa-map-marker-alt me-3"></i>Niamana, Bamako</p>
+                        <p><i class="fa fa-phone-alt me-3"></i>+223 74 46 98 59</p>
+                        <p><i class="fa fa-envelope me-3"></i>debo@deboinfo.com</p>
                         <div class="d-flex pt-2">
-                          <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-whatsapp"></i></a>
+                          <a class="btn btn-outline-light btn-social" href="https://wa.me/22374469859"><i class="fab fa-whatsapp"></i></a>
                           <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
                           <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Quick Link</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
+                        <h4 class="text-white mb-4">Lien Rapide</h4>
+                        <a class="btn btn-link" href="">S'abonner</a>
+                        <a class="btn btn-link" href="">Pourquoi nous choisir</a>
+                        <a class="btn btn-link" href="">LND</a>
                         <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h4 class="text-white mb-4">Newsletter</h4>
-                        <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary-gradient fs-4"></i></button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="container px-lg-5">
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
+
                                 <a href="">FQAs</a>
                             </div>
                         </div>
