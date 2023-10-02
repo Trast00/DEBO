@@ -291,6 +291,10 @@ h6,
 @media (max-width: 991.98px) {
     .hero-header {
         padding: 6rem 0 9rem 0;
+        background-position:
+        left 0px top 0px,
+        right 0px top 50%,
+        left bottom;
     }
 }
 
@@ -545,8 +549,26 @@ h6,
   color: white;
 }
 
-[data-bs-toggle="pill"] {
+@media (max-width: 480px)   {
+
+  .pricing .nav {
+    background: transparent;
+    gap: 12px;
+  }
   
+  .pricing .nav-item .nav-link:first-child,
+  .pricing .nav-item .nav-link:last-child {
+    border-radius: 50px;
+    border: 1px solid #d3d3d3;
+  }
+
+  .pricing .nav-item .nav-link.active {
+    border: none;
+  }
+
+  .contact-hero {
+    top: -100px;
+  }
 }
 
 /* custom css end*/
