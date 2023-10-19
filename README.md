@@ -7,3 +7,5 @@
 # Update licence
 
 # Update data
+
+# Update prices
