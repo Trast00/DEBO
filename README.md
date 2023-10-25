@@ -9,3 +9,5 @@
 # Update data
 
 # Update prices
+
+# Start manifestation management feature
