@@ -11,3 +11,5 @@
 # Update prices
 
 # Start manifestation management feature
+
+# Add unit test
