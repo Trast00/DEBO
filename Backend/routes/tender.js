@@ -1,8 +1,13 @@
 import express from 'express';
-import { postTender } from '../controllers/tendersController.js';
+import { postTender, getTenders, getTenderById, updateTender, deleteTender } from '../controllers/tendersController.js';
 
 const router = express.Router();
 
-router.get('/tenders/create', postTender);
+router.get('/tenders', getTenders);
+router.post('/tenders', postTender);
+router.get('/tenders/:id', getTenderById);
+router.put('/tenders/:id', updateTender);
+router.delete('/tenders/:id', deleteTender);
+
 
 export default router

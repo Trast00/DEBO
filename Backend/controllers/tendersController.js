@@ -26,43 +26,19 @@
 import Tender from '../models/tender.js'
 
 export const postTender = (req, res, next) => {
-  /*sconst tender = new Tender(
-    req.body.uuid,
-    req.body.title,
-    req.body.description,
-    req.body.country,
-    req.body.field,
-    req.body.dates,
-    req.body.buyer,
-    req.body.pdfUrl,
-    req.body.tags,
-    req.body.budget
-  )*/
-  // writte me a dummy tender
-  // why I got a error here ?
-
-  const tenderDummy = new Tender({
-    title: "Dummy Tender",
-    description: "This is a dummy tender",
-    country: "Nigeria",
-    field: "Agriculture",
-    dates: {
-      publish: "2022-07-06",
-      expire: "2022-07-06"
-    },
-    buyer: {
-      uuid: "auth0|667ac6a742af15aa920c997d",
-      name: "dicko.tester",
-      email: "dicko.tester@gmail.com"
-    },
-    pdfUrl: "https://www.google.com",
-    tags: ["dummy", "tender"],
-    budget: {
-      value: 1000000,
-      currency: "USD"
-    }
-})
-  tenderDummy.save()
+  const tender = new Tender({
+    title: req.body.title,
+    description: req.body.description,
+    country: req.body.country,
+    field: req.body.field,
+    dates: req.body.dates,
+    buyer: req.body.buyer,
+    pdfUrl: req.body.pdfUrl,
+    tags: req.body.tags,
+    budget: req.body.budget
+  })
+  
+  tender.save()
     .then(result => {
       console.log("tender created:",result)
       res.json(result)
@@ -73,7 +49,52 @@ export const postTender = (req, res, next) => {
 export const getTenders = (req, res, next) => {
   Tender.fetchAll()
     .then(tenders => {
+      console.log("Get tender:", tenders)
       res.json(tenders)
+    })
+    .catch(err => console.log(err))
+}
+
+export const getTenderById = (req, res, next) => {
+  Tender.fetchById(req.params.id)
+    .then(tender => {
+      console.log("Get tender:", tender)
+      res.json(tender)
+    })
+    .catch(err => console.log(err))
+}
+
+export const updateTender = (req, res, next) => {
+  if (!req.params.id) {
+    throw new Error("update tender: id is required")
+  }
+  const tender = new Tender({
+    title: req.body.title,
+    description: req.body.description,
+    country: req.body.country,
+    field: req.body.field,
+    dates: req.body.dates,
+    buyer: req.body.buyer,
+    pdfUrl: req.body.pdfUrl,
+    tags: req.body.tags,
+    budget: req.body.budget,
+  })
+  tender.save(req.params.id)
+    .then(result => {
+      console.log("tender updated:",result)
+      res.json(result)
+    })
+    .catch(err => console.log(err))
+}
+
+export const deleteTender = (req, res, next) => {
+  if (!req.params.id) {
+    throw new Error("delete tender: id is required")
+  }
+  Tender.deleteById(req.params.id)
+    .then(result => {
+      console.log("tender deleted:",result)
+      res.json(result)
     })
     .catch(err => console.log(err))
 }

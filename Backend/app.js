@@ -18,14 +18,13 @@ app.set('view engine','ejs')
 // how to install ejs?
 // npm install ejs
 
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(AuthRoutes)
-app.use(tenderRoutes)
 
 app.use('/', (req, res, next) => {
-  console.log(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-  if (req.oidc.isAuthenticated()) {
+
+  console.log((req.oidc && req.oidc.isAuthenticated()) ? 'Logged in' : 'Logged out')
+  if (req.oidc && req.oidc.isAuthenticated()) {
     req.userId = req.oidc.user.sid
   }
   /*
@@ -43,6 +42,10 @@ app.use('/', (req, res, next) => {
   */
   next()
 })
+
+app.use(AuthRoutes)
+app.use(tenderRoutes)
+
 
 
 mongoConnect(() => {

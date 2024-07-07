@@ -5,9 +5,7 @@ class Tender {
     constructor({title, description, country, field, dates, buyer, pdfUrl, tags, budget, uuid}) {
       // solve the deprecated warning
       if (uuid && typeof uuid === 'string') {
-        console.log("uuid is a string")
-        this.uuid = new mongodb.ObjectId(uuid)
-        console.log("CONVERTED")
+        this._id = new mongodb.ObjectId(uuid)
       }
       this.title = title
       this.description = description
@@ -24,14 +22,13 @@ class Tender {
       // save to database
       const db = getDb()
       // if id is provided, update the tender
-      if (id) {
-        return db.collection('tenders').updateOne({uuid: id}, {$set: this}).then().catch(err => { 
+      if (id && typeof id == "string") {
+        return db.collection('tenders').updateOne({_id: new mongodb.ObjectId(id)}, {$set: this}).then().catch(err => { 
           console.log(err)
         })
       }
       // if id is not provided, create a new tender
       return db.collection('tenders').insertOne(this).then(result => {
-        console.log("Tender model created: ", result)
         return result
       }).catch(err => { 
         console.log(err)
@@ -45,6 +42,29 @@ class Tender {
         }).catch(err => {
             console.log(err)
         })
+    }
+
+    static fetchById(id) {
+      const db = getDb()
+      if (typeof id != "string") throw new Error("feach by id : tender id should be a string")
+      return db.collection('tenders').findOne({
+        _id: new mongodb.ObjectId(id)
+      }).then(tender => {
+        return tender
+      }
+      ).catch(err => {
+        console.log(err)
+      })
+    }
+
+    static deleteById(id) {
+      const db = getDb()
+      if (typeof id != "string") throw new Error("delete by id : tender id should be a string")
+      return db.collection('tenders').deleteOne({
+        _id: new mongodb.ObjectId(id)
+      }).then().catch(err => {
+        console.log(err)
+      })
     }
 }
 
