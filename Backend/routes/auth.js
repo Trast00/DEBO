@@ -20,8 +20,28 @@ const router = express.Router();
 router.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
-router.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
+router.use('/', (req, res, next) => {
+  console.log((req.oidc && req.oidc.isAuthenticated()) ? 'Logged in' : 'Logged out')
+  if (!req.oidc && !req.oidc.isAuthenticated()) {
+    res.status(401).send('Unauthorized')
+  } 
+  req.userId = req.oidc.user.sid
+  next();
+  /*
+  console.log(req.oidc.user)
+  {
+    sid: 'pf_vuE7gTQAtjKOu9iltZiH2UIOGuZ8d',
+    nickname: 'dicko.tester',
+    name: 'dicko.tester@gmail.com',
+    picture: 'https://s.gravatar.com/avatar/015f22e65286f76971f877b0004cde27?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdi.png',
+    updated_at: '2024-07-06T22:56:28.833Z',
+    email: 'dicko.tester@gmail.com',
+    email_verified: true,
+    sub: 'auth0|667ac6a742af15aa920c997d'
+  }
+  */
+  // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+})
+
 
 export default router;
