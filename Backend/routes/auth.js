@@ -1,5 +1,6 @@
 import  express from 'express';
 import { auth } from 'express-openid-connect'
+import { getUserData } from '../controllers/authController.js';
 import dotenv from 'dotenv';
 /* To get access to enviroment variable */
 dotenv.config();
@@ -21,12 +22,18 @@ router.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
 router.use('/', (req, res, next) => {
+  // if user not authenticated, return 401
   console.log((req.oidc && req.oidc.isAuthenticated()) ? 'Logged in' : 'Logged out')
   if (!req.oidc && !req.oidc.isAuthenticated()) {
     res.status(401).send('Unauthorized')
   } 
-  req.userId = req.oidc.user.sid
-  next();
+
+  getUserData(req, res, next).then(user => {
+    console.log("final user data", user)
+    res.json(user)
+  })
+
+  //req.userId = req.oidc.user.sid
   /*
   console.log(req.oidc.user)
   {

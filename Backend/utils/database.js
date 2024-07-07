@@ -1,5 +1,7 @@
 import {MongoClient} from 'mongodb';
-const connectionURI = process.env.DB_URI //"mongodb+srv://dickoallassanedev:mS7bTmtAZGEFkvAo@cluster0.euhsukz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+import dotenv from 'dotenv';
+dotenv.config();
+const connectionURI = process.env.DB_URI //
 const dbName = process.env.DB_NAME //"DI_dev"
 let _db;
 const mongoConnect = (callback) => {
