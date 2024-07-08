@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debo Info Server</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <% if (!email) { %>
+  <p>Vous devez être connecter</p>
+  <form method="POST" action=<%= `${devurl}` %>>
+    <input type="text" name="email" placeholder="email@deboinfo.com"><br/>
+    <input type="password" name="password" placeholder="Password"><br/>
+    <input type="text" name="credential" placeholder="credential"><br/><br/>
+    <button type="submit">Login</button>
+  </form>
+  <% } else { %>
+  <p>Vous êtes connecter: <%= email %> </p>
+  <a href=<%= `${devurl}/dashboard` %>>Go to dashboard</a>
+  <% } %>
+
+  <br/><br/>
+  <a href=<%= `${devurl}/dashboard` %>>Go to dashboard</a>
+  <script>
+    // send request in json format
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      const response = await fetch(form.action, {
+        method: form.method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+    });
+  </script>
+</body>
+</html>

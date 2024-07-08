@@ -24,14 +24,17 @@ router.use(auth(config));
 router.use('/', (req, res, next) => {
   // if user not authenticated, return 401
   console.log((req.oidc && req.oidc.isAuthenticated()) ? 'Logged in' : 'Logged out')
-  if (!req.oidc && !req.oidc.isAuthenticated()) {
+  if (!req.oidc || !req.oidc.isAuthenticated()) {
     res.status(401).send('Unauthorized')
-  } 
+  } else {
+    getUserData(req, res, next).then(user => {
+      console.log("final user data", user)
+      // save user so I can use it in other routes
+      req.user = user
+      next()
+    })
+  }
 
-  getUserData(req, res, next).then(user => {
-    console.log("final user data", user)
-    res.json(user)
-  })
 
   //req.userId = req.oidc.user.sid
   /*
