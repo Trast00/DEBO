@@ -5,7 +5,7 @@
   title: string
   description: string
   country: string
-  field: string
+  industryType: string
   dates: {
     publish: string
     expire: string
@@ -30,7 +30,7 @@ export const postTender = (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     country: req.body.country,
-    field: req.body.field,
+    industryType: req.body.industryType,
     dates: req.body.dates,
     buyer: req.body.buyer,
     pdfUrl: req.body.pdfUrl,
@@ -72,7 +72,7 @@ export const updateTender = (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     country: req.body.country,
-    field: req.body.field,
+    industryType: req.body.industryType,
     dates: req.body.dates,
     buyer: req.body.buyer,
     pdfUrl: req.body.pdfUrl,

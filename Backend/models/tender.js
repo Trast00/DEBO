@@ -2,7 +2,7 @@ import { getDb } from "../utils/database.js"
 import mongodb from "mongodb"
 
 class Tender {
-    constructor({title, description, country, field, dates, buyer, pdfUrl, tags, budget, uuid}) {
+    constructor({title, description, country, industryType, dates, buyer, pdfUrl, tags, budget, uuid}) {
       // solve the deprecated warning
       if (uuid && typeof uuid === 'string') {
         this._id = new mongodb.ObjectId(uuid)
@@ -10,7 +10,7 @@ class Tender {
       this.title = title
       this.description = description
       this.country = country
-      this.field = field
+      this.industryType = industryType
       this.dates = dates
       this.buyer = buyer
       this.pdfUrl = pdfUrl
