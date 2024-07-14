@@ -6,6 +6,7 @@ import path from 'path';
 import AuthRoutes from './routes/auth.js';
 import tenderRoutes from './routes/tender.js';
 import adminRoutes from './routes/admin.js';
+import industryTypeRoute from './routes/industryTypes.js';
 import { mongoConnect } from './utils/database.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
@@ -29,8 +30,10 @@ app.use(session({
 }));
 
 app.use(AuthRoutes)
+app.get('/industryTypes', industryTypeRoute)
 app.get('/tenders', tenderRoutes)
 app.use(adminRoutes)
+app.use(industryTypeRoute)
 app.use(tenderRoutes)
 
 mongoConnect(() => {

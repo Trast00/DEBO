@@ -3,6 +3,7 @@ import { getModeratorByCredentials } from '../controllers/adminController.js';
 // import .env require
 import dotenv from 'dotenv';
 import { render } from 'ejs';
+import { fetchAllIndustryTypes } from '../controllers/industryTypesController.js';
 dotenv.config();
 
 const router = express.Router();
@@ -44,8 +45,11 @@ router.use((req, res, next) => {
 
 //dashboard
 router.get(`${devurl}/dashboard`, (req, res, next) => {
-  const { email, password, credential } = req.body;
-  res.render('dashboard.ejs', { devurl: devurl, email: email, password: password, credential: credential});
+  // get all the industry types
+  fetchAllIndustryTypes().then(industryTypes => {
+    const { email, password, credential } = req.body;
+    res.render('dashboard.ejs', { devurl: devurl, email: email, password: password, credential: credential, listIndustries: industryTypes});
+  })
 });
 
 export default router
