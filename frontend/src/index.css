@@ -21,6 +21,7 @@ body {
   --secondary-light-color: #FAF4EC;
   --placeholder-color: #EBE0E0;
   --box-shadow-primary-color: rgba(128, 61, 59, 0.16);
+  --error-color: #ff7a74;
 }
 
 

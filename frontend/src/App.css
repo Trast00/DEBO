@@ -41,6 +41,13 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   /* color: #262B47; */
 }
 
+.text-primary-dark {
+  color: var(--primary-color-dark);
+}
+
+.text-error-color {
+  color: var(--error-color);
+}
 
 .form-search-default {
   max-width: 450px;
@@ -100,6 +107,7 @@ ul {
 
 .button-default:hover {
   background: var(--primary-dark-color);
+  color: white;
 }
 
 .button-warning {
