@@ -49,6 +49,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   color: var(--error-color);
 }
 
+.bg-secondary-light {
+  background: var(--secondary-light-color);
+}
+
 .form-search-default {
   max-width: 450px;
   background: rgba(255, 255, 255, 0.8);
@@ -99,6 +103,7 @@ ul {
   background: var(--primary-color);
   color: white;
   border: none;
+  text-decoration: none;
   padding: 6px 12px;
   border-radius: 6px;
   box-shadow: 0 3px 3px var(--box-shadow-primary-color);

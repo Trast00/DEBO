@@ -66,6 +66,79 @@ class Tender {
         console.log(err)
       })
     }
+
+    static search(body) {
+      console.log(body)
+      const { industryTypes, countries, keywords, marketTypes } = body
+      const db = getDb()
+      let query = {}
+      if (industryTypes && Array.isArray(industryTypes)
+        && industryTypes.length > 0) {
+        query.industryType = {
+          $in: industryTypes
+        }
+      }
+      if (countries && Array.isArray(countries)
+        && countries.length > 0) {
+        query.country = {
+          $in: countries
+        }
+      }
+      if (keywords && Array.isArray(keywords)
+        && keywords.length > 0) {
+        query.$or = keywords.flatMap(keyword => {
+          return [
+            {
+              title: {
+                $regex: keyword,
+                $options: 'i'
+              }
+            },
+            {
+              description: {
+                $regex: keyword,
+                $options: 'i'
+              }
+            },
+            {
+              tags: {
+                $elemMatch: {
+                  $regex: keyword,
+                  $options: 'i'
+                }
+              }
+            }
+          ]
+        })
+      }
+      // convert today to a string
+
+      if (marketTypes
+        && typeof marketTypes.expired == "boolean"
+        && marketTypes.expired == true
+        && marketTypes.ongoing == false) {
+          console.log("try to show expired")
+          //show tender with expired date greater than today
+          query["dates.expire"] = { $lt:  (new Date).toISOString()}
+      }
+      
+      if (marketTypes
+        && typeof marketTypes.ongoing == "boolean"
+        && marketTypes.expired == false
+        && marketTypes.ongoing == true) {
+          console.log("try to show ongoing")
+          //show tender with expired date greater than today
+          query["dates.expire"] = { $gt: (new Date).toISOString() }
+      }
+
+      console.log("query", query)
+      return db.collection('tenders').find(query).toArray().then(tenders => {
+        return tenders
+      }).catch(err => {
+        console.log(err)
+      })
+      
+    }
 }
 
 export default Tender

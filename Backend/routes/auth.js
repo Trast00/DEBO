@@ -1,6 +1,6 @@
 import  express from 'express';
 import { auth } from 'express-openid-connect'
-import { getUserData } from '../controllers/authController.js';
+import { getUserData } from '../controllers/usersController.js';
 import dotenv from 'dotenv';
 /* To get access to enviroment variable */
 dotenv.config();
@@ -19,6 +19,7 @@ const router = express.Router();
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 router.use(auth(config));
+
 
 // req.isAuthenticated is provided from the auth router
 router.use('/', (req, res, next) => {

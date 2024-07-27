@@ -19,8 +19,27 @@
     display: flex;
     align-items: center;
   }
-  
+
   .nav-menu button {
+    color: white;
+    border: none;
+    background: transparent;
+  }
+  
+  .nav-menu button,
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-menu button:hover,
+  .nav-menu a:hover {
+    text-decoration: underline;
+  }
+  
+  .nav-menu button.btn-menu {
     display: none; /* Hidden by default */
     background-color: transparent;
     border: none;
@@ -51,7 +70,7 @@
   /* Mobile Styles */
   @media (max-width: 768px) {
     
-    .nav-menu button {
+    .nav-menu button.btn-menu{
       display: block !important;
     }
   

@@ -1,0 +1,16 @@
+.list-activities-search {
+  display: flex;
+}
+
+.activity-search {
+  display: flex; /* Keeps checkbox and label inline */
+  align-items: center; /* Vertically aligns the items in the center */
+}
+
+.search-bar + button {
+  width: 150px;
+}
+
+.summary-search p:first-child {
+  font-weight: 500;
+}
