@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
   const [userData, setUserData] = useState(null);
+  //console.log("user data: ",userData)
   const { isAuthenticated, isLoading, user } = useAuth0();
 
   useEffect(() => {

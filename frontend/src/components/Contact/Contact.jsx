@@ -18,13 +18,13 @@ const Contact = () => {
                                   <div class="col-md-6">
                                       <div class="form-floating">
                                           <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"/>
-                                          <label for="name">Votre nom</label>
+                                          <label htmlFor="name">Votre nom</label>
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="form-floating">
                                           <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"/>
-                                          <label for="email">Votre email</label>
+                                          <label htmlFor="email">Votre email</label>
                                       </div>
                                   </div>
                                   <div class="col-12">
@@ -34,7 +34,7 @@ const Contact = () => {
                                   <div class="col-12">
                                       <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a message here" name="message" id="message" style={{ height: '150px' }}></textarea>
-                                          <label for="message">Message</label>
+                                          <label htmlFor="message">Message</label>
                                       </div>
                                   </div>
                                   <div class="col-12 text-center">

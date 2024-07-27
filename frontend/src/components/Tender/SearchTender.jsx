@@ -3,7 +3,7 @@ import './search-tender.css'
 import { redirect } from 'react-router-dom'
 
 const SearchTender = (props) => {
-  const { showSearchResult } = props
+  const { showSearchResult, isLoading } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
   const [selectedActivities, setSelectedActivities] = useState([])
@@ -15,13 +15,15 @@ const SearchTender = (props) => {
 
   // request to server one time
   useEffect(() => {
-    console.log("start fectching data")
+    if (isLoading) {
+      return
+    }
     getIndustryTypes()
     getSearchPreferences()
     if (listActivities.length === 0) {
       searchTender([], [], [], [])
     }
-  }, [])
+  }, [isLoading])
 
   const getIndustryTypes = () => {
     fetch('http://localhost:3000/industryTypes')
@@ -149,9 +151,7 @@ const SearchTender = (props) => {
     }
     setSearching(false)
   }
-
   
-
   return (
     <>
       <section class="tender-search tender-section">
@@ -162,7 +162,7 @@ const SearchTender = (props) => {
             {listActivities && [...listActivities.slice(0, Math.ceil(listActivities.length/2))].map(activity => (
               <div class="activity-search d-flex ms-4">
                 <input type="checkbox" id={activity._id} name={activity.name} value={activity.name} onChange={(e) => updateSearchFilter(e, 'activities')} checked={selectedActivities && selectedActivities.includes(activity.name)}/> 
-                <label for={activity.name} class="ms-1">{activity.name}</label>
+                <label htmlFor={activity._id} class="ms-1">{activity.name}</label>
               </div>
             ))}
           </div>
@@ -170,7 +170,7 @@ const SearchTender = (props) => {
             {listActivities && [...listActivities.slice(Math.ceil(listActivities.length/2))].map(activity => (
               <div class="activity-search d-flex ms-4">
                 <input type="checkbox" id={activity._id} name={activity.name} value={activity.name} onChange={(e) => updateSearchFilter(e, 'activities')} checked={selectedActivities && selectedActivities.includes(activity.name)}/>
-                <label for={activity.name} class="ms-1">{activity.name}</label>
+                <label htmlFor={activity._id} class="ms-1">{activity.name}</label>
               </div>
             ))}
           </div>
@@ -181,41 +181,41 @@ const SearchTender = (props) => {
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="mali" name="mali" value="Mali" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Mali")}/>
-              <label for="mali" class="ms-1">Mali</label>
+              <label htmlFor="mali" class="ms-1">Mali</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="niger" name="niger" value="Niger" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Niger")}/>
-              <label for="niger" class="ms-1">Niger</label>
+              <label htmlFor="niger" class="ms-1">Niger</label>
             </div>
           </div>
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="togo" name="togo" value="Togo" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Togo")}/>
-              <label for="togo" class="ms-1">Togo</label>
+              <label htmlFor="togo" class="ms-1">Togo</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="benin" name="benin" value="Bénin" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Bénin")}/>
-              <label for="benin" class="ms-1">Bénin</label>
+              <label htmlFor="benin" class="ms-1">Bénin</label>
             </div>
           </div>
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="senegal" name="senegal" value="Sénégal" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Sénégal")}/>
-              <label for="senegal" class="ms-1">Sénégal</label>
+              <label htmlFor="senegal" class="ms-1">Sénégal</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="civ" name="civ" value="Côte-Ivoire" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Côte-Ivoire")}/>
-              <label for="civ" class="ms-1">Côte d'Ivoire</label>
+              <label htmlFor="civ" class="ms-1">Côte d'Ivoire</label>
             </div>
           </div>
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="guinee" name="guinee" value="Guinée-Bissau" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Guinée-Bissau")}/>
-              <label for="guinee" class="ms-1">Guinée-Bissau</label>
+              <label htmlFor="guinee" class="ms-1">Guinée-Bissau</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="burkina" name="burkina" value="Burkina-Faso" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Burkina-Faso")}/>
-              <label for="burkina" class="ms-1">Burkina-Faso</label>
+              <label htmlFor="burkina" class="ms-1">Burkina-Faso</label>
             </div>
           </div>
         </div>
@@ -225,21 +225,21 @@ const SearchTender = (props) => {
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="ongoing-tenders" name="ongoing-tenders" value="Marché en cours" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en cours")}/>
-              <label for="ongoing-tenders" class="ms-1">Marché en cours</label>
+              <label htmlFor="ongoing-tenders" class="ms-1">Marché en cours</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="company-tenders" name="company-tenders" value="Marché en entreprise" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en entreprise")}/>
-              <label for="company-tenders" class="ms-1">Marché d'entreprise</label>
+              <label htmlFor="company-tenders" class="ms-1">Marché d'entreprise</label>
             </div>
           </div>
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="expired-tenders" name="expired-tenders" value="Marché en expire" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en expire")}/>
-              <label for="expired-tenders" class="ms-1">Marché en expiré</label>
+              <label htmlFor="expired-tenders" class="ms-1">Marché en expiré</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="office-tenders" name="office-tenders" value="Marché en bureau" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en bureau")}/>
-              <label for="office-tenders" class="ms-1">Marché de bureau</label>
+              <label htmlFor="office-tenders" class="ms-1">Marché de bureau</label>
             </div>
           </div>
         </div>

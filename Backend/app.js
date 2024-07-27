@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
 import userRoutes from './routes/user.js';
+import userPreferencesRoutes from './routes/userPreferences.js';
 import tenderRoutes from './routes/tender.js';
 import adminRoutes from './routes/admin.js';
 import industryTypeRoute from './routes/industryTypes.js';
@@ -41,6 +42,7 @@ app.get('/tenders', tenderRoutes)
 app.use(adminRoutes)
 app.use(industryTypeRoute)
 app.use(tenderRoutes)
+app.use(userPreferencesRoutes)
 app.use(userRoutes)
 
 app.use('/', (req, res) => {

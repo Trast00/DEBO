@@ -47,6 +47,23 @@
   margin-bottom: 16px;
 }
 
+.tenders-result.tender-section .tender-result-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 40px;
+}
+
+.tenders-result.tender-section .tender-result-header button {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+
+}
+
+.tenders-result.tender-section .tender-result-header button:hover {
+  text-decoration: underline;
+}
+
 .tenders-result > p {
   color: var(--primary-color);
   padding: 16px 40px 16px 40px;

@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Tender = ({tender, isHidden, isSaved}) => {
+const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderById, updateSaveTenderById}) => {
   const {
+    _id,
     title,
     description,
     buyer,
@@ -10,6 +11,48 @@ const Tender = ({tender, isHidden, isSaved}) => {
     dates,
     budget
   } = tender;
+
+  const [isHiddenTender, setIsHiddenTender] = React.useState(isHidden)
+  const [isSavedTender, setIsSavedTender] = React.useState(isSaved)
+
+  const handleHide = (value) => {
+    setIsHiddenTender(value)
+    fetch(`http://localhost:3000/users/${userUuid}/preferences/tenders/hidden`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userUuid,
+        tenderId: _id,
+        isTenderHidden: value
+      })
+    }).then(result => {
+      if (result.ok) {
+        updateHiddenTenderById(_id)
+      }
+    })
+  }
+
+  const handleSave = (value) => {
+    setIsSavedTender(value)
+    fetch(`http://localhost:3000/users/${userUuid}/preferences/tenders/saved`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userUuid,
+        tenderId: _id,
+        isTenderSaved: value
+      })
+    }).then(result => {
+      if (result.ok) {
+        updateSaveTenderById(_id)
+      }
+    })
+  }
+
   return (
     <div className="tender">
       <div className="d-flex it align-items-center">
@@ -20,10 +63,7 @@ const Tender = ({tender, isHidden, isSaved}) => {
         <p className="tender-description">{description}</p>
       </div>
       <p className="buyer-name-wrapper">
-        Buyer:
-        <span className="buyer-name">
-          {buyer}
-        </span>
+        Buyer: <span className="buyer-name">{buyer}</span>
       </p>
       <div className="tag-wrapper">
         <ul className="tags d-flex">
@@ -39,11 +79,11 @@ const Tender = ({tender, isHidden, isSaved}) => {
         </div>
         <div className="info">
           <p>Date de publication:</p>
-          <p>{dates.publish}</p>
+          <p>{dates.publish.split('T')[0]}</p>
         </div>
         <div className="info">
           <p>Date d'expiration:</p>
-          <p>{dates.expire}</p>
+          <p>{dates.expire.split('T')[0]}</p>
         </div>
         <div className="info">
           <p>Budget:</p>
@@ -57,15 +97,15 @@ const Tender = ({tender, isHidden, isSaved}) => {
           <button className="find-partner modal-only button-default">Trouver un partenaire pour cet offre</button>
         </div>
         <div>
-          <button className="save-data button-default-icon ml-1">
-            { isSaved ? (
+          <button className="save-data button-default-icon ml-1" onClick={_ => handleSave(!isSavedTender)}>
+            { isSavedTender ? (
               <svg width="18px" height="18px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#803D3B" stroke-width="0.00028"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.25 3.5C7.45507 3.5 6 4.95507 6 6.75V24.75C6 25.0348 6.16133 25.2951 6.41643 25.4217C6.67153 25.5484 6.97638 25.5197 7.20329 25.3475L14 20.1914L20.7967 25.3475C21.0236 25.5197 21.3285 25.5484 21.5836 25.4217C21.8387 25.2951 22 25.0348 22 24.75V6.75C22 4.95507 20.5449 3.5 18.75 3.5H9.25Z" fill="#803D3B"></path> </g></svg>
               ): (
                 <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z" stroke="#803D3B" stroke-width="2" stroke-linejoin="round"></path> </g></svg>
             )}
           </button>
-          <button className="save-data hide-data button-default-icon">
-            {!isHidden ? (
+          <button className="save-data hide-data button-default-icon" onClick={_ => handleHide(!isHiddenTender)}>
+            {isHiddenTender ? (
               <svg fill="#803D3B" width="18px" height="18px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                   <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>

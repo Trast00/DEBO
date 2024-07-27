@@ -44,7 +44,8 @@ export const postUser = (req, res, next) => {
       preference: {
         searchPeference: {},
         hiddenTender: {},
-        viewedTender: {}
+        viewedTender: {},
+        savedTender: {}
       }
     }).save()
   }).then(result => {
