@@ -198,6 +198,18 @@ input[type="radio"]:checked + .custom-radio-label::after {
   padding: 4px 12px;
 }
 
+.button-default.reversed-color {
+  background: white;
+  color: var(--primary-color);
+  font-weight: 500;
+  border: 3px solid var(--primary-color);
+}
+
+.button-default.reversed-color:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
 .modal-default {
   display: flex;
   justify-content: center;

@@ -1,3 +1,4 @@
+import Tender from "../models/tender.js"
 import User from "../models/user.js"
 
 export const updateHiddenTenderById = (req, res) => {
@@ -44,5 +45,20 @@ export const updateViewedTenderById = (req, res) => {
     return updatedUser.update()
   }).then(result => {
     res.json(result)
+  })
+}
+
+export const getSavedTendersByUuid = (req, res) => {
+  const { uuid } = req.params
+  User.getByUuid(uuid).then(user => {
+    if (!user) {
+      res.json(user)
+      return
+    }
+    const savedTenderIds = Object.keys(user.preference.savedTender).filter(tenderKey => user.preference.savedTender[tenderKey])
+    console.log("saved ids: ",savedTenderIds)
+    return Tender.getTendersByIds(savedTenderIds)
+  }).then(tenders => {
+    res.json(tenders)
   })
 }

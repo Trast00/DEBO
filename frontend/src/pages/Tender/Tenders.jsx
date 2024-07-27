@@ -75,8 +75,9 @@ const Tenders = ({user}) => {
     const message = isHidden ? 'Offre cachée' : 'Offre retirée des cachées'
     showPopupMessage(message, id)
     user.preference.hiddenTender[id] = isHidden
+    listAllTender.filter(tender => tender._id === id)[0].isHidden = isHidden
     
-    setListTenderHidden([...listTenderHidden, listTender.find(tender => tender._id === id && listTenderHidden.filter(tender => tender._id !== id))])
+    setListTenderHidden([...listTenderHidden, listAllTender.find(tender => tender._id === id && listTenderHidden.filter(tender => tender._id !== id))])
     if (!canSeeHiddenTender) {
       setListTender(listTender.filter(tender => tender._id !== id))
     }
@@ -87,6 +88,8 @@ const Tenders = ({user}) => {
     const message = isSaved ? 'Offre sauvegardée' : 'Offre retirée des sauvegardes'
     showPopupMessage(message, id)
     user.preference.savedTender[id] = isSaved
+    // ^put the tender saved as tru
+    listAllTender.filter(tender => tender._id === id)[0].isSaved = isSaved
     setListTenderSaved([...listTenderSaved, listTender.find(tender => tender._id === id && listTenderSaved.filter(tender => tender._id !== id))])
     showTenders(listAllTender, 'viewed')
   }
@@ -98,7 +101,10 @@ const Tenders = ({user}) => {
     <main className="tenders">
     {popupMessage !== '' && (<p className="notification success">{popupMessage}</p>)}
     <div className="tenders-search-wrapper d-flex">
-      <SearchTender showSearchResult={result=> showTenders(result)} isLoading={!user} /> 
+      <SearchTender showSearchResult={result=> {
+        setCanSeeHiddenTender(false)
+        showTenders(result)
+        }} isLoading={!user} userUuid={user.uuid} /> 
       <section className="tenders-result tender-section mt-2">
         <div className='tender-result-header'>
           <div>

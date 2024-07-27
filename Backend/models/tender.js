@@ -67,6 +67,25 @@ class Tender {
       })
     }
 
+    static getTendersByIds(ids) {
+      const db = getDb()
+      if (!Array.isArray(ids)) throw new Error("getTendersByIds : ids should be an array")
+      // check if all ids are string
+      
+      return db.collection('tenders').find({
+        _id: {
+          $in: ids.map(id => {
+            if (typeof id !== 'string') return
+            return new mongodb.ObjectId(id)
+          })
+        }
+      }).toArray().then(tenders => {
+        return tenders
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
     static search(body) {
       console.log(body)
       const { industryTypes, countries, keywords, marketTypes } = body
@@ -131,7 +150,6 @@ class Tender {
           query["dates.expire"] = { $gt: (new Date).toISOString() }
       }
 
-      console.log("query", query)
       return db.collection('tenders').find(query).toArray().then(tenders => {
         return tenders
       }).catch(err => {

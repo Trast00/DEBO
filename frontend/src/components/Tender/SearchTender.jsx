@@ -3,7 +3,7 @@ import './search-tender.css'
 import { redirect } from 'react-router-dom'
 
 const SearchTender = (props) => {
-  const { showSearchResult, isLoading } = props
+  const { showSearchResult, isLoading, userUuid } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
   const [selectedActivities, setSelectedActivities] = useState([])
@@ -152,6 +152,31 @@ const SearchTender = (props) => {
     setSearching(false)
   }
   
+  // search saved tender
+  const searchSavedTender = () => {
+    //send a search query
+    setSearching(true)
+
+    fetch(`http://localhost:3000/users/${userUuid}/preferences/tenders/saved`)
+    .then(response => {
+      if (!response.ok) {
+        console.log("unauthorized")
+        throw Error('Unauthorized')
+      }
+      //console.log("searchResult", response.json())
+      return response.json(); // Add return statement here
+    }).then(data => {
+      console.log("Search result", data)
+      showSearchResult(data)
+    }).catch(error => {
+      console.log(error)
+      if (error.message === 'Unauthorized') {
+        redirect('/NotAllowed')
+      }
+    })
+
+    setSearching(false)
+  }
   return (
     <>
       <section class="tender-search tender-section">
@@ -269,6 +294,8 @@ const SearchTender = (props) => {
         <div class="d-flex mt-4">
           <button type="submit" onClick={_ => searchTender(selectedCountries, selectedActivities, selectedMarketTypes, selectedKeywords, true)}
           class="button-default">Rechercher</button>
+          <button type="button" onClick={_ => searchSavedTender()}
+          class="button-default reversed-color ms-2">Montrée les offres enregistré</button>
         </div>
       </section>
       

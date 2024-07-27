@@ -102,7 +102,6 @@ export const deleteTender = (req, res, next) => {
 export const searchTender = (req, res, next) => {
   Tender.search(req.body)
     .then(tenders => {
-      console.log("search tender:", tenders)
       res.json(tenders)
     })
     .catch(err => console.log(err))
