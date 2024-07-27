@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './tender.css'
 import SearchTender from '../../components/Tender/SearchTender'
 import Tender from '../../components/Tender/Tender'
@@ -6,8 +6,9 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 
 
-const Tenders = () => {
+const Tenders = (user) => {
   const {isAuthenticated, loginWithRedirect, isLoading} = useAuth0()
+  // get user data from context
 
   if (!isLoading && !isAuthenticated) {
     console.log('Not authenticated')

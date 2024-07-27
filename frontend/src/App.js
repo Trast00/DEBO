@@ -11,14 +11,12 @@ import Home from './pages/Home/home';
 import NavBar from './components/Navbar/NavBar';
 import AuthCallBack from './pages/Auth/AuthCallBack';
 import { useAuth0 } from '@auth0/auth0-react';
-import { createContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const UserContext = createContext();
 
 const App = () => {
   const [userData, setUserData] = useState(null);
   const { isAuthenticated, isLoading, user } = useAuth0();
-  // how to get user uuid in auth0
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
@@ -52,19 +50,17 @@ const App = () => {
     }
   }, [isAuthenticated, isLoading, user])
   return (
-    <UserContext.Provider value={userData}>
-      <div className="App">
-        <NavBar></NavBar>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tenders" element={<Tenders />} />
-          <Route path="/payement" element={<Payement />} />
-          <Route path="/NotFound" element={<NotFound />} />
-          <Route path="/NotAllowed" element={<NotAllowed />} />
-          <Route path="/auth-callback" element={<AuthCallBack />} />
-        </Routes>
-      </div>
-    </UserContext.Provider>
+    <div className="App">
+      <NavBar></NavBar>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tenders" element={<Tenders user={userData} />} />
+        <Route path="/payement" element={<Payement />} />
+        <Route path="/NotFound" element={<NotFound />} />
+        <Route path="/NotAllowed" element={<NotAllowed />} />
+        <Route path="/auth-callback" element={<AuthCallBack />} />
+      </Routes>
+    </div>
   );
 }
 

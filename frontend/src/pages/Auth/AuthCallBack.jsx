@@ -4,6 +4,13 @@ import { NavLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react';
 
 const AuthCallBack = () => {
+  const { isLoading, isAuthenticated } = useAuth0()
+
+  if (!isLoading && isAuthenticated) {
+    setTimeout(() => {
+      window.location.href = '/tenders'
+    }, 3000)
+  }
 
   return (
     <section className='auth'>
