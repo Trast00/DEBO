@@ -20,39 +20,6 @@ const Tenders = ({user}) => {
     window.location.href = '/payement'
   }
 
-  const listTenderFake = [
-    {
-      _id: '668d92a5be02af43719f2ca8',
-      title: 'Google creation',
-      description: 'QSDFDS  FDSF  DSFDS FDFDSF DSSFDSFDS',
-      country: 'Mali',
-      field: 'Telecommunication',
-      dates: {
-        publish: '2024-07-16',
-        expire: '2024-07-20'
-      },
-      buyer: 'Welcom world',
-      pdfUrl: 'https://www.youtube.com/',
-      tags: [ 'gagne', 'eat', 'babouche' ],
-      budget: 15000
-    },
-    {
-      _id: '668d95d0be02af43719f2ca9',
-      title: 'Good appar',
-      description: 'dsf fdsf gsgsgsdfdsf dsfds fds',
-      country: 'Benin',
-      field: 'Telecommunication',
-      dates: {
-        publish: '2024-07-10T00:00:00.000Z',
-        expire: '2024-07-27T00:00:00.000Z'
-      },
-      buyer: 'Welcom world',
-      pdfUrl: 'https://www.youtube.com/',
-      tags: [ 'ga', 'fa' ],
-      budget: 15000
-    }
-  ]
-
   const [listTender, setListTender] = useState([])
   const [listAllTender, setListAllTender] = useState([])
   const [listTenderHidden, setListTenderHidden] = useState([])
@@ -62,7 +29,10 @@ const Tenders = ({user}) => {
     console.log('All resulted tender:', resultTenders)
     const searchOrder = order || 'viewed'
     setListAllTender(resultTenders)
-    const tenders = resultTenders.filter(tender => !user.preference.hiddenTender[tender._id])
+    let tenders = resultTenders
+    if (!canSeeHiddenTender) {
+      tenders = resultTenders.filter(tender => !user.preference.hiddenTender[tender._id])
+    }
     console.log("tender not hidden:", tenders)
     // split the list between hidden and saved tenders
     setListTenderHidden(resultTenders.filter(tender => user.preference.hiddenTender[tender._id]))
@@ -100,18 +70,25 @@ const Tenders = ({user}) => {
     }, 4000);
   }
 
-  const updateHiddenTenderById = (id) => {
-    showPopupMessage('Offre cachée', id)
-    user.preference.hiddenTender[id] = true
-    setListTenderHidden([...listTenderHidden, listTender.find(tender => tender._id === id)])
-    setListTender(listTender.filter(tender => tender._id !== id))
-
+  const [canSeeHiddenTender, setCanSeeHiddenTender] = useState(false)
+  const updateHiddenTenderById = (id, isHidden) => {
+    const message = isHidden ? 'Offre cachée' : 'Offre retirée des cachées'
+    showPopupMessage(message, id)
+    user.preference.hiddenTender[id] = isHidden
+    
+    setListTenderHidden([...listTenderHidden, listTender.find(tender => tender._id === id && listTenderHidden.filter(tender => tender._id !== id))])
+    if (!canSeeHiddenTender) {
+      setListTender(listTender.filter(tender => tender._id !== id))
+    }
+    showTenders(listAllTender, 'viewed')
   }
 
   const updateSaveTenderById = (id, isSaved) => {
-    showPopupMessage('Offre sauvegardée', id)
+    const message = isSaved ? 'Offre sauvegardée' : 'Offre retirée des sauvegardes'
+    showPopupMessage(message, id)
     user.preference.savedTender[id] = isSaved
-    setListTenderSaved([...listTenderSaved, listTender.find(tender => tender._id === id)])
+    setListTenderSaved([...listTenderSaved, listTender.find(tender => tender._id === id && listTenderSaved.filter(tender => tender._id !== id))])
+    showTenders(listAllTender, 'viewed')
   }
 
   if (isLoading || !user || !user?.uuid)  return (<main className="tenders">Loading</main>)
@@ -131,7 +108,13 @@ const Tenders = ({user}) => {
           </div>
           <div>
             {listTenderHidden.length > 0 && (
-              <button>cliquez ici pour voir les {listTenderHidden.length} resultat  cachée</button>
+              <button onClick={_ => {
+                setCanSeeHiddenTender(!canSeeHiddenTender)
+                showTenders(listAllTender, 'viewed')
+              }}>
+                {canSeeHiddenTender ?`cliquez ici pour voir les ${listTenderHidden.length} resultat  cachée`
+                : `cliquez ici pour cacher les ${listTenderHidden.length} resultat cachée`}
+              </button>
             )}
           </div>
         </div>

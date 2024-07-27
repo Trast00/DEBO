@@ -29,7 +29,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
       })
     }).then(result => {
       if (result.ok) {
-        updateHiddenTenderById(_id)
+        updateHiddenTenderById(_id, value)
       }
     })
   }
@@ -48,7 +48,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
       })
     }).then(result => {
       if (result.ok) {
-        updateSaveTenderById(_id)
+        updateSaveTenderById(_id, value)
       }
     })
   }
