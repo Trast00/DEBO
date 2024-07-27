@@ -17,6 +17,12 @@ class User {
     return db.collection('users').insertOne(user)
   }
 
+  update = () => {
+    const user = this
+    const db = getDb()
+    return db.collection('users').updateOne({uuid: user.uuid}, {$set: user})
+  }
+
   static getByUuid = (uuid) => {
     if (!uuid || typeof uuid != "string") throw "Auth get user by id: id string is required"
     const db = getDb()

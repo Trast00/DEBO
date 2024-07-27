@@ -23,17 +23,17 @@ const App = () => {
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       //make sure a call is done once
-      console.log("user:", user)
       const uuid = user.sub.split("|")[1]
       fetch(`http://localhost:3000/users/${uuid}`).then(res => {
-        console.log("res: ",res)
-        res.json()
+        return res.json()
       }).then(data => {
         // user is found
         if (data) {
+          console.log("user getted: ", data)
           setUserData(data)
         } else {
           // user is not found, so create it
+          console.log("user created: ", data)
           fetch(`http://localhost:3000/users`, {
             method: 'POST',
             headers: {

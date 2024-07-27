@@ -6,8 +6,23 @@ export const getUser = (req, res, next) => {
     // if user is not in the database, add user to the database
     const uuid = req.params.uuid
     return User.getByUuid(uuid).then(user => {
-      console.log("user not found in the database")
-      return res.json(user)
+      // if user not null check if premuim is expired
+      console.log("checking if premui expired", user)
+      if (user && (new Date(user.premuimEndDate)) < (new Date())) {
+        console.log("user is not a premuim user, setting user to guest")
+        user.isPremuim = false
+        user.role = "guest"
+        user.premuimEndDate = null
+        const userUpdated = new User({...user})
+        userUpdated.update().then(_ => {
+          return res.json(userUpdated)
+        }).catch(err => {
+          console.log(err)
+          return null
+        })
+      } else {
+        return res.json(user)
+      }
     }).catch(err => {
       console.log(err)
       return null
