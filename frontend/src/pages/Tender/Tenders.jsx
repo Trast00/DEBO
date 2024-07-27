@@ -8,12 +8,19 @@ import { useState } from 'react'
 
 const Tenders = (user) => {
   const {isAuthenticated, loginWithRedirect, isLoading} = useAuth0()
-  // get user data from context
-
+  
+  // if user not authenticated, redirect to login page
   if (!isLoading && !isAuthenticated) {
     console.log('Not authenticated')
     loginWithRedirect()
   }
+
+  // if user is authenticated, but not subscribed (guest user), redirect to payement page
+  if (user && user.isPremuim === false) {
+    console.log('Not subscribed')
+    window.location.href = '/payement'
+  }
+
   const listTenderFake = [
     {
       _id: '668d92a5be02af43719f2ca8',
@@ -47,7 +54,7 @@ const Tenders = (user) => {
     }
   ]
 
-  const [listTender, setListTender] = useState(listTenderFake)
+  const [listTender, setListTender] = useState([])
   
   const showSearchResult = (result) => {
     setListTender(result)
