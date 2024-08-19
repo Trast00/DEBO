@@ -1,30 +1,85 @@
 import React, { useEffect, useState } from 'react'
 import './search-tender.css'
-import { redirect } from 'react-router-dom'
+import { redirect, useLocation } from 'react-router-dom'
 
 const SearchTender = (props) => {
-  const { showSearchResult, isLoading, userUuid } = props
+  const { showSearchResult, userUuid } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
   const [selectedActivities, setSelectedActivities] = useState([])
   const [selectedCountries, setSelectedCountries] = useState([])
   const [selectedMarketTypes, setSelectedMarketTypes] = useState([])
   const [selectedKeywords, setSelectedKeywords] = useState([])
-  const [searchResult, setSearchResult] = useState([])
+  //const [searchResult, setSearchResult] = useState([])
   const [searching, setSearching] = useState(false)
+  const [listCountries, setListCountries] = useState([])
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const defaultSearchedKeyword = queryParams.get('keyword');
 
   // request to server one time
   useEffect(() => {
-    if (isLoading) {
-      return
-    }
-    getIndustryTypes()
-    getSearchPreferences()
+    // Fetch industry types if activities list is empty
+    console.log("useEffect is called, search Default condition is ", listActivities.length > 0 && listCountries.length > 0 && Boolean(defaultSearchedKeyword))
+    console.log("useEffect is called, search normal condition is ", listActivities.length > 0 && listCountries.length > 0 )
     if (listActivities.length === 0) {
-      searchTender([], [], [], [])
+      getIndustryTypes();
+      return; // Exit effect to avoid further checks until re-invocation
     }
-  }, [isLoading])
+  
+    // Fetch countries if countries list is empty
+    if (listCountries.length === 0) {
+      getListCountries();
+      return; // Exit effect to avoid further checks until re-invocation
+    }
+    
+    // Additional checks to ensure both lists are indeed populated before searching
+    if (listActivities.length > 0 && listCountries.length > 0 && Boolean(defaultSearchedKeyword)) {
+        const coutries = listCountries.map(country => country.name)
+        const activities = listActivities.map(activity => activity.name)
+        searchDefault(coutries, activities);
+        return 
+      } else if (listActivities.length > 0 && listCountries.length > 0) {
+      getSearchPreferences();
+      searchTender([], [], [], []);
+      console.log("searching default is NOT invoked")
+    }
+  }, [listActivities.length, listCountries.length, defaultSearchedKeyword]);
 
+  const searchDefault = (countries, activities) => {
+    console.log("Countries in searchDefault:", countries)
+    // checked all countries
+    setSelectedCountries([...countries])
+    setSelectedActivities([...activities])
+    setSelectedMarketTypes(['Marché en expire', 'Marché en cours', 'Marché en entreprise', 'Marché en bureau'])
+    console.log("Keyword is a country:", selectedCountries.includes(defaultSearchedKeyword))
+    console.log("Keyword is a country:", defaultSearchedKeyword, ' is not in ', selectedCountries)
+    console.log("Keyword is an activity:", selectedActivities.includes(defaultSearchedKeyword))
+    console.log("Keyword is a market type:", selectedMarketTypes.includes(defaultSearchedKeyword))
+    let searchQuery = [[], [], [], []]
+    let keywordNotFound = true
+    if (countries.includes(defaultSearchedKeyword)) {
+      keywordNotFound = false
+      setSelectedCountries([defaultSearchedKeyword])
+      searchQuery =[[defaultSearchedKeyword], [], [], []]
+    }
+    if (activities.includes(defaultSearchedKeyword)) {
+      keywordNotFound = false
+      setSelectedActivities([defaultSearchedKeyword])
+      searchQuery =[[], [defaultSearchedKeyword], [], []]
+    }
+    if (selectedMarketTypes.includes(defaultSearchedKeyword)) {
+      keywordNotFound = false
+      setSelectedMarketTypes([defaultSearchedKeyword])
+      searchQuery =[[], [], [defaultSearchedKeyword], []]
+    }
+    if (keywordNotFound) {
+      setSelectedKeywords([defaultSearchedKeyword])
+      searchQuery =[[], [], [], [defaultSearchedKeyword]]
+    }
+    searchTender(...searchQuery, false)
+  }
   const getIndustryTypes = () => {
     fetch('http://localhost:3000/industryTypes')
     .then(response => {
@@ -42,6 +97,15 @@ const SearchTender = (props) => {
         redirect('/NotAllowed')
       }
     })
+  }
+
+  const getListCountries = () => {
+    fetch('http://localhost:3000/countries')
+      .then(response => response.json())
+      .then(data => {
+        console.log("Getted Countries", data)
+        setListCountries(data)
+      })
   }
 
   const getSearchPreferences = () => {
@@ -113,6 +177,7 @@ const SearchTender = (props) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        userUuid: userUuid,
         countries,
         industryTypes,
         marketTypes: {
@@ -141,6 +206,7 @@ const SearchTender = (props) => {
     })
 
     if (shouldUpdatePreference) {
+      console.log("updating search preference")
       const searchPreference = {
         countries,
         industryTypes,
@@ -202,47 +268,35 @@ const SearchTender = (props) => {
         </div>
 
         <p class="ms-2 mb-0 mt-3">Pays</p>
+
         <div class="d-flex">
-          <div class="d-flex flex-column ms-4">
-            <div class="d-flex">
-              <input type="checkbox" id="mali" name="mali" value="Mali" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Mali")}/>
-              <label htmlFor="mali" class="ms-1">Mali</label>
-            </div>
-            <div class="d-flex">
-              <input type="checkbox" id="niger" name="niger" value="Niger" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Niger")}/>
-              <label htmlFor="niger" class="ms-1">Niger</label>
-            </div>
-          </div>
-          <div class="d-flex flex-column ms-4">
-            <div class="d-flex">
-              <input type="checkbox" id="togo" name="togo" value="Togo" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Togo")}/>
-              <label htmlFor="togo" class="ms-1">Togo</label>
-            </div>
-            <div class="d-flex">
-              <input type="checkbox" id="benin" name="benin" value="Bénin" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Bénin")}/>
-              <label htmlFor="benin" class="ms-1">Bénin</label>
-            </div>
-          </div>
-          <div class="d-flex flex-column ms-4">
-            <div class="d-flex">
-              <input type="checkbox" id="senegal" name="senegal" value="Sénégal" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Sénégal")}/>
-              <label htmlFor="senegal" class="ms-1">Sénégal</label>
-            </div>
-            <div class="d-flex">
-              <input type="checkbox" id="civ" name="civ" value="Côte-Ivoire" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Côte-Ivoire")}/>
-              <label htmlFor="civ" class="ms-1">Côte d'Ivoire</label>
-            </div>
-          </div>
-          <div class="d-flex flex-column ms-4">
-            <div class="d-flex">
-              <input type="checkbox" id="guinee" name="guinee" value="Guinée-Bissau" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Guinée-Bissau")}/>
-              <label htmlFor="guinee" class="ms-1">Guinée-Bissau</label>
-            </div>
-            <div class="d-flex">
-              <input type="checkbox" id="burkina" name="burkina" value="Burkina-Faso" onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries && selectedCountries.includes("Burkina-Faso")}/>
-              <label htmlFor="burkina" class="ms-1">Burkina-Faso</label>
-            </div>
-          </div>
+          
+        <div class="d-flex flex-column ms-4">
+  {listCountries && listCountries.slice(0, Math.ceil(listCountries.length / 3)).map(country => (
+    <div class="d-flex align-items-start mb-2">
+      <input type="checkbox" id={country.name} name={country.name} value={country.name} onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries.includes(country.name)}/>
+      <label htmlFor={country.name} className={country.name.length > 14 ? "ms-1 country-small-text" : "ms-1"}>{country.name}</label>
+    </div>
+  ))}
+</div>
+<div class="d-flex flex-column ms-4">
+  {listCountries && listCountries.slice(Math.ceil(listCountries.length / 3), 2 * Math.ceil(listCountries.length / 3)).map(country => (
+    <div class="d-flex align-items-start mb-2">
+      <input type="checkbox" id={country.name} name={country.name} value={country.name} onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries.includes(country.name)}/>
+      <label htmlFor={country.name} className={country.name.length > 14 ? "ms-1 country-small-text" : "ms-1"}>{country.name}</label>
+    </div>
+  ))}
+</div>
+<div class="d-flex flex-column ms-4">
+  {listCountries && listCountries.slice(2 * Math.ceil(listCountries.length / 3), listCountries.length).map(country => (
+    <div class="d-flex align-items-start mb-2">
+      <input type="checkbox" id={country.name} name={country.name} value={country.name} onChange={(e) => updateSearchFilter(e, 'countries')} checked={selectedCountries.includes(country.name)}/>
+      <label htmlFor={country.name} className={country.name.length > 14 ? "ms-1 country-small-text" : "ms-1"}>{country.name}</label>
+    </div>
+  ))}
+</div>
+
+
         </div>
         
         <p class="ms-2 mb-0 mt-3">Type de marché</p>
@@ -260,7 +314,7 @@ const SearchTender = (props) => {
           <div class="d-flex flex-column ms-4">
             <div class="d-flex">
               <input type="checkbox" id="expired-tenders" name="expired-tenders" value="Marché en expire" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en expire")}/>
-              <label htmlFor="expired-tenders" class="ms-1">Marché en expiré</label>
+              <label htmlFor="expired-tenders" class="ms-1">Marché expiré</label>
             </div>
             <div class="d-flex">
               <input type="checkbox" id="office-tenders" name="office-tenders" value="Marché en bureau" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en bureau")}/>
@@ -294,8 +348,8 @@ const SearchTender = (props) => {
         <div class="d-flex mt-4">
           <button type="submit" onClick={_ => searchTender(selectedCountries, selectedActivities, selectedMarketTypes, selectedKeywords, true)}
           class="button-default">Rechercher</button>
-          <button type="button" onClick={_ => searchSavedTender()}
-          class="button-default reversed-color ms-2">Montrée les offres enregistré</button>
+          {userUuid && <button type="button" onClick={_ => searchSavedTender()}
+          class="button-default reversed-color ms-2">Montrer les offres enregistrées</button>}
         </div>
       </section>
       

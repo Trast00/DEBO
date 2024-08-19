@@ -2,12 +2,12 @@
   color: var(--primary-dark-color);
   min-height: 80vh;
   background: var(--secondary-color);
-  padding: 100px 38px 80px 38px;
+  padding: 100px 38px 50px 38px;
   overflow: hidden;
   position: relative;
 }
 
-.hero::after {
+.hero .bg-img img {
   z-index: 2;
   content: '';
   width: 300px;
@@ -55,7 +55,7 @@
 }
 
 @media (min-width: 1118px) {
-  .hero::after {
+  .hero .bg-img img {
     z-index: 2;
     content: '';
     width: 40%;
@@ -65,7 +65,6 @@
     bottom: 0;
     right: 0;
     position: absolute;
-    /*background-image: url('./imgs/hero-img.png');*/
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 1; /* Adjust opacity as needed */

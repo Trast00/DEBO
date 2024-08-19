@@ -1,54 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import './countries.css'
 
-const ListCountries = () => {
+const ListCountries = ({onGetData}) => {
+  const [coutries, setCountries] = React.useState([])
+  useEffect(() => {
+    fetch('http://localhost:3000/countries')
+      .then(response => response.json())
+      .then(data => {
+        setCountries(data)
+        onGetData(data)
+      })
+  }, [])
   return (
     <>
       <ul class="list-countries">
-        <li class="list-countries-item">
-          <div class="country">
-            <div class="svg-flag"></div>
-            <div class="content">
-              <p class="name">Mali</p>
-              <p class="tag">+154 de marché en cours</p>
+        {coutries.map(country => (
+          <li class="list-countries-item">
+            <div class="country">
+              <div class="svg-flag">
+                <img src={country?.flagUrl} alt="flag" />
+              </div>
+              <div class="content">
+                <p class="name">{country.name}</p>
+                <p class="tag d-none">+154 de marché en cours</p>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="list-countries-item">
-          <div class="country">
-            <div class="svg-flag"></div>
-            <div class="content">
-              <p class="name">Mali</p>
-              <p class="tag">+154 de marché en cours</p>
-            </div>
-          </div>
-        </li>
-        <li class="list-countries-item">
-          <div class="country">
-            <div class="svg-flag"></div>
-            <div class="content">
-              <p class="name">Mali</p>
-              <p class="tag">+154 de marché en cours</p>
-            </div>
-          </div>
-        </li>
-        <li class="list-countries-item">
-          <div class="country">
-            <div class="svg-flag"></div>
-            <div class="content">
-              <p class="name">Mali</p>
-              <p class="tag">+154 de marché en cours</p>
-            </div>
-          </div>
-        </li>
-        <li class="list-countries-item">
-          <div class="country">
-            <div class="svg-flag"></div>
-            <div class="content">
-              <p class="name">Mali</p>
-              <p class="tag">+154 de marché en cours</p>
-            </div>
-          </div>
-        </li>
+          </li>
+          ))}
       </ul>
     </>
   )

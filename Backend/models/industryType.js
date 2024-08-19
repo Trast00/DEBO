@@ -2,11 +2,12 @@ import mongodb from 'mongodb'
 import { getDb } from "../utils/database.js";
 
 class IndustryType {
-  constructor({name, dataByCountry = { "Mali": 0 }, total=0, id}) {
+  constructor({name, description, dataByCountry = { "Mali": 0 }, total=0, id}) {
     if (id) {
       this.id = id;
     }
     this.name = name;
+    this.description = description;
     this.dataByCountry = dataByCountry;
   }
 

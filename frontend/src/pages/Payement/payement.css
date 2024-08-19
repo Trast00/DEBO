@@ -45,3 +45,11 @@ p {
 .payement .form-search-default {
   min-width: 350px;
 }
+
+.payement {
+  padding-top: 80px;
+}
+
+.payement .nav-pill {
+  display: none !important;
+}

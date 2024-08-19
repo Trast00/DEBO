@@ -7,7 +7,7 @@ const Contact = () => {
             <div class="contact w-full py-5" id="contact">
           <div class="container py-5 px-lg-5">
               <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                  <h5 class="text-primary-gradient fw-medium">N'hesitez pas a nous contactez directement</h5>
+                  <h5 class="text-primary-gradient fw-medium">Pour toute question ou requête, n'hésitez pas</h5>
                   <h2 class="mb-5">Contactez-nous</h2>
               </div>
               <div class="row justify-content-center">

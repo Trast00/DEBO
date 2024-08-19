@@ -6,6 +6,7 @@ import path from 'path';
 import userRoutes from './routes/user.js';
 import userPreferencesRoutes from './routes/userPreferences.js';
 import tenderRoutes from './routes/tender.js';
+import countryRoutes from './routes/country.js';
 import adminRoutes from './routes/admin.js';
 import industryTypeRoute from './routes/industryTypes.js';
 import { mongoConnect } from './utils/database.js';
@@ -40,15 +41,11 @@ app.use(session({
 app.get('/industryTypes', industryTypeRoute)
 app.get('/tenders', tenderRoutes)
 app.use(adminRoutes)
+app.use(countryRoutes)
 app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
-
-app.use('/', (req, res) => {
-  res.redirect(process.env.FRONTEND_URL)
-});
-
 
 mongoConnect(() => {
   console.log("App connected to dicko.dev")

@@ -12,11 +12,11 @@ import NavBar from './components/Navbar/NavBar';
 import AuthCallBack from './pages/Auth/AuthCallBack';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import Contact from './components/Contact/Contact';
 
 
 const App = () => {
   const [userData, setUserData] = useState(null);
-  //console.log("user data: ",userData)
   const { isAuthenticated, isLoading, user } = useAuth0();
 
   useEffect(() => {
@@ -50,16 +50,21 @@ const App = () => {
       })
     }
   }, [isAuthenticated, isLoading, user])
+
+  const refreshApp = () => {
+    window.location.href = '/'
+  }
   return (
     <div className="App">
-      <NavBar></NavBar>
+      <NavBar userData={userData}></NavBar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tenders" element={<Tenders user={userData} />} />
-        <Route path="/payement" element={<Payement />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/payment" element={<Payement />} />
         <Route path="/NotFound" element={<NotFound />} />
         <Route path="/NotAllowed" element={<NotAllowed />} />
-        <Route path="/auth-callback" element={<AuthCallBack />} />
+        <Route path="/auth-callback" element={<AuthCallBack refreshApp={_ => refreshApp()} />} />
       </Routes>
     </div>
   );

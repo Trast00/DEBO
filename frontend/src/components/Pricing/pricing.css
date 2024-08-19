@@ -61,3 +61,7 @@
   background: #f1e1ce62;
   border: 1px solid var(--secondary-color);
 }
+
+.nav-pills {
+  display: none;
+}

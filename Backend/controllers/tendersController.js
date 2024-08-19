@@ -102,7 +102,23 @@ export const deleteTender = (req, res, next) => {
 export const searchTender = (req, res, next) => {
   Tender.search(req.body)
     .then(tenders => {
-      res.json(tenders)
+      if (req.body.userUuid) {
+        res.json(tenders)
+      } else {
+        //tender without description, fileUrl, and buyer info for non authenticated user
+        const guestTenders = tenders.map(tender => {
+          return {
+            _id: tender._id,
+            title: tender.title,
+            country: tender.country,
+            industryType: tender.industryType,
+            dates: tender.dates,
+            tags: tender.tags,
+            budget: tender.budget
+          }
+        })
+        res.json(guestTenders)
+      }
     })
     .catch(err => console.log(err))
 }

@@ -87,7 +87,6 @@ class Tender {
     }
 
     static search(body) {
-      console.log(body)
       const { industryTypes, countries, keywords, marketTypes } = body
       const db = getDb()
       let query = {}
@@ -97,6 +96,7 @@ class Tender {
           $in: industryTypes
         }
       }
+
       if (countries && Array.isArray(countries)
         && countries.length > 0) {
         query.country = {
@@ -115,6 +115,18 @@ class Tender {
             },
             {
               description: {
+                $regex: keyword,
+                $options: 'i'
+              }
+            },
+            {
+              country: {
+                $regex: keyword,
+                $options: 'i'
+              }
+            },
+            {
+              industryType: {
                 $regex: keyword,
                 $options: 'i'
               }
@@ -150,7 +162,25 @@ class Tender {
           query["dates.expire"] = { $gt: (new Date).toISOString() }
       }
 
-      return db.collection('tenders').find(query).toArray().then(tenders => {
+      if (marketTypes
+        && typeof marketTypes.company == "boolean"
+        && marketTypes.company == true
+        && marketTypes.office == false) {
+          query["companyType"] = "company"
+      }
+      if (marketTypes
+        && typeof marketTypes.office == "boolean"
+        && marketTypes.office == true
+        && marketTypes.company == false) {
+          query["companyType"] = "office"
+      }
+
+      //query order by recent creation date
+
+
+      
+
+      return db.collection('tenders').find(query).sort({ 'dates.publish': -1 }).toArray().then(tenders => {
         return tenders
       }).catch(err => {
         console.log(err)

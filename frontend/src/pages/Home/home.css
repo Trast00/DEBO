@@ -1,116 +1,3 @@
-.country-activty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 48px;
-  padding: 48px 38px;
-}
-
-.country-activty h2 {
-  text-align: center;
-  color: var(--primary-dark-color);
-}
-
-.list-countries, .list-activities {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding-top: 24px;
-  justify-content: center;
-  margin: auto;
-}
-
-.country {
-  display: flex;
-}
-
-.country .svg-flag {
-  width: 64px;
-  height: 44px;
-  border-radius: 8px;
-  margin-right: 6px;
-  background: var(--placeholder-color);
-}
-
-.country .content p.name {
-  font-weight: 500;
-  line-height: 16px;
-  margin-bottom: 3px;
-}
-
-.country .content p.tag {
-  font-weight: 500;
-  line-height: 16px;
-  font-size: 12px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: var(--primary-dark-color);
-  background: var(--secondary-color);
-}
-
-.list-activities {
-  padding-top: 54px;
-}
-
-.activity {
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  border-radius: 18px;
-  color: var(--primary-dark-color);
-  border: 1px solid var(--primary-color);
-}
-
-.activity .header {
-  display: flex;
-}
-
-.activity .header .img-wrapper {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: var(--placeholder-color);
-}
-
-.activity .header .details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding-top: 4px;
-  padding-left: 8px;
-  gap: 6px;
-}
-
-.activity .header .details p {
-  display: flex;
-  font-size: 0.688rem;
-  padding-right: 6px;
-}
-
-.activity .header .details .svg-icon {
-  flex-shrink: 0;
-  width: 19px;
-  height: 19px;
-  border-radius: 4px;
-  background: var(--placeholder-color);
-  margin-right: 6px;
-}
-
-.activity .content {
-  padding-top: 14px;
-}
-
-.activity .content h3 {
-  font-size: 1.188rem;
-  font-weight: 500;
-  color: var(--primary-color);
-}
-
-.activity .content p {
-  font-size: 0.688rem;
-}
-
 /* About */
 .about .sections {
   display: flex;
@@ -136,13 +23,11 @@
   margin-top: 24px;
   margin-bottom: 8px;
   border-radius: 8px;
-  background: var(--placeholder-color);
 }
 
 .about .sections .img-container img {
   width: 100%;
   height: 100%;
-  opacity: 0;
 }
 
 

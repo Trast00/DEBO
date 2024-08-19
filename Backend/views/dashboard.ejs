@@ -38,16 +38,16 @@
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
         <option value="">Select a Country</option>
-        <option value="Benin">Benin</option>
-        <option value="Burkina Faso">Burkina Faso</option>
+        <option value="Bénin">Bénin</option>
+        <option value="Burkina-Faso">Burkina Faso</option>
         <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
+        <option value="Guinée-Bissau">Guinée-Bissau</option>
         <option value="Mali">Mali</option>
         <option value="Niger">Niger</option>
-        <option value="Senegal">Senegal</option>
+        <option value="Sénégal">Sénégal</option>
         <option value="Togo">Togo</option>
       </select>
-      <select name="industry" id="industry-select">
+      <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
         <% listIndustries.forEach(function(industry) { %>
             <option value="<%= industry.name %>"><%= industry.name %></option>
@@ -59,6 +59,7 @@
       <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
       <input type="text" name="tags" placeholder="tag1,tag2 (separer par une ,) (ex: tag1,tag2)" required>
       <input type="number" name="budget" placeholder="Budget" required min="1" step="0.01">
+      <input type="text" name="currency" placeholder="Budget currency" required>
       <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
 
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -104,7 +105,7 @@
         <option value="Senegal">Senegal</option>
         <option value="Togo">Togo</option>
       </select>
-      <select name="industry" id="industry-select">
+      <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
         <% listIndustries.forEach(function(industry) { %>
             <option value="<%= industry.name %>"><%= industry.name %></option>
@@ -116,6 +117,7 @@
       <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
       <input type="text" name="tags" placeholder="Tags" required>
       <input type="number" name="budget" placeholder="Budget" required min="1" step="0.01">
+      <input type="text" name="currency" placeholder="Budget currency" required>
       <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -144,6 +146,7 @@
     <h2>Post IndustryType</h2>
     <form method="POST" action="/industryTypes">
       <input type="text" name="name" placeholder="IndustryType" required>
+      <textarea type="text" name="description" placeholder="IndustryType description" required minlength="10"></textarea>
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -164,7 +167,6 @@
     <h2>Get IndustryType by Name</h2>
     <form method="GET" action="/industryTypes/:name">
       <input type="text" name="name" placeholder="name" required>
-      
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -173,7 +175,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Delete IndustryType By Name</h2>
-    <form method="DELETE" action="/industryTypes/:name">
+    <form method="DELETE" action="/industryTypes">
       <input type="text" name="name" placeholder="Industry name" required>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -216,29 +218,32 @@
   forms.forEach(form => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      const method = form.getAttribute('method').toUpperCase();
+      const action = form.getAttribute('action');
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      checkFormData(data);
+      const isDataCorrect = checkFormData(data);
+      if (!isDataCorrect) return;
       updateDataFormat(data)
-      const actionUrl = updateDataAction(form.action, data);
+      const actionUrl = updateDataAction(action, data);
       console.log(actionUrl);
 
       let result = "Error"
       let isSuccess = false;
-      if (form.method === 'get') {
+      console.log('form method:', method);
+      if (method === 'GET') {
         const response = await fetch(actionUrl);
         isSuccess = (response.status >= 200 && response.status < 400)
         result = await response.json();
       } else {
         const response = await fetch(actionUrl, {
-          method: form.method,
+          method: method,
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
         });
-        //
-        // const result = await response.json(); after save it should clear the input industryTypes
         isSuccess = (response.status >= 200 && response.status < 400)
         result = await response.json();
       }
@@ -246,7 +251,7 @@
       if (isSuccess) {
         //show reponse
         document.getElementById('show-response').innerText = JSON.stringify(result);
-        form.reset();
+        //form.reset();
       }
     });
   });
@@ -266,26 +271,27 @@
     // date should be a date forma
     if (formData.datesPublish && !new Date(formData.datesPublish)) {
       alert('datesPublish should be a date format');
-      return;
+      return false;
     }
     // none of the data should contains line of code
     for (const key in formData) {
       if (formData[key].includes('<') || formData[key].includes('>')) {
         alert('data should not contain < or >');
-        return;
+        return false;
       }
     }
     // data should not contains SQL command
-    const sqlCommands = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE', 'ALTER', 'TRUNCATE', 'RENAME', 'REPLACE', 'JOIN', 'UNION', 'FROM', 'WHERE', 'SET', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS'];
+    const sqlCommands = []//['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE', 'ALTER', 'TRUNCATE', 'RENAME', 'REPLACE', 'JOIN', 'UNION', 'FROM', 'WHERE', 'SET', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS', 'NATURAL', 'USING', 'ADD', 'MODIFY', 'CHANGE', 'COLUMN', 'INDEX', 'KEY', 'PRIMARY', 'FOREIGN', 'CHECK', 'REFERENCES', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT', 'UNIQUE', 'SHOW', 'DESCRIBE', 'DESC', 'USE', 'DATABASE', 'DATABASES', 'TABLE', 'TABLES', 'COLUMN', 'COLUMNS', 'INDEX', 'INDEXES', 'STATUS', 'VARIABLES', 'VARIABLE', 'GLOBAL', 'SESSION', 'PROCEDURE', 'FUNCTION', 'TRIGGER', 'EVENT', 'CREATE', 'ALTER', 'DROP', 'RENAME', 'TRUNCATE', 'REPLACE', 'DELETE', 'INSERT', 'UPDATE', 'SET', 'WHERE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'IS', 'NULL', 'BETWEEN', 'EXISTS', 'ALL', 'ANY', 'SOME', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'AS', 'ASC', 'DESC', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 'FULL', 'CROSS'];
     for (const key in formData) {
       for (const command of sqlCommands) {
         if (formData[key].includes(command)) {
-          alert('data should not contain SQL command');
-          return;
+          alert(`data ${key} should not contain SQL command`);
+          return false;
         }
       }
     }
-    
+
+    return true;
   }
 
   const updateDataFormat = (data) => {
@@ -293,7 +299,8 @@
       updateDataDatesFormat(data)
     }
     if (data.budget) {
-      data.budget = parseFloat(data.budget)
+      data.budget.value = parseFloat(data.budget)
+      data.budget.currency = data.currency
     }
     if (data.tags) {
       data.tags = data.tags.split(',').map(tag => tag.trim())

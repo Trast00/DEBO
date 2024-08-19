@@ -3,6 +3,7 @@ import {getIndustryTypes, getIndustryTypeByName, postIndustryType, deleteIndustr
 const router = express.Router();
 
 router.get('/industryTypes', getIndustryTypes);
+router.get('/countries', getIndustryTypes);
 
 router.get('/industryTypes/:name', getIndustryTypeByName);
 

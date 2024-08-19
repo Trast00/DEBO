@@ -13,6 +13,8 @@ const devurl = process.env.DEV_URL;
 //dashboard
 router.get(`${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
+  if (!req.session.moderator?.email) res.redirect(devurl)
+  console.log("Try to render dev-auth", req.session.moderator?.email)
   fetchAllIndustryTypes().then(industryTypes => {
     const { email, password, credential } = req.body;
     res.render('dashboard.ejs', { devurl: devurl, email: email, password: password, credential: credential, listIndustries: industryTypes});

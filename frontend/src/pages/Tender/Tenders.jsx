@@ -7,17 +7,14 @@ import { useState } from 'react'
 
 
 const Tenders = ({user}) => {
-  const {isAuthenticated, loginWithRedirect, isLoading} = useAuth0()
+  const {isAuthenticated, isLoading} = useAuth0()
+  const [currentPage, setCurrentPage] = useState(1)
+  
   // if user not authenticated, redirect to login page
-  if (!isLoading && !isAuthenticated) {
-    console.log('Not authenticated')
-    loginWithRedirect()
-  }
 
-  // if user is authenticated, but not subscribed (guest user), redirect to payement page
+  // if user is authenticated, but not subscribed (guest user), redirect to payment page
   if (user && user.isPremuim === false) {
-    console.log('Not subscribed')
-    window.location.href = '/payement'
+    
   }
 
   const [listTender, setListTender] = useState([])
@@ -26,9 +23,15 @@ const Tenders = ({user}) => {
   const [listTenderSaved, setListTenderSaved] = useState([])
 
   const showTenders = (resultTenders, order) => {
+    setCurrentPage(1)
     console.log('All resulted tender:', resultTenders)
     const searchOrder = order || 'viewed'
     setListAllTender(resultTenders)
+    
+    if (!user) {
+      setListTender(resultTenders)
+      return
+    }
     let tenders = resultTenders
     if (!canSeeHiddenTender) {
       tenders = resultTenders.filter(tender => !user.preference.hiddenTender[tender._id])
@@ -43,10 +46,12 @@ const Tenders = ({user}) => {
       setListTender(tenders.sort((a, b) => {
         return user.preference.viewedTender[a._id] - user.preference.viewedTender[b._id]
       }))
+      console.log('order is viewed and Tenders:', listTender)
     }
+
     if (searchOrder === 'budget') {
       setListTender(tenders.sort((a, b) => {
-        return a.budget - b.budget
+        return a.budget.value - b.budget.value
       }))
     }
     if (searchOrder === 'recent-published') {
@@ -94,7 +99,14 @@ const Tenders = ({user}) => {
     showTenders(listAllTender, 'viewed')
   }
 
-  if (isLoading || !user || !user?.uuid)  return (<main className="tenders">Loading</main>)
+  const [openModal, setOpenModal] = useState(false)
+  const [tenderModal, setTenderModal] = useState({})
+  const showModal = (tender) => {
+    setOpenModal(true)
+    setTenderModal(tender)
+  }
+
+  if (isLoading)  return (<main className="tenders">Loading</main>)
 
   return (
     <>
@@ -104,12 +116,12 @@ const Tenders = ({user}) => {
       <SearchTender showSearchResult={result=> {
         setCanSeeHiddenTender(false)
         showTenders(result)
-        }} isLoading={!user} userUuid={user.uuid} /> 
+        }} isLoading={!user} userUuid={user?.uuid} isPremuim={user?.isPremuim} /> 
       <section className="tenders-result tender-section mt-2">
         <div className='tender-result-header'>
           <div>
             {listTender.length > 0 
-            ? <p>Resultat : +{listTender.length} marché trouvé</p>
+            ? <p>Résultat : +{listTender.length} marchés trouvés</p>
             : <p>Aucun marché trouvé</p>}
           </div>
           <div>
@@ -124,13 +136,13 @@ const Tenders = ({user}) => {
             )}
           </div>
         </div>
-        {/*<p>Resultat : +16 marché trouvé</p>*/}
         <ul className="result-list">
-          {user && listTender.map(tender => (
+          {listTender.slice((currentPage * 10) - 10, currentPage * 10).map(tender => (
             <li>
-              <Tender tender={tender} userUuid={user.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
+              <Tender tender={tender} userUuid={user?.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
               isSaved={user?.preference?.savedTender[tender._id]} 
-              isHidden={user?.preference?.hiddenTender[tender._id]}/>
+              isHidden={user?.preference?.hiddenTender[tender._id]}
+              showModal={showModal} isPremuim={user?.isPremuim}/>
             </li>
           )
           )}
@@ -138,73 +150,20 @@ const Tenders = ({user}) => {
       </section>
 
       <section className="pagination d-flex justify-content-between">
-        <button>Precedant</button>
-        <div>1/1</div>
-        <button>Suivant</button>
+        {currentPage > 1 && <button onClick={_ => setCurrentPage(currentPage-1)}>Precedant</button>}
+        <div>page {currentPage}/{Math.ceil(listTender.length/10)}</div>
+        { currentPage < Math.ceil(listTender.length/10) && <button onClick={_ => setCurrentPage(currentPage+1)}>Suivant</button>}
       </section>
     </div>
   </main>
-  <div className="modal-tender modal-default d-none">
+  <div className={`modal-tender modal-default ${(!openModal && 'd-none')}`}>
     <div className="modal-tender-wrapper">
-      <button type="button" className="close button-default">X</button>
-      <div className="tender">
-        <div className="d-flex it align-items-center">
-          <div className="tender-icon"></div>
-          <h2 className="tender-title">Etude de faisabilité de l'engagement des utilisateurs</h2>
-        </div>
-        <div>
-          <p className="tender-description">Trouvez des marchés publics et privés près de chez vous dans les +8 Pays 
-            de l'UEMOA (Mali, Niger, Togo, Bénin, Sénégal, Côte d'Ivoire, Guinée-Bissau)
-            dans les domaine du BTP, Télécommunication, Compatbilité</p>
-        </div>
-        <p className="buyer-name-wrapper">
-          Buyer: 
-          <span className="buyer-name">
-            World word Wide internation ONG
-          </span>
-        </p>
-        <div className="tag-wrapper">
-          <ul className="tags d-flex">
-            <li className="tag">Marché en cours</li>
-            <li className="tag">Forage</li>
-            <li className="tag">Construction de routes</li>
-            <li className="tag">+10 années de creation</li>
-          </ul>
-        </div>
-        <div className="info-wrapper d-flex">
-          <div className="info">
-            <p>Localisation:</p>
-            <p id="tender-localisation">Mali</p>
-          </div>
-          <div className="info">
-            <p>Date de publication:</p>
-            <p id="tender-publish-date">01/01/2024</p>
-          </div>
-          <div className="info">
-            <p>Date de expiration:</p>
-            <p id="tender-localisation">01/01/2024</p>
-          </div>
-          <div className="info">
-            <p>Budget:</p>
-            <p id="tender-budget">10.000.000 fcfa</p>
-          </div>
-        </div>
-        <div className="tender-buttons d-flex justify-content-between">
-          <button className="show button-default">Voir plus</button>
-          <div className="d-flex gap-1">
-            <button className="dowload-file modal-only button-default">Telecharger le document</button>
-            <button className="find-partner modal-only button-default">Trouver un partenaire pour cet offre</button>
-          </div>
-          <div>
-            <button className="save-data button-default-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256" style={{ fill: "#000000" }}> <g fill="#803d3b" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: "normal" }}><g transform="scale(8,8)"><path d="M7,5v23l1.59375,-1.1875l7.40625,-5.5625l7.40625,5.5625l1.59375,1.1875v-23zM9,7h14v17l-6.40625,-4.8125l-0.59375,-0.4375l-0.59375,0.4375l-6.40625,4.8125z"></path></g></g> </svg>
-            </button>
-            <button className="save-data button-default-icon">R
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256" style={{ fill: "#000000" }}> <g fill="#803d3b" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: "normal" }}><g transform="scale(8,8)"><path d="M7,5v23l1.59375,-1.1875l7.40625,-5.5625l7.40625,5.5625l1.59375,1.1875v-23zM9,7h14v17l-6.40625,-4.8125l-0.59375,-0.4375l-0.59375,0.4375l-6.40625,4.8125z"></path></g></g> </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+      <button type="button" className="close button-default" onClick={_ => setOpenModal(false)}>X</button>
+      {tenderModal.dates && (<Tender tender={tenderModal} userUuid={user.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
+              isSaved={user?.preference?.savedTender[tenderModal._id]} 
+              isHidden={user?.preference?.hiddenTender[tenderModal._id]}
+              showModal={showModal}
+              isPremuim={user?.isPremuim} />)}
     </div>
   </div>
     </>

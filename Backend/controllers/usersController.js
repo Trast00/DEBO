@@ -32,7 +32,6 @@ export const getUser = (req, res, next) => {
 // will return a async function
 export const postUser = (req, res, next) => {
   return User.getPremuimStatuByEmail(req.body.user.email).then(premuimUser => {
-    console.log("user is a premuim user", premuimUser)
     const userRole = !premuimUser? "guest": "user"
     return new User({
       uuid: req.body.user.uuid,

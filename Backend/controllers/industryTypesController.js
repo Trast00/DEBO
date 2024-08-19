@@ -16,7 +16,7 @@ const getIndustryTypes = (req, res, next) => {
 }
 
 const getIndustryTypeByName = (req, res, next) => {
-  const name = res.body.name
+  const name = req.params.name
   const db = getDb()
   db.collection('industry_types').findOne({name: name}).then(industryType => {
     res.json(industryType)
@@ -24,8 +24,8 @@ const getIndustryTypeByName = (req, res, next) => {
 }
 
 const postIndustryType = (req, res, next) => {
-  const { name } = req.body
-  const industryType = new IndustryType({ name: name })
+  const { name, description } = req.body
+  const industryType = new IndustryType({ name: name, description: description })
   industryType.save()
     .then(result => {
       res.json(result)
