@@ -49,6 +49,9 @@ app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
+app.use("/", (req, res) => {
+  res.redirect(process.env.DEV_URL)
+})
 
 mongoConnect(() => {
   console.log('Connected to the database')
