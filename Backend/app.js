@@ -16,8 +16,13 @@ import cors from 'cors'
 
 dotenv.config();
 
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: frontendUrl,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -46,5 +51,7 @@ app.use(userPreferencesRoutes)
 app.use(userRoutes)
 
 mongoConnect(() => {
+  console.log('Connected to the database')
   app.listen(3000)
+  console.log('Runnning on port 3000')
 })
