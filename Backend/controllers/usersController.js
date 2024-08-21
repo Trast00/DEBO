@@ -2,14 +2,11 @@ import User from "../models/user.js"
 import { getDb } from "../utils/database.js"
 
 export const getUser = (req, res, next) => {
-    console.log("getting user data")
     // if user is not in the database, add user to the database
     const uuid = req.params.uuid
     return User.getByUuid(uuid).then(user => {
       // if user not null check if premuim is expired
-      console.log("checking if premui expired", user)
       if (user && (new Date(user.premuimEndDate)) < (new Date())) {
-        console.log("user is not a premuim user, setting user to guest")
         user.isPremuim = false
         user.role = "guest"
         user.premuimEndDate = null
@@ -17,14 +14,14 @@ export const getUser = (req, res, next) => {
         userUpdated.update().then(_ => {
           return res.json(userUpdated)
         }).catch(err => {
-          console.log(err)
+          res.status(500).send(err)
           return null
         })
       } else {
         return res.json(user)
       }
     }).catch(err => {
-      console.log(err)
+      res.status(500).send(err)
       return null
     })
 }
@@ -50,7 +47,7 @@ export const postUser = (req, res, next) => {
   }).then(result => {
     return res.json(result)
   }).catch(err => {
-    console.log(err)
+    res.status(500).send(err)
     return null
   })
 }
@@ -61,7 +58,7 @@ export const getPremuimEmails = (req, res, next) => {
   db.collection('premuim_emails').find().toArray().then(data => {
     return res.json(data)
   }).catch(err => {
-    console.log(err)
+    res.status(500).send(err)
     return null
   })
 }
@@ -85,16 +82,16 @@ export const postPremuimEmail = (req, res, next) => {
         //convert result to a json
         result.modifiedCount > 0? res.json(data): res.json({message: "email added as premuim, but user not found"})
       }).catch(err => {
-        console.log(err)
+        res.status(500).send(err)
         return null
       })
       //return res.json(result)
     }).catch(err => {
-      console.log(err)
+      res.status(500).send(err)
       return null
     })
   }).catch(err => {
-    console.log(err)
+    res.status(500).send(err)
     return null
   })
 

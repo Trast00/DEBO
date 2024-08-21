@@ -227,11 +227,9 @@
       if (!isDataCorrect) return;
       updateDataFormat(data)
       const actionUrl = updateDataAction(action, data);
-      console.log(actionUrl);
 
       let result = "Error"
       let isSuccess = false;
-      console.log('form method:', method);
       if (method === 'GET') {
         const response = await fetch(actionUrl);
         isSuccess = (response.status >= 200 && response.status < 400)

@@ -3,8 +3,9 @@ import './activities.css'
 
 const ListActivities = ({onGetData}) => {
   const [listActivities, setListActivities] = React.useState([])
+  const serverUrl = process.env.REACT_APP_SERVER_URL
   useEffect(() => {
-    fetch('http://localhost:3000/industryTypes')
+    fetch(`${serverUrl}/industryTypes`)
       .then(response => response.json())
       .then(data => {
         setListActivities(data)

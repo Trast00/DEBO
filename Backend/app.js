@@ -16,10 +16,8 @@ import cors from 'cors'
 
 dotenv.config();
 
-
 const app = express();
 app.use(cors())
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -48,6 +46,5 @@ app.use(userPreferencesRoutes)
 app.use(userRoutes)
 
 mongoConnect(() => {
-  console.log("App connected to dicko.dev")
   app.listen(3000)
 })

@@ -7,10 +7,9 @@ let _db;
 const mongoConnect = (callback) => {
     MongoClient.connect(connectionURI).then(client => {
         _db = client.db(dbName)
-        console.log("Database connected to dicko.dev")
         callback()
     }).catch(err => {
-        console.log("Db couldn't connect to dicko.dev",err)
+        throw new Error("Connexion to dicko.dev failed:", err);
     })
 }
 

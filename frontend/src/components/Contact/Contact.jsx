@@ -2,6 +2,7 @@ import React from 'react'
 import './contact.css'
 
 const Contact = () => {
+  const formSpreeUrl = process.env.REACT_APP_FORM_SPREE_URL
   return (
     <>
             <div class="contact w-full py-5" id="contact">
@@ -13,7 +14,7 @@ const Contact = () => {
               <div class="row justify-content-center">
                   <div class="col-lg-9">
                       <div class="wow fadeInUp" data-wow-delay="0.3s">
-                          <form action="https://formspree.io/f/xzblkrvw" method="POST">
+                          <form action={formSpreeUrl} method="POST">
                               <div class="row g-3">
                                   <div class="col-md-6">
                                       <div class="form-floating">
