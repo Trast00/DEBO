@@ -15,7 +15,15 @@ class Tender {
       this.buyer = buyer
       this.pdfUrl = pdfUrl
       this.tags = tags
-      this.budget = budget
+      if (budget && typeof budget === 'object' && budget.value && budget.currency) {
+        this.budget = budget
+      } else {
+        this.budget = {
+          value: -1,
+          currency: ""
+        }
+      }
+
     }
 
     save(id) {
@@ -174,9 +182,6 @@ class Tender {
       }
 
       //query order by recent creation date
-
-
-      
 
       return db.collection('tenders').find(query).sort({ 'dates.publish': -1 }).toArray().then(tenders => {
         return tenders

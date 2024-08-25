@@ -1,7 +1,12 @@
 import express from 'express'
-import { getPremuimEmails, getUser, postPremuimEmail, postUser } from '../controllers/usersController.js';
-
+import { getPremuimEmails, getUser, listPremuimUsers, postPremuimEmail, postUser } from '../controllers/usersController.js';
+import { dbLoaded } from '../utils/database.js';
 const router = express.Router();
+
+if(dbLoaded && listPremuimUsers.length === 0) {
+  console.log("FECTHING PREMUIMS")
+
+}
 
 router.get('/users/premuims', getPremuimEmails);
 router.post('/users/premuims', postPremuimEmail);

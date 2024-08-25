@@ -13,6 +13,7 @@ import { mongoConnect } from './utils/database.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import cors from 'cors'
+import { getPremuimEmails, listPremuimUsers } from './controllers/usersController.js';
 
 dotenv.config();
 
@@ -54,6 +55,14 @@ app.use("/", (req, res) => {
 })
 
 mongoConnect(() => {
+  getPremuimEmails().then(data => {
+    const list = data.filter(user => new Date(user.premuimEndDate) > new Date )
+    console.log(list)
+    listPremuimUsers.push(...list)
+  })
+  .catch(err => {
+    console.log(err)
+  })
   console.log('Connected to the database')
   app.listen(3000)
   console.log('Runnning on port 3000')

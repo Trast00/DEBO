@@ -3,6 +3,7 @@ import { getModeratorByCredentials } from '../controllers/adminController.js';
 // import .env require
 import dotenv from 'dotenv';
 import { fetchAllIndustryTypes } from '../controllers/industryTypesController.js';
+import Country from '../models/country.js';
 dotenv.config();
 
 const router = express.Router();
@@ -14,8 +15,12 @@ router.get(`${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
   if (!req.session.moderator?.email) res.redirect(devurl)
   fetchAllIndustryTypes().then(industryTypes => {
-    const { email, password, credential } = req.body;
-    res.render('dashboard.ejs', { devurl: devurl, email: email, password: password, credential: credential, listIndustries: industryTypes});
+    Country.getAll().then(listCountries => {
+      res.render('dashboard.ejs', { devurl: devurl, 
+        email: "", 
+        password: "", 
+        credential: "", listIndustries: industryTypes, listCountries: listCountries});
+    })
   })
 });
 //login page

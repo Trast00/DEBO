@@ -111,7 +111,8 @@ const Tenders = ({user}) => {
       <SearchTender showSearchResult={result=> {
         setCanSeeHiddenTender(false)
         showTenders(result)
-        }} isLoading={!user} userUuid={user?.uuid} isPremuim={user?.isPremuim} /> 
+        }} isLoading={!user} userUuid={user?.uuid}
+        email={user?.email} isPremuim={user?.isPremuim} /> 
       <section className="tenders-result tender-section mt-2">
         <div className='tender-result-header'>
           <div>

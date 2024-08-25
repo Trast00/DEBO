@@ -52,11 +52,18 @@ export const postUser = (req, res, next) => {
   })
 }
 
+export const listPremuimUsers = []
 // get premuims users
 export const getPremuimEmails = (req, res, next) => {
   const db = getDb()
-  db.collection('premuim_emails').find().toArray().then(data => {
-    return res.json(data)
+  return db.collection('premuim_emails').find().toArray().then(data => {
+    if (req) {
+      listPremuimUsers = data
+      return res.json(data)
+    }
+    else {
+      return data
+    }
   }).catch(err => {
     res.status(500).send(err)
     return null
@@ -73,6 +80,7 @@ export const postPremuimEmail = (req, res, next) => {
     premuimEndDate,
     note
   }
+  listPremuimUsers.push(data)
   // insert/update data to the database if it is not already there
   db.collection('premuim_emails').findOne({email}).then(user => {
     (user? 

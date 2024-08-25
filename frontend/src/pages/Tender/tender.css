@@ -99,6 +99,10 @@
   color: var(--primary-dark-color);
 }
 
+.tender-title svg {
+  margin-right: 8px;
+}
+
 .tender-description {
   padding-top: 8px;
 }

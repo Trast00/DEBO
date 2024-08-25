@@ -4,7 +4,7 @@ import { redirect, useLocation } from 'react-router-dom'
 
 const SearchTender = (props) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL
-  const { showSearchResult, userUuid } = props
+  const { showSearchResult, userUuid, email } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
   const [selectedActivities, setSelectedActivities] = useState([])
@@ -167,6 +167,7 @@ const SearchTender = (props) => {
       },
       body: JSON.stringify({
         userUuid: userUuid,
+        email: email,
         countries,
         industryTypes,
         marketTypes: {
