@@ -51,7 +51,9 @@ app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
 app.use("/", (req, res) => {
-  res.redirect(process.env.DEV_URL)
+  console.log("Redirecting to dev url")
+
+  res.render('dev-auth.ejs', { devurl: process.env.DEV_URL, email: ''})
 })
 
 mongoConnect(() => {
