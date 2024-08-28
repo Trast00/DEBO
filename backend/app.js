@@ -30,6 +30,8 @@ const __dirname = dirname(__filename);
 
 /* setup */
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -53,7 +55,7 @@ app.use(userRoutes)
 app.use("/", (req, res) => {
   console.log("Redirecting to dev url")
 
-  res.render('dev-auth.ejs', { devurl: process.env.DEV_URL, email: "email"})
+  res.render('dev-auth', { devurl: process.env.DEV_URL, email: "email"});
 })
 
 mongoConnect(() => {
