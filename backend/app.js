@@ -29,7 +29,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 /* setup */
-app.set('views engine', 'ejs')
+app.set('view engine', 'ejs')
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -53,7 +53,7 @@ app.use(userRoutes)
 app.use("/", (req, res) => {
   console.log("Redirecting to dev url")
 
-  res.render('dev-auth.ejs', { devurl: process.env.DEV_URL, email: ''})
+  res.render('dev-auth.ejs', { devurl: process.env.DEV_URL, email: "email"})
 })
 
 mongoConnect(() => {
