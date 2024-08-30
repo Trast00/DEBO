@@ -49,7 +49,7 @@ const App = () => {
         }
       })
     }
-  }, [isAuthenticated, isLoading, user])
+  }, [isAuthenticated, isLoading, serverUrl, user])
 
   const refreshApp = () => {
     window.location.href = '/'
