@@ -7,7 +7,7 @@ import Tenders from './pages/Tender/Tenders';
 import Payement from './pages/Payement/Payement';
 import NotFound from './pages/NotAccessible/NotFound';
 import NotAllowed from './pages/NotAccessible/NotAllowed';
-import Home from './pages/Home/home';
+import Home from './pages/Home/home.jsx';
 import NavBar from './components/Navbar/NavBar';
 import AuthCallBack from './pages/Auth/AuthCallBack';
 import { useAuth0 } from '@auth0/auth0-react';
