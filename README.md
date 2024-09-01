@@ -1,46 +1,143 @@
-# DEBO
+<a name="readme-top"></a>
 
-# key features
+# 📗 Table of Contents
 
-# Todo
-json response only
+- [📗 Table of Contents](#-table-of-contents)
+- [📖 Rencontre Afrique ](#-rencontre-afrique-)
+  - [🛠 Built With ](#-built-with-)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [Preview](#preview)
+  - [🚀 Live Demo ](#-live-demo-)
+  - [📺 Presentation Video ](#-presentation-video-)
+  - [💻 Getting Started ](#-getting-started-)
+    - [Setup](#setup)
+    - [Install](#install)
+    - [Usage](#usage)
+  - [👥 Authors ](#-authors-)
+  - [🔭 Future Features ](#-future-features-)
+  - [🤝 Contributing ](#-contributing-)
+  - [⭐️ Show your support ](#️-show-your-support-)
+  - [🙏 Acknowledgments ](#-acknowledgments-)
+  - [📝 License ](#-license-)
 
-Get all tender
-Add a new tender
-Update a tender
-Remove a tender
-get a specific tender
-Add tag to tender
+# 📖 DEBO Info <a name="about-project"></a>
 
-redirect to register if not registered
-redirect to 404 if not foud
-redirect 403 if forbidden (don't have role or is not premuim or is not registered)
+This project is a web platform that notifies users about new tenders. It includes features like:
+- **Tender notifications:** Users receive updates about new tenders on the dashboard.
+- **Search and filtering:** Users can search for tenders and filter them by country and activity type.
+- **Tender management:** Users can save their preferred tenders or hide others.
+- **User authentication:** Integrated via Auth0 for secure logins.
 
 
+## 🛠 Built With <a name="built-with"></a>
 
-User get send uuid, preferences and name
-New user should be registered in a db
-User can update his search preferences
-User can add and remove hidden tender
-User can add viewed tender
-User should be redirect to a other page if it's a moderator
+### Tech Stack <a name="tech-stack"></a>
+
+- **Frontend:** React.js
+- **Backend:** Express.js
+- **Database:** MongoDb
+- **Deployed on:** Vercel and Netifly
+
+### Key Features <a name="key-features"></a>
+
+- **Dynamic Search and Filtering:** Utilizes MongoDB to manage and search large datasets of tenders.
+- **Tender Management:** Users can interact with tender data, saving or hiding entries as needed.
+- **Secure Payments and Notifications:** Includes a payment page that triggers administrative notifications via email using Formspree.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Decisions Made
+- **Choosing the MERN Stack:** Opted for MERN to apply my freshly acquired skills rather than using Rails or a React + Serverless architecture, which might have simplified the development process.
+- **Deployment Choices:** Chose to deploy the backend and frontend separately on Vercel and Netlify to maximize learning opportunities from each platform.
+- **Security Considerations:** Deliberately did not implement measures against CSRF and brute force attacks initially, focusing on learning core functionalities to enhance security later.
+- **Testing Strategy:** Decided against using Jest for testing to leave room for learning a new testing framework in future enhancements.
+This comprehensive approach not only challenged my coding skills but also allowed me to explore practical aspects of building a robust web application.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-# Update licence
+## 🔭 Future Features <a name="future-features"></a>
 
-# Update data
+- [ ] **TypeScript Migration:** To enhance code reliability and maintenance.
+- [ ] **Use WebSocket:** for real-time notifications ?
+- [ ] **Implement security mesure**
+- [ ] **Testing Framework Integration:** Plan to introduce a new testing framework to expand my testing capabilities.
+- [ ] **Authentication Updates:** Explore and integrate a more advanced authentication method.
 
-# Update prices
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# Start manifestation management feature
+## Preview
 
-# Add unit test
-# Fix linter error for index.js
+<details>
+  <summary>Preview</summary>
+  
+</details>
 
-# Add unit test
+## 🚀 Live Demo <a name="live-demo"></a>
 
-# Update data
+[Live Demo Link available soon]()
 
-# Update payment info
+## 📺 Presentation Video <a name="live-demo"></a>
+[Presentation video available soon!]()
 
-# Update payement data
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+### Setup
+
+Clone this repository to your desired folder:
+
+```sh
+  cd my-folder
+  git clone git@github.com:Trast00/DEBO.git
+```
+
+### Install
+
+Install this project with:
+
+```sh
+  cd my-project
+  npm install
+```
+
+### Usage
+
+To run the project, execute the following command:
+
+```sh
+  npm run build
+  npm start
+```
+
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page]().
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## ⭐️ Show your support <a name="support"></a>
+
+Give a ⭐️ if you like this project! It's help
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## 👥 Authors <a name="authors"></a>
+
+👤 **Dicko Allasane**
+
+- GitHub: [@trast00](https://github.com/Trast00)
+- Twitter: [@dickoallassane](https://twitter.com/AllassaneDicko0/)
+- LinkedIn: [@dickoallassane](https://www.linkedin.com/in/allassane-dicko-744aaa224)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
