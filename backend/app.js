@@ -21,18 +21,14 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 const app = express();
 const allowedOrigins = [
   frontendUrl,
+  'http://localhost:3000/', // Production URL
+  'https://debo-rosy.vercel.app/', // Production URL
   'https://deboinfo.netlify.app', // Production URL
   /\.--deboinfo\.netlify\.app$/ // Regex to allow all Netlify deploy previews
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.some(pattern => typeof pattern === 'string' ? pattern === origin : pattern.test(origin))) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
