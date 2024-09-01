@@ -13,7 +13,10 @@ const devurl = process.env.DEV_URL;
 //dashboard
 router.get(`${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
-  if (!req.session.moderator?.email) res.redirect(devurl)
+  if (!req.session.moderator?.email) {
+    res.redirect(devurl)
+    return;
+  }
   fetchAllIndustryTypes().then(industryTypes => {
     Country.getAll().then(listCountries => {
       res.render('dashboard.ejs', { devurl: devurl, 

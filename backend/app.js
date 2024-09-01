@@ -60,10 +60,10 @@ app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
 app.use("/", (req, res) => {
-  console.log("Redirecting to dev url")
-
+  console.log("Redirecting to dev url");
   res.render('dev-auth', { devurl: process.env.DEV_URL, email: "email"});
-})
+  return; // Prevents any further action after the response is sent
+});
 
 mongoConnect(() => {
   getPremuimEmails().then(data => {
