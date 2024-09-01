@@ -46,7 +46,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET, // Utilisez un secret unique pour votre application
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.DEV === "dev" } // Mettez `secure` à true en production si vous utilisez HTTPS
+  cookie: { secure: process.env.DEV } // Mettez `secure` à true en production si vous utilisez HTTPS
 }));
 
 //app.use(AuthRoutes)
@@ -68,7 +68,7 @@ app.use("/", (req, res) => {
 mongoConnect(() => {
   getPremuimEmails().then(data => {
     const list = data.filter(user => new Date(user.premuimEndDate) > new Date )
-    console.log(list)
+    //console.log(list)
     listPremuimUsers.push(...list)
   })
   .catch(err => {
