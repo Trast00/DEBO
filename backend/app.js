@@ -13,15 +13,12 @@ import { mongoConnect } from './utils/database.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import cors from 'cors'
+import { getPremuimEmails, listPremuimUsers } from './controllers/usersController.js';
 
 dotenv.config();
 
-console.log("Start Routing")
-
-
-const app = express();
-
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const app = express();
 const allowedOrigins = [
   frontendUrl,
   'https://deboinfo.netlify.app', // Production URL
@@ -39,13 +36,13 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
-
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 /* setup */
-app.set('views engine', 'ejs')
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -66,7 +63,6 @@ app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
-
 app.use("/", (req, res) => {
   console.log("Redirecting to dev url")
 
@@ -74,6 +70,17 @@ app.use("/", (req, res) => {
 })
 
 mongoConnect(() => {
-  console.log("App connected to dicko.dev")
+  getPremuimEmails().then(data => {
+    const list = data.filter(user => new Date(user.premuimEndDate) > new Date )
+    console.log(list)
+    listPremuimUsers.push(...list)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  console.log('Connected to the database')
   app.listen(3000)
+  console.log('Runnning on port 3000')
 })
+
+export default app;
