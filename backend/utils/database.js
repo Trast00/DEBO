@@ -1,7 +1,7 @@
 import {MongoClient} from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
-const connectionURI = process.env.DB_URI //
+const connectionURI = process.env.MONGODB_URI ? process.env.MONGODB_URI : process.env.DB_URI //
 const dbName = process.env.DB_NAME //"DI_dev"
 let _db;
 

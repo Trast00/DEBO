@@ -26,6 +26,7 @@ const getIndustryTypeByName = (req, res, next) => {
 }
 
 const postIndustryType = (req, res, next) => {
+  console.log("Post Industry Type")
   const { name, description } = req.body
   const industryType = new IndustryType({ name: name, description: description })
   industryType.save()
