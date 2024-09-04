@@ -1,9 +1,9 @@
 import express from 'express';
 import { getModeratorByCredentials } from '../controllers/adminController.js';
-// import .env require
 import dotenv from 'dotenv';
 import { fetchAllIndustryTypes } from '../controllers/industryTypesController.js';
 import Country from '../models/country.js';
+console.log("Start Admin Routing")
 dotenv.config();
 
 const router = express.Router();

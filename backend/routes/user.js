@@ -1,6 +1,7 @@
 import express from 'express'
 import { getPremuimEmails, getUser, listPremuimUsers, postPremuimEmail, postUser } from '../controllers/usersController.js';
 import { dbLoaded } from '../utils/database.js';
+console.log("Start User Routing")
 const router = express.Router();
 
 if(dbLoaded && listPremuimUsers.length === 0) {

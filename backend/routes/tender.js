@@ -1,6 +1,6 @@
 import express from 'express';
 import { postTender, getTenders, getTenderById, updateTender, deleteTender, searchTender } from '../controllers/tendersController.js';
-
+console.log("Start Tender Routing")
 const router = express.Router();
 
 router.get('/tenders', getTenders);

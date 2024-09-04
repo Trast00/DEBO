@@ -3,6 +3,7 @@ import { auth } from 'express-openid-connect'
 import { getUserData } from '../controllers/usersController.js';
 import dotenv from 'dotenv';
 /* To get access to enviroment variable */
+console.log("Start Auth Routing")
 dotenv.config();
 
 const config = {

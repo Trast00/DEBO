@@ -9,8 +9,8 @@ export let dbLoaded = false
 const mongoConnect = (callback) => {
     // check if env variables are set
     if(!connectionURI || !dbName) {
-        console.log("Connection URI or dbName not set")
-        return
+      console.log("Connection URI or dbName not set")
+      return
     }
     
     MongoClient.connect(connectionURI).then(client => {

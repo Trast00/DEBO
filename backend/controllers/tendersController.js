@@ -71,6 +71,7 @@ export const deleteTender = (req, res, next) => {
 }
 
 export const searchTender = (req, res, next) => {
+  console.log("Search Tender Controller")
   Tender.search(req.body)
     .then(tenders => {
       console.log(listPremuimUsers)
