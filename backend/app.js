@@ -20,7 +20,25 @@ console.log("Start Routing")
 
 
 const app = express();
-app.use(cors())
+
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const allowedOrigins = [
+  frontendUrl,
+  'https://deboinfo.netlify.app', // Production URL
+  /\.--deboinfo\.netlify\.app$/ // Regex to allow all Netlify deploy previews
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.some(pattern => typeof pattern === 'string' ? pattern === origin : pattern.test(origin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,6 +66,12 @@ app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
+
+app.use("/", (req, res) => {
+  console.log("Redirecting to dev url")
+
+  res.render('dev-auth', { devurl: process.env.DEV_URL, email: "email"});
+})
 
 mongoConnect(() => {
   console.log("App connected to dicko.dev")
