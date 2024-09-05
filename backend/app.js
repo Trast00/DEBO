@@ -11,6 +11,8 @@ import adminRoutes from './routes/admin.js';
 import industryTypeRoute from './routes/industryTypes.js';
 import { mongoConnect } from './utils/database.js';
 import session from 'express-session';
+import connectRedis from 'connect-redis';
+import redis from 'redis';
 import dotenv from 'dotenv';
 import cors from 'cors'
 import { getPremuimEmails, listPremuimUsers } from './controllers/usersController.js';
@@ -55,6 +57,8 @@ app.use(express.static(path.join(__dirname, 'public')))
   cookie: { secure: process.env.DEV === "dev" } // Mettez `secure` à true en production si vous utilisez HTTPS
 }));*/
 
+const RedisStore = connectRedis(session);
+const redisClient = redis.createClient();
 //-momery unleaked--------- PROD
 app.set('trust proxy', 1);
 
@@ -64,7 +68,7 @@ app.use(session({
       secure: true,
       maxAge:60000
         },
-  store: new RedisStore(),
+  store: new RedisStore({ client: redisClient }),
   secret: 'secret',
   saveUninitialized: true,
   resave: false
@@ -72,7 +76,7 @@ app.use(session({
 
 app.use(function(req,res,next){
 if(!req.session){
-    return next(new Error('Oh no')) //handle error
+    return next(new Error('Oh no in req.session')) //handle error
 }
 next() //otherwise continue
 });
