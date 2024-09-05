@@ -46,12 +46,36 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(session({
+
+// dev env
+/*app.use(session({
   secret: process.env.SESSION_SECRET, // Utilisez un secret unique pour votre application
   resave: false,
   saveUninitialized: true,
   cookie: { secure: process.env.DEV === "dev" } // Mettez `secure` à true en production si vous utilisez HTTPS
+}));*/
+
+//-momery unleaked--------- PROD
+app.set('trust proxy', 1);
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  cookie:{
+      secure: true,
+      maxAge:60000
+        },
+  store: new RedisStore(),
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: false
 }));
+
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
 
 //app.use(AuthRoutes)
 
