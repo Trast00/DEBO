@@ -17,9 +17,11 @@ import { getPremuimEmails, listPremuimUsers } from './controllers/usersControlle
 
 dotenv.config();
 
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3006';
+const backendUrl = process.env.BASEURL || 'http://localhost:3000';
 const app = express();
 const allowedOrigins = [
+  backendUrl,
   frontendUrl,
   'https://deboinfo.netlify.app', // Production URL
   /\.--deboinfo\.netlify\.app$/ // Regex to allow all Netlify deploy previews
