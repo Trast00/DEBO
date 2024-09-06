@@ -15,7 +15,15 @@ class Tender {
       this.buyer = buyer
       this.pdfUrl = pdfUrl
       this.tags = tags
-      this.budget = budget
+      if (budget && typeof budget === 'object' && budget.value && budget.currency) {
+        this.budget = budget
+      } else {
+        this.budget = {
+          value: -1,
+          currency: ""
+        }
+      }
+
     }
 
     save(id) {
@@ -24,14 +32,14 @@ class Tender {
       // if id is provided, update the tender
       if (id && typeof id == "string") {
         return db.collection('tenders').updateOne({_id: new mongodb.ObjectId(id)}, {$set: this}).then().catch(err => { 
-          console.log(err)
+          res.status(500).send(err)
         })
       }
       // if id is not provided, create a new tender
       return db.collection('tenders').insertOne(this).then(result => {
         return result
       }).catch(err => { 
-        console.log(err)
+        res.status(500).send(err)
       })
     }
 
@@ -40,7 +48,7 @@ class Tender {
         return db.collection('tenders').find().toArray().then(tenders => {
             return tenders
         }).catch(err => {
-            console.log(err)
+            res.status(500).send(err)
         })
     }
 
@@ -53,7 +61,7 @@ class Tender {
         return tender
       }
       ).catch(err => {
-        console.log(err)
+        res.status(500).send(err)
       })
     }
 
@@ -63,7 +71,7 @@ class Tender {
       return db.collection('tenders').deleteOne({
         _id: new mongodb.ObjectId(id)
       }).then().catch(err => {
-        console.log(err)
+        res.status(500).send(err)
       })
     }
 
@@ -82,7 +90,7 @@ class Tender {
       }).toArray().then(tenders => {
         return tenders
       }).catch(err => {
-        console.log(err)
+        res.status(500).send(err)
       })
     }
 
@@ -148,7 +156,6 @@ class Tender {
         && typeof marketTypes.expired == "boolean"
         && marketTypes.expired == true
         && marketTypes.ongoing == false) {
-          console.log("try to show expired")
           //show tender with expired date greater than today
           query["dates.expire"] = { $lt:  (new Date).toISOString()}
       }
@@ -157,7 +164,6 @@ class Tender {
         && typeof marketTypes.ongoing == "boolean"
         && marketTypes.expired == false
         && marketTypes.ongoing == true) {
-          console.log("try to show ongoing")
           //show tender with expired date greater than today
           query["dates.expire"] = { $gt: (new Date).toISOString() }
       }
@@ -177,13 +183,10 @@ class Tender {
 
       //query order by recent creation date
 
-
-      
-
       return db.collection('tenders').find(query).sort({ 'dates.publish': -1 }).toArray().then(tenders => {
         return tenders
       }).catch(err => {
-        console.log(err)
+        res.status(500).send(err)
       })
       
     }

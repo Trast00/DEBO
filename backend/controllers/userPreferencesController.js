@@ -2,9 +2,7 @@ import Tender from "../models/tender.js"
 import User from "../models/user.js"
 
 export const updateHiddenTenderById = (req, res) => {
-  console.log("start Hidding user")
   const { userUuid, tenderId, isTenderHidden } = req.body
-  console.log("User UUID:", req.body)
   User.getByUuid(userUuid).then(user => {
     if (!user) {
       res.json(user)
@@ -56,7 +54,6 @@ export const getSavedTendersByUuid = (req, res) => {
       return
     }
     const savedTenderIds = Object.keys(user.preference.savedTender).filter(tenderKey => user.preference.savedTender[tenderKey])
-    console.log("saved ids: ",savedTenderIds)
     return Tender.getTendersByIds(savedTenderIds)
   }).then(tenders => {
     res.json(tenders)

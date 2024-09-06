@@ -3,7 +3,8 @@ import './search-tender.css'
 import { redirect, useLocation } from 'react-router-dom'
 
 const SearchTender = (props) => {
-  const { showSearchResult, userUuid } = props
+  const serverUrl = process.env.REACT_APP_SERVER_URL
+  const { showSearchResult, userUuid, email } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
   const [selectedActivities, setSelectedActivities] = useState([])
@@ -21,8 +22,6 @@ const SearchTender = (props) => {
   // request to server one time
   useEffect(() => {
     // Fetch industry types if activities list is empty
-    console.log("useEffect is called, search Default condition is ", listActivities.length > 0 && listCountries.length > 0 && Boolean(defaultSearchedKeyword))
-    console.log("useEffect is called, search normal condition is ", listActivities.length > 0 && listCountries.length > 0 )
     if (listActivities.length === 0) {
       getIndustryTypes();
       return; // Exit effect to avoid further checks until re-invocation
@@ -43,20 +42,14 @@ const SearchTender = (props) => {
       } else if (listActivities.length > 0 && listCountries.length > 0) {
       getSearchPreferences();
       searchTender([], [], [], []);
-      console.log("searching default is NOT invoked")
     }
   }, [listActivities.length, listCountries.length, defaultSearchedKeyword]);
 
   const searchDefault = (countries, activities) => {
-    console.log("Countries in searchDefault:", countries)
     // checked all countries
     setSelectedCountries([...countries])
     setSelectedActivities([...activities])
     setSelectedMarketTypes(['Marché en expire', 'Marché en cours', 'Marché en entreprise', 'Marché en bureau'])
-    console.log("Keyword is a country:", selectedCountries.includes(defaultSearchedKeyword))
-    console.log("Keyword is a country:", defaultSearchedKeyword, ' is not in ', selectedCountries)
-    console.log("Keyword is an activity:", selectedActivities.includes(defaultSearchedKeyword))
-    console.log("Keyword is a market type:", selectedMarketTypes.includes(defaultSearchedKeyword))
     let searchQuery = [[], [], [], []]
     let keywordNotFound = true
     if (countries.includes(defaultSearchedKeyword)) {
@@ -81,29 +74,26 @@ const SearchTender = (props) => {
     searchTender(...searchQuery, false)
   }
   const getIndustryTypes = () => {
-    fetch('http://localhost:3000/industryTypes')
+    fetch(`${serverUrl}/industryTypes`)
     .then(response => {
       if (!response.ok) {
-        console.log("unauthorized")
         throw Error('Unauthorized')
       }
       return response.json(); // Add return statement here
     }).then(data => {
       setListActivities(data)
-      console.log("listActivities", listActivities)
     }).catch(error => {
-      console.log(error)
       if (error.message === 'Unauthorized') {
         redirect('/NotAllowed')
       }
+      throw new Error(error)
     })
   }
 
   const getListCountries = () => {
-    fetch('http://localhost:3000/countries')
+    fetch(`${serverUrl}/countries`)
       .then(response => response.json())
       .then(data => {
-        console.log("Getted Countries", data)
         setListCountries(data)
       })
   }
@@ -111,7 +101,6 @@ const SearchTender = (props) => {
   const getSearchPreferences = () => {
     if (!localStorage.getItem('searchPreferences')) return
     const preferences = JSON.parse(localStorage.getItem('searchPreferences'))
-    console.log("get search preferences", preferences.industryTypes)
     preferences.industryTypes && setSelectedActivities([...preferences.industryTypes])
     preferences.countries && setSelectedCountries([...preferences.countries])
     preferences.marketTypes && setSelectedMarketTypes([...preferences.marketTypes])
@@ -171,13 +160,14 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch('http://localhost:3000/tenders/search', {
+    fetch(`${serverUrl}/tenders/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         userUuid: userUuid,
+        email: email,
         countries,
         industryTypes,
         marketTypes: {
@@ -190,23 +180,19 @@ const SearchTender = (props) => {
       })
     }).then(response => {
       if (!response.ok) {
-        console.log("unauthorized")
         throw Error('Unauthorized')
       }
-      //console.log("searchResult", response.json())
       return response.json(); // Add return statement here
     }).then(data => {
-      console.log("Search result", data)
       showSearchResult(data)
     }).catch(error => {
-      console.log(error)
       if (error.message === 'Unauthorized') {
         redirect('/NotAllowed')
       }
+      throw new Error(error)
     })
 
     if (shouldUpdatePreference) {
-      console.log("updating search preference")
       const searchPreference = {
         countries,
         industryTypes,
@@ -223,22 +209,19 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch(`http://localhost:3000/users/${userUuid}/preferences/tenders/saved`)
+    fetch(`${serverUrl}/users/${userUuid}/preferences/tenders/saved`)
     .then(response => {
       if (!response.ok) {
-        console.log("unauthorized")
         throw Error('Unauthorized')
       }
-      //console.log("searchResult", response.json())
       return response.json(); // Add return statement here
     }).then(data => {
-      console.log("Search result", data)
       showSearchResult(data)
     }).catch(error => {
-      console.log(error)
       if (error.message === 'Unauthorized') {
         redirect('/NotAllowed')
       }
+      throw new Error(error)
     })
 
     setSearching(false)

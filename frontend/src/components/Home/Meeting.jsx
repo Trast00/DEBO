@@ -2,6 +2,7 @@ import React from 'react'
 import './meeting.css'
 
 const Meeting = () => {
+  const calendyUrl = process.env.REACT_APP_CALENDY_URL
   return (
     <div className='about meeting'>
       <div class="sections">
@@ -29,7 +30,7 @@ const Meeting = () => {
             <br/>
             Il suffit de cliquer sur le bouton ci-dessous pour planifier une reunion de 15-minute celon votre disponibilité
           </p>
-          <a href='https://calendly.com/dickoallassane-dev' class="button-default">Organiser une reunion de 15-minute</a>
+          <a href={calendyUrl} class="button-default">Organiser une reunion de 15-minute</a>
         </div>
       </div>
     </div>

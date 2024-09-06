@@ -29,9 +29,6 @@ const Hero = ({listActivities, listCountries}) => {
     let finalKeyword = findPartialMatch(listCountries, keyword) || 
                        findPartialMatch(listActivities, keyword) || 
                        keyword;
-
-    console.log("Final keyword to navigate with:", finalKeyword);
-
     // Navigate to the tender page with the possibly updated keyword
     navigate(`/tenders?keyword=${encodeURIComponent(finalKeyword)}`);
 };

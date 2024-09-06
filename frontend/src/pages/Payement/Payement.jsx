@@ -3,6 +3,7 @@ import './payement.css'
 import Footer from '../../components/Footer/Footer';
 
 const Payement = () => {
+  const formSpreeUrl = process.env.REACT_APP_FORM_SPREE_URL
   // write the code so that the user can choose a subscription plan and fill in their information
   const [step, setStep] = useState(1)
   const subscriptionPlans = [
@@ -203,7 +204,7 @@ const Payement = () => {
               <div className="row">
                 <div className="col-lg-9">
                   <div className="wow fadeInUp" data-wow-delay="0.3s">
-                    <form action="https://formspree.io/f/xzblkrvw" method="POST" 
+                    <form action={formSpreeUrl} method="POST" 
                     >
                       <div className="row g-3">
                       <div className="col-md-6">

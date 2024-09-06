@@ -24,7 +24,6 @@ const Tenders = ({user}) => {
 
   const showTenders = (resultTenders, order) => {
     setCurrentPage(1)
-    console.log('All resulted tender:', resultTenders)
     const searchOrder = order || 'viewed'
     setListAllTender(resultTenders)
     
@@ -36,17 +35,14 @@ const Tenders = ({user}) => {
     if (!canSeeHiddenTender) {
       tenders = resultTenders.filter(tender => !user.preference.hiddenTender[tender._id])
     }
-    console.log("tender not hidden:", tenders)
     // split the list between hidden and saved tenders
     setListTenderHidden(resultTenders.filter(tender => user.preference.hiddenTender[tender._id]))
-    console.log("tender hidden:", listTenderHidden)
     setListTenderSaved(tenders.filter(tender => user.preference.savedTender[tender._id]))
     // sort the list by non viewed tender first
     if (searchOrder === 'viewed') {
       setListTender(tenders.sort((a, b) => {
         return user.preference.viewedTender[a._id] - user.preference.viewedTender[b._id]
       }))
-      console.log('order is viewed and Tenders:', listTender)
     }
 
     if (searchOrder === 'budget') {
@@ -63,7 +59,6 @@ const Tenders = ({user}) => {
         return a.dates.expire - b.dates.expire
       }))
     }
-    console.log('Tenders:', listTender)
   }
 
   const[popupMessage, setPopupMessage] = useState('')
@@ -116,7 +111,8 @@ const Tenders = ({user}) => {
       <SearchTender showSearchResult={result=> {
         setCanSeeHiddenTender(false)
         showTenders(result)
-        }} isLoading={!user} userUuid={user?.uuid} isPremuim={user?.isPremuim} /> 
+        }} isLoading={!user} userUuid={user?.uuid}
+        email={user?.email} isPremuim={user?.isPremuim} /> 
       <section className="tenders-result tender-section mt-2">
         <div className='tender-result-header'>
           <div>

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DeboInfo Server Dashbord</title>
   <link rel="stylesheet" href="/css/style.css">
@@ -37,15 +39,9 @@
     <form method="POST" action="/tenders">
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
-        <option value="">Select a Country</option>
-        <option value="Bénin">Bénin</option>
-        <option value="Burkina-Faso">Burkina Faso</option>
-        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="Guinée-Bissau">Guinée-Bissau</option>
-        <option value="Mali">Mali</option>
-        <option value="Niger">Niger</option>
-        <option value="Sénégal">Sénégal</option>
-        <option value="Togo">Togo</option>
+        <% listCountries.forEach(function(industry) { %>
+          <option value="<%= industry.name %>"><%= industry.name %></option>
+      <% }); %>
       </select>
       <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
@@ -58,8 +54,8 @@
       <input type="text" name="buyer" placeholder="Buyer" required>
       <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
       <input type="text" name="tags" placeholder="tag1,tag2 (separer par une ,) (ex: tag1,tag2)" required>
-      <input type="number" name="budget" placeholder="Budget" required min="1" step="0.01">
-      <input type="text" name="currency" placeholder="Budget currency" required>
+      <input type="number" name="budget" placeholder="Budget" min="1" step="0.01">
+      <input type="text" name="currency" placeholder="Budget currency" >
       <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
 
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -116,8 +112,8 @@
       <input type="text" name="buyer" placeholder="Buyer" required>
       <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
       <input type="text" name="tags" placeholder="Tags" required>
-      <input type="number" name="budget" placeholder="Budget" required min="1" step="0.01">
-      <input type="text" name="currency" placeholder="Budget currency" required>
+      <input type="number" name="budget" placeholder="Budget" min="1" step="0.01">
+      <input type="text" name="currency" placeholder="Budget currency">
       <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -227,11 +223,9 @@
       if (!isDataCorrect) return;
       updateDataFormat(data)
       const actionUrl = updateDataAction(action, data);
-      console.log(actionUrl);
 
       let result = "Error"
       let isSuccess = false;
-      console.log('form method:', method);
       if (method === 'GET') {
         const response = await fetch(actionUrl);
         isSuccess = (response.status >= 200 && response.status < 400)

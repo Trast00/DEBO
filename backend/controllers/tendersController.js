@@ -1,29 +1,5 @@
-/**
- * create me tender controller using this
- * Tender {
-  uuid: string
-  title: string
-  description: string
-  country: string
-  industryType: string
-  dates: {
-    publish: string
-    expire: string
-  }
-  buyer: {
-    uuid: string
-    name: string
-    email: string
-  }
-  pdfUrl: string
-  tags: Arrays<string>[]
-  budget: {
-    value: number
-    currency: string
-  }
-}
- */
 import Tender from '../models/tender.js'
+import { listPremuimUsers } from './usersController.js'
 
 export const postTender = (req, res, next) => {
   const tender = new Tender({
@@ -40,28 +16,25 @@ export const postTender = (req, res, next) => {
   
   tender.save()
     .then(result => {
-      console.log("tender created:",result)
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
 
 export const getTenders = (req, res, next) => {
   Tender.fetchAll()
     .then(tenders => {
-      console.log("Get tender:", tenders)
       res.json(tenders)
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
 
 export const getTenderById = (req, res, next) => {
   Tender.fetchById(req.params.id)
     .then(tender => {
-      console.log("Get tender:", tender)
       res.json(tender)
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
 
 export const updateTender = (req, res, next) => {
@@ -81,10 +54,9 @@ export const updateTender = (req, res, next) => {
   })
   tender.save(req.params.id)
     .then(result => {
-      console.log("tender updated:",result)
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
 
 export const deleteTender = (req, res, next) => {
@@ -93,23 +65,29 @@ export const deleteTender = (req, res, next) => {
   }
   Tender.deleteById(req.params.id)
     .then(result => {
-      console.log("tender deleted:",result)
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
 
 export const searchTender = (req, res, next) => {
+  console.log("Search Tender Controller")
   Tender.search(req.body)
     .then(tenders => {
-      if (req.body.userUuid) {
+      console.log(listPremuimUsers)
+      const isPremuim = (listPremuimUsers.filter(user => user.email === req.body.email)).length > 0
+      console.log("email:", req.body.email)
+
+      if (isPremuim) {
+        console.log("searchTender: user is premium")
         res.json(tenders)
       } else {
+        console.log("searchTender: user is not premium")
         //tender without description, fileUrl, and buyer info for non authenticated user
         const guestTenders = tenders.map(tender => {
           return {
             _id: tender._id,
-            title: tender.title,
+            title: "[offre cahée]",
             country: tender.country,
             industryType: tender.industryType,
             dates: tender.dates,
@@ -120,5 +98,5 @@ export const searchTender = (req, res, next) => {
         res.json(guestTenders)
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {res.status(500).send(err)})
 }
