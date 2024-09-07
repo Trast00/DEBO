@@ -19,13 +19,12 @@ const App = () => {
   const [userData, setUserData] = useState(null);
   const { isAuthenticated, isLoading, user } = useAuth0();
   // get server url from .env file
-  const serverUrl = process.env.REACT_APP_SERVER_URL
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       //make sure a call is done once
       const uuid = user.sub.split("|")[1]
-      fetch(`${serverUrl}/users/${uuid}`).then(res => {
+      fetch(`/users/${uuid}`).then(res => {
         return res.json()
       }).then(data => {
         // user is found
@@ -33,7 +32,7 @@ const App = () => {
           setUserData(data)
         } else {
           // user is not found, so create it
-          fetch(`${serverUrl}/users`, {
+          fetch(`/users`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -49,7 +48,7 @@ const App = () => {
         }
       })
     }
-  }, [isAuthenticated, isLoading, serverUrl, user])
+  }, [isAuthenticated, isLoading, user])
 
   const refreshApp = () => {
     window.location.href = '/'

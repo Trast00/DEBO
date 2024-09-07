@@ -3,7 +3,6 @@ import './search-tender.css'
 import { redirect, useLocation } from 'react-router-dom'
 
 const SearchTender = (props) => {
-  const serverUrl = process.env.REACT_APP_SERVER_URL
   const { showSearchResult, userUuid, email } = props
   const [listActivities, setListActivities] = useState([])
   const [searchText, setSearchText] = useState('')
@@ -74,7 +73,7 @@ const SearchTender = (props) => {
     searchTender(...searchQuery, false)
   }
   const getIndustryTypes = () => {
-    fetch(`${serverUrl}/industryTypes`)
+    fetch(`/industryTypes`)
     .then(response => {
       if (!response.ok) {
         throw Error('Unauthorized')
@@ -91,7 +90,7 @@ const SearchTender = (props) => {
   }
 
   const getListCountries = () => {
-    fetch(`${serverUrl}/countries`)
+    fetch(`/countries`)
       .then(response => response.json())
       .then(data => {
         setListCountries(data)
@@ -160,7 +159,7 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch(`${serverUrl}/tenders/search`, {
+    fetch(`/tenders/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -209,7 +208,7 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch(`${serverUrl}/users/${userUuid}/preferences/tenders/saved`)
+    fetch(`/users/${userUuid}/preferences/tenders/saved`)
     .then(response => {
       if (!response.ok) {
         throw Error('Unauthorized')

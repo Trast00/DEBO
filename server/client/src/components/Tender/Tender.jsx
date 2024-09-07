@@ -19,11 +19,10 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
 
   const [isHiddenTender, setIsHiddenTender] = React.useState(isHidden)
   const [isSavedTender, setIsSavedTender] = React.useState(isSaved)
-  const serverUrl = process.env.REACT_APP_SERVER_URL
 
   const handleHide = (value) => {
     setIsHiddenTender(value)
-    fetch(`${serverUrl}/users/${userUuid}/preferences/tenders/hidden`, {
+    fetch(`/users/${userUuid}/preferences/tenders/hidden`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
