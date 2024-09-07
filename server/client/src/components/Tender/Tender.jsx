@@ -41,7 +41,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
 
   const handleSave = (value) => {
     setIsSavedTender(value)
-    fetch(`${serverUrl}/users/${userUuid}/preferences/tenders/saved`, {
+    fetch(`/users/${userUuid}/preferences/tenders/saved`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
