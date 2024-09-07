@@ -47,6 +47,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '/client/build')))
 
 app.use(session({
   secret: process.env.SESSION_SECRET, // Utilisez un secret unique pour votre application
@@ -65,16 +66,16 @@ app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
-app.use("/", (req, res) => {
-  console.log("Redirecting to dev url")
 
-  res.render('dev-auth', { devurl: process.env.DEV_URL, email: "email"});
+app.use("*", (req, res, next) => {
+  console.log('Try to render the server')
+  res.sendFile(path.join(__dirname, '/client/build/index.html'))
 })
 
 mongoConnect(() => {
   getPremuimEmails().then(data => {
     const list = data.filter(user => new Date(user.premuimEndDate) > new Date )
-    console.log(list)
+    //console.log(list)
     listPremuimUsers.push(...list)
   })
   .catch(err => {
