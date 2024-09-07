@@ -6,16 +6,21 @@
 .about.meeting .img-container {
   justify-content: center;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .about.meeting .sections .img-container img {
-  width: 100%;
+  bottom: -50px;
+  position: absolute;
   height: 60px;
   max-width: 600px;
-  position: absolute;
-  bottom: -50px;
-  left: auto;
-  right: 0;
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.about .sections .content {
+  min-width: 350px;
 }
 
 .about.meeting .content p {
@@ -24,5 +29,4 @@
 
 .about.meeting .content a {
   padding: 12px 36px;
-  font-size: 1.4rem;
 }
