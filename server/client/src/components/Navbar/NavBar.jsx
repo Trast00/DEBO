@@ -12,7 +12,7 @@ const NavBar = ({userData}) => {
       <header>
         <NavLink to="/" className="logo d-flex">
           <img src="/images/logowhite_2.png" alt="logo white" />
-          <h1>Debo Info</h1>
+          <h1>Debo Service</h1>
         </NavLink>
         <div className="nav-menu">
           {!isOpen? (<button className="btn-menu show-menu" onClick={()=> setIsOpen(true)}>☰</button>)
