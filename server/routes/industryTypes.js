@@ -3,13 +3,13 @@ import {getIndustryTypes, getIndustryTypeByName, postIndustryType, deleteIndustr
 console.log("Start Industry Type Routing")
 const router = express.Router();
 
-router.get('/industryTypes', getIndustryTypes);
-router.get('/countries', getIndustryTypes);
+router.get('/api/industryTypes', getIndustryTypes);
+router.get('/api/countries', getIndustryTypes);
 
-router.get('/industryTypes/:name', getIndustryTypeByName);
+router.get('/api/industryTypes/:name', getIndustryTypeByName);
 
-router.post('/industryTypes', postIndustryType);
+router.post('/api/industryTypes', postIndustryType);
 
-router.delete('/industryTypes', deleteIndustryType);
+router.delete('/api/industryTypes', deleteIndustryType);
 
 export default router

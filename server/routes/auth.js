@@ -21,7 +21,7 @@ const router = express.Router();
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 router.use(auth(config));
 
-router.use('/', (req, res, next) => {
+router.use('/api/', (req, res, next) => {
   // if user not authenticated, return 401
   if (!req.oidc || !req.oidc.isAuthenticated()) {
     res.status(401).send('Unauthorized')

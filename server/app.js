@@ -23,6 +23,8 @@ const app = express();
 const allowedOrigins = [
   backendUrl,
   frontendUrl,
+  'https://www.deboinfo.com/',
+  'https://deboinfo.com/',
   'https://deboinfo.netlify.app', // Production URL
   /\.--deboinfo\.netlify\.app$/ // Regex to allow all Netlify deploy previews
 ];
@@ -58,8 +60,8 @@ app.use(session({
 
 //app.use(AuthRoutes)
 
-app.get('/industryTypes', industryTypeRoute)
-app.get('/tenders', tenderRoutes)
+app.get('/api/industryTypes', industryTypeRoute)
+app.get('/api/tenders', tenderRoutes)
 app.use(adminRoutes)
 app.use(countryRoutes)
 app.use(industryTypeRoute)

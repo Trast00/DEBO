@@ -9,10 +9,10 @@ if(dbLoaded && listPremuimUsers.length === 0) {
 
 }
 
-router.get('/users/premuims', getPremuimEmails);
-router.post('/users/premuims', postPremuimEmail);
+router.get('/api/users/premuims', getPremuimEmails);
+router.post('/api/users/premuims', postPremuimEmail);
 
-router.get('/users/:uuid', getUser);
-router.post('/users', postUser);
+router.get('/api/users/:uuid', getUser);
+router.post('/api/users', postUser);
 
 export default router

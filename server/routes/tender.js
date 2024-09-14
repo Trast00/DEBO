@@ -3,12 +3,12 @@ import { postTender, getTenders, getTenderById, updateTender, deleteTender, sear
 console.log("Start Tender Routing")
 const router = express.Router();
 
-router.get('/tenders', getTenders);
-router.post('/tenders/search', searchTender);
-router.post('/tenders', postTender);
-router.get('/tenders/:id', getTenderById);
-router.put('/tenders/:id', updateTender);
-router.delete('/tenders/:id', deleteTender);
+router.get('/api/tenders', getTenders);
+router.post('/api/tenders/search', searchTender);
+router.post('/api/tenders', postTender);
+router.get('/api/tenders/:id', getTenderById);
+router.put('/api/tenders/:id', updateTender);
+router.delete('/api/tenders/:id', deleteTender);
 
 
 export default router

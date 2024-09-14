@@ -11,7 +11,7 @@ const devurl = process.env.DEV_URL;
 
 
 //dashboard
-router.get(`${devurl}/dashboard`, (req, res, next) => {
+router.get(`/api/${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
   if (!req.session.moderator?.email) {
     res.redirect(devurl)
