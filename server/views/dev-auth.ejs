@@ -23,11 +23,11 @@
     </form>
     <% } else { %>
     <p>Vous êtes connecter: <%= email %> </p>
-    <a href=<%= `${devurl}/dashboard` %>>Go to dashboard</a>
+    <a href=<%= `/api${devurl}/dashboard` %>>Go to dashboard</a>
     <% } %>
   
     <br/><br/>
-    <a href=<%= `${devurl}/dashboard` %>>Go to dashboard</a>
+    <a href=<%= `/api${devurl}/dashboard` %>>Go to dashboard</a>
   </div>
   <script>
     // send request in json format
