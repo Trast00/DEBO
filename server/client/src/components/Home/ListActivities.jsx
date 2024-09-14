@@ -4,7 +4,7 @@ import './activities.css'
 const ListActivities = ({onGetData}) => {
   const [listActivities, setListActivities] = React.useState([])
   useEffect(() => {
-    fetch(`/industryTypes`)
+    fetch(`/api/industryTypes`)
       .then(response => response.json())
       .then(data => {
         setListActivities(data)

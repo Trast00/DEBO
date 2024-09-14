@@ -31,7 +31,7 @@ const App = () => {
     if (!isLoading && isAuthenticated) {
       //make sure a call is done once
       const uuid = user.sub.split("|")[1]
-      fetch(`/users/${uuid}`).then(res => {
+      fetch(`/api/users/${uuid}`).then(res => {
         return res.json()
       }).then(data => {
         // user is found
@@ -39,7 +39,7 @@ const App = () => {
           setUserData(data)
         } else {
           // user is not found, so create it
-          fetch(`/users`, {
+          fetch(`/api/users`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

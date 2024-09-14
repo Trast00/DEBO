@@ -73,7 +73,7 @@ const SearchTender = (props) => {
     searchTender(...searchQuery, false)
   }
   const getIndustryTypes = () => {
-    fetch(`/industryTypes`)
+    fetch(`/api/industryTypes`)
     .then(response => {
       if (!response.ok) {
         throw Error('Unauthorized')
@@ -90,7 +90,7 @@ const SearchTender = (props) => {
   }
 
   const getListCountries = () => {
-    fetch(`/countries`)
+    fetch(`/api/countries`)
       .then(response => response.json())
       .then(data => {
         setListCountries(data)
@@ -159,7 +159,7 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch(`/tenders/search`, {
+    fetch(`/api/tenders/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -208,7 +208,7 @@ const SearchTender = (props) => {
     //send a search query
     setSearching(true)
 
-    fetch(`/users/${userUuid}/preferences/tenders/saved`)
+    fetch(`/api/users/${userUuid}/preferences/tenders/saved`)
     .then(response => {
       if (!response.ok) {
         throw Error('Unauthorized')

@@ -4,7 +4,7 @@ import './countries.css'
 const ListCountries = ({onGetData}) => {
   const [coutries, setCountries] = React.useState([])
   useEffect(() => {
-    fetch(`/countries`)
+    fetch(`/api/countries`)
       .then(response => response.json())
       .then(data => {
         setCountries(data)

@@ -22,7 +22,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
 
   const handleHide = (value) => {
     setIsHiddenTender(value)
-    fetch(`/users/${userUuid}/preferences/tenders/hidden`, {
+    fetch(`/api/users/${userUuid}/preferences/tenders/hidden`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
 
   const handleSave = (value) => {
     setIsSavedTender(value)
-    fetch(`/users/${userUuid}/preferences/tenders/saved`, {
+    fetch(`/api/users/${userUuid}/preferences/tenders/saved`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
