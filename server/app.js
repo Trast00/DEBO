@@ -23,8 +23,9 @@ const app = express();
 const allowedOrigins = [
   backendUrl,
   frontendUrl,
-  'https://www.deboinfo.com/',
-  'https://deboinfo.com/',
+  'https://www.deboinfo.com',
+  'https://deboinfo.com',
+  'https://debo-sg3h.onrender.com',
   'https://deboinfo.netlify.app', // Production URL
   /\.--deboinfo\.netlify\.app$/ // Regex to allow all Netlify deploy previews
 ];

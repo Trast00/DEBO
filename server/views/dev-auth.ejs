@@ -15,7 +15,7 @@
     <h2>Login</h2>
     <% if (!email) { %>
     <p>Vous devez être connecter</p>
-    <form method="POST" action=<%= `${devurl}` %>>
+    <form method="POST" action=<%= `/api${devurl}` %>>
       <input type="text" name="email" placeholder="email@deboinfo.com">
       <input type="password" name="password" placeholder="Password">
       <input type="text" name="credential" placeholder="credential">

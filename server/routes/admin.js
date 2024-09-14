@@ -11,7 +11,7 @@ const devurl = process.env.DEV_URL;
 
 
 //dashboard
-router.get(`/api/${devurl}/dashboard`, (req, res, next) => {
+router.get(`/api${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
   if (!req.session.moderator?.email) {
     res.redirect(devurl)
@@ -27,7 +27,7 @@ router.get(`/api/${devurl}/dashboard`, (req, res, next) => {
   })
 });
 //login page
-router.get(devurl, (req, res, next) => {
+router.get(`/api${devurl}`, (req, res, next) => {
   //I don't want the code to continue after this render
   if (req.session.moderator) {
     const email = req.session.moderator?.email ? req.session.moderator.email : '';
@@ -38,7 +38,7 @@ router.get(devurl, (req, res, next) => {
   }
 });
 //logged in
-router.post(devurl, (req, res, next) => {
+router.post(`/api${devurl}`, (req, res, next) => {
   getModeratorByCredentials(req, res, next).then(moderator => {
     if (moderator && (moderator.role === 'moderator' || moderator.role === 'developer')) {
       req.session.moderator = moderator;
@@ -50,7 +50,7 @@ router.post(devurl, (req, res, next) => {
   })
 });
 
-router.use(devurl, (req, res, __) => {
+router.use(`/api${devurl}`, (req, res, __) => {
   res.render('dev-auth.ejs', { devurl: devurl, email: ''})
 });
 

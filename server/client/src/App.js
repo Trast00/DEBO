@@ -24,7 +24,7 @@ const App = () => {
   if (window.location.href.includes('.onrender')) {
     window
       .location
-      .replace(process.env.REACT_APP_FRONTEND_URL);
+      .replace("https://www.deboinfo.com");
   }
 
   useEffect(() => {
