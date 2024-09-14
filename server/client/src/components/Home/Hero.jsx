@@ -25,12 +25,19 @@ const Hero = ({listActivities, listCountries}) => {
     e.preventDefault();
     let keyword = e.target["hero-search-bar"].value;
 
-    // Use the new function to check both lists
-    let finalKeyword = findPartialMatch(listCountries, keyword) || 
-                       findPartialMatch(listActivities, keyword) || 
-                       keyword;
-    // Navigate to the tender page with the possibly updated keyword
-    navigate(`/tenders?keyword=${encodeURIComponent(finalKeyword)}`);
+    if (keyword === '') {
+      navigate(`/tenders`);
+      return;
+    } else {
+
+      // Use the new function to check both lists
+      let finalKeyword = findPartialMatch(listCountries, keyword) || 
+                         findPartialMatch(listActivities, keyword) || 
+                         keyword;
+      // Navigate to the tender page with the possibly updated keyword
+      navigate(`/tenders?keyword=${encodeURIComponent(finalKeyword)}`);
+    }
+
 };
   return (
     <>

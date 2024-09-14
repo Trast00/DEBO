@@ -48,7 +48,7 @@ const SearchTender = (props) => {
     // checked all countries
     setSelectedCountries([...countries])
     setSelectedActivities([...activities])
-    setSelectedMarketTypes(['Marché en expire', 'Marché en cours', 'Marché en entreprise', 'Marché en bureau'])
+    setSelectedMarketTypes(['Marché en cours', 'Marché en entreprise', 'Marché en bureau'])
     let searchQuery = [[], [], [], []]
     let keywordNotFound = true
     if (countries.includes(defaultSearchedKeyword)) {
@@ -290,7 +290,7 @@ const SearchTender = (props) => {
             </div>
             <div class="d-flex">
               <input type="checkbox" id="company-tenders" name="company-tenders" value="Marché en entreprise" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en entreprise")}/>
-              <label htmlFor="company-tenders" class="ms-1">Marché d'entreprise</label>
+              <label htmlFor="company-tenders" class="ms-1">Marché de travaux</label>
             </div>
           </div>
           <div class="d-flex flex-column ms-4">
@@ -300,7 +300,7 @@ const SearchTender = (props) => {
             </div>
             <div class="d-flex">
               <input type="checkbox" id="office-tenders" name="office-tenders" value="Marché en bureau" onChange={(e) => updateSearchFilter(e, 'marketTypes')} checked={selectedMarketTypes && selectedMarketTypes.includes("Marché en bureau")}/>
-              <label htmlFor="office-tenders" class="ms-1">Marché de bureau</label>
+              <label htmlFor="office-tenders" class="ms-1">Prestation Intellectuelle</label>
             </div>
           </div>
         </div>

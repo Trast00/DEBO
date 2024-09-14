@@ -143,7 +143,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
           <button className="show button-default" onClick={_ => showModal(tender)}>Voir plus</button>
           <div>
               <button className="dowload-file modal-only button-default mb-2">Telecharger le document</button>
-              <button className="find-partner modal-only button-default mb-2">Trouver un partenaire pour cet offre</button>
+              <button className="find-partner modal-only button-default mb-2 d-none">Trouver un partenaire pour cet offre</button>
           </div>
           <div>
             <button className="save-data button-default-icon ml-1" onClick={_ => handleSave(!isSavedTender)}>
