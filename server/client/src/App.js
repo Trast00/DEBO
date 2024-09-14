@@ -21,11 +21,11 @@ const App = () => {
   // get server url from .env file
 
   // if base url contain .render then redirect to front end url from .env file
-  if (window.location.href.includes('.onrender')) {
+  /*if (window.location.href.includes('.onrender')) {
     window
       .location
       .replace("https://www.deboinfo.com");
-  }
+  }*/
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {

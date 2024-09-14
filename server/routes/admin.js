@@ -42,7 +42,7 @@ router.post(`/api${devurl}`, (req, res, next) => {
   getModeratorByCredentials(req, res, next).then(moderator => {
     if (moderator && (moderator.role === 'moderator' || moderator.role === 'developer')) {
       req.session.moderator = moderator;
-      res.redirect(302, `${devurl}/dashboard`);
+      res.redirect(302, `api${devurl}/dashboard`);
       return;
     } else {
       return res.status(401).send('Unauthorized');
