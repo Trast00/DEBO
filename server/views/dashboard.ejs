@@ -43,6 +43,11 @@
           <option value="<%= industry.name %>"><%= industry.name %></option>
         <% }); %>
       </select>
+      <select name="companyType" id="market-select" required>
+        <option value="">Select a type de marché</option>
+        <option value="company">Marché de travaux</option>
+        <option value="office">Prestation Intellectuelle</option>
+      </select>
       <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
         <% listIndustries.forEach(function(industry) { %>
@@ -100,6 +105,11 @@
         <% listIndustries.forEach(function(industry) { %>
             <option value="<%= industry.name %>"><%= industry.name %></option>
         <% }); %>
+      </select>
+            <select name="companyType" id="market-select" required>
+        <option value="">Select a type de marché</option>
+        <option value="company">Marché de travaux</option>
+        <option value="office">Prestation Intellectuelle</option>
       </select>
       <input type="date" name="datesPublish" placeholder="Publication Dates" required>
       <input type="date" name="datesExpiration" placeholder="Expiration Dates" required>

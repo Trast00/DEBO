@@ -51,6 +51,7 @@ export const updateTender = (req, res, next) => {
     pdfUrl: req.body.pdfUrl,
     tags: req.body.tags,
     budget: req.body.budget,
+    companyType: req.body.companyType
   })
   tender.save(req.params.id)
     .then(result => {

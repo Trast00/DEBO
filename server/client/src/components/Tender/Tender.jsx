@@ -11,7 +11,8 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
     tags,
     country,
     dates,
-    budget
+    budget,
+    pdfUrl,
   } = tender;
 
   //import redirect with auth
@@ -142,7 +143,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
           <>
           <button className="show button-default" onClick={_ => showModal(tender)}>Voir plus</button>
           <div>
-              <button className="dowload-file modal-only button-default mb-2">Telecharger le document</button>
+              <a href={pdfUrl} target="_blank" rel="noreferrer" className="dowload-file modal-only button-default mb-2">Telecharger le document</a>
               <button className="find-partner modal-only button-default mb-2 d-none">Trouver un partenaire pour cet offre</button>
           </div>
           <div>
