@@ -36,12 +36,12 @@
 
   <div class="dev-log-wrapper form-search-default">
     <h2>Post Tender</h2>
-    <form method="POST" action="/tenders">
+    <form method="POST" action="/api/tenders">
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
         <% listCountries.forEach(function(industry) { %>
           <option value="<%= industry.name %>"><%= industry.name %></option>
-      <% }); %>
+        <% }); %>
       </select>
       <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
@@ -51,12 +51,12 @@
       </select>
       <input type="date" name="datesPublish" placeholder="Publication Dates" required>
       <input type="date" name="datesExpiration" placeholder="Expiration Dates" required>
-      <input type="text" name="buyer" placeholder="Buyer" required>
+      <input type="text" name="buyer" placeholder="Buyer">
       <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
       <input type="text" name="tags" placeholder="tag1,tag2 (separer par une ,) (ex: tag1,tag2)" required>
       <input type="number" name="budget" placeholder="Budget" min="1" step="0.01">
       <input type="text" name="currency" placeholder="Budget currency" >
-      <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
+      <textarea type="text" name="description" placeholder="Description" minlength="10"></textarea>
 
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
@@ -66,7 +66,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">    
     <h2>Get Tender</h2>
-    <form method="GET" action="/tenders">
+    <form method="GET" action="/api/tenders">
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -76,7 +76,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Get Tender by Id</h2>
-    <form method="GET" action="/tenders/:id">
+    <form method="GET" action="/api/tenders/:id">
       <input type="text" name="id" placeholder="Id" required>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -87,19 +87,13 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Update Tender</h2>
-    <form method="PUT" action="/tenders/:id">
+    <form method="PUT" action="/api/tenders/:id">
       <input type="text" name="id" placeholder="id" required minlength="3">
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
-        <option value="">Select a Country</option>
-        <option value="Benin">Benin</option>
-        <option value="Burkina Faso">Burkina Faso</option>
-        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-        <option value="Guinea-Bissau">Guinea-Bissau</option>
-        <option value="Mali">Mali</option>
-        <option value="Niger">Niger</option>
-        <option value="Senegal">Senegal</option>
-        <option value="Togo">Togo</option>
+        <% listCountries.forEach(function(industry) { %>
+          <option value="<%= industry.name %>"><%= industry.name %></option>
+        <% }); %>
       </select>
       <select name="industryType" id="industry-select" required>
         <option value="">Select a industry type</option>
@@ -109,12 +103,12 @@
       </select>
       <input type="date" name="datesPublish" placeholder="Publication Dates" required>
       <input type="date" name="datesExpiration" placeholder="Expiration Dates" required>
-      <input type="text" name="buyer" placeholder="Buyer" required>
-      <input type="url" name="pdfUrl" placeholder="PdfUrl" required>
+      <input type="text" name="buyer" placeholder="Buyer">
+      <input type="url" name="pdfUrl" placeholder="PdfUrl">
       <input type="text" name="tags" placeholder="Tags" required>
       <input type="number" name="budget" placeholder="Budget" min="1" step="0.01">
       <input type="text" name="currency" placeholder="Budget currency">
-      <textarea type="text" name="description" placeholder="Description" required minlength="10"></textarea>
+      <textarea type="text" name="description" placeholder="Description" minlength="10"></textarea>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
@@ -124,7 +118,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Delete Tender</h2>
-    <form method="DELETE" action="/tenders/:id">
+    <form method="DELETE" action="/api/tenders/:id">
       <input type="text" name="id" placeholder="Id" required>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -140,7 +134,7 @@
   <% /* Add form for adding and getting and deleting IndustryType */ %>
   <div class="dev-log-wrapper form-search-default">
     <h2>Post IndustryType</h2>
-    <form method="POST" action="/industryTypes">
+    <form method="POST" action="/api/industryTypes">
       <input type="text" name="name" placeholder="IndustryType" required>
       <textarea type="text" name="description" placeholder="IndustryType description" required minlength="10"></textarea>
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -151,7 +145,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">    
     <h2>Get IndustryType</h2>
-    <form method="GET" action="/industryTypes">
+    <form method="GET" action="/api/industryTypes">
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -161,7 +155,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Get IndustryType by Name</h2>
-    <form method="GET" action="/industryTypes/:name">
+    <form method="GET" action="/api/industryTypes/:name">
       <input type="text" name="name" placeholder="name" required>
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
@@ -171,7 +165,7 @@
   </div>
   <div class="dev-log-wrapper form-search-default">
     <h2>Delete IndustryType By Name</h2>
-    <form method="DELETE" action="/industryTypes">
+    <form method="DELETE" action="/api/industryTypes">
       <input type="text" name="name" placeholder="Industry name" required>
       
       <input type="hidden" name="moderator-email" value=<%= email %>>
@@ -183,7 +177,7 @@
 
   <div class="dev-log-wrapper form-search-default">
     <h2>Get All Premuim Users</h2>
-    <form method="GET" action="/users/premuims">
+    <form method="GET" action="/api/users/premuims">
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -193,7 +187,7 @@
   <div class="dev-log-wrapper form-search-default">
     <h2>Add a Premuim Users</h2>
     <p>If the user already exist it will be updated</p>
-    <form method="POST" action="/users/premuims">
+    <form method="POST" action="/api/users/premuims">
       <input type="text" name="name" placeholder="name" required>
       <input type="email" name="email" placeholder="user email" required>
       <input type="date" name="premuimEndDate" placeholder="premuimEndDate" required>
@@ -297,6 +291,10 @@
       data.budget.currency = data.currency
     }
     if (data.tags) {
+      // if end by , remove it
+      if (data.tags.endsWith(',')) {
+        data.tags = data.tags.slice(0, -1)
+      }
       data.tags = data.tags.split(',').map(tag => tag.trim())
     }
   }
