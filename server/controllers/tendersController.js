@@ -11,7 +11,8 @@ export const postTender = (req, res, next) => {
     buyer: req.body.buyer,
     pdfUrl: req.body.pdfUrl,
     tags: req.body.tags,
-    budget: req.body.budget
+    budget: req.body.budget,
+    companyType: req.body.companyType
   })
   
   tender.save()
