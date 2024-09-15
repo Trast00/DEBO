@@ -183,8 +183,7 @@ class Tender {
       }
 
       //query order by recent creation date
-
-      return db.collection('tenders').find(query).sort({ 'dates.publish': -1 }).toArray().then(tenders => {
+      return db.collection('tenders').find(query).sort({ _id: -1 }).toArray().then(tenders => {
         return tenders
       }).catch(err => {
         res.status(500).send(err)

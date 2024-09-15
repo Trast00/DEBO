@@ -59,6 +59,9 @@ const Tenders = ({user}) => {
         return a.dates.expire - b.dates.expire
       }))
     }
+    if (searchOrder === 'last-added') {
+      setListTender(tenders)
+    }
   }
 
   const[popupMessage, setPopupMessage] = useState('')
