@@ -24,7 +24,7 @@ const Tenders = ({user}) => {
 
   const showTenders = (resultTenders, order) => {
     setCurrentPage(1)
-    const searchOrder = order || 'viewed'
+    const searchOrder = order || 'last added'
     setListAllTender(resultTenders)
     
     if (!user) {
