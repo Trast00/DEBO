@@ -68,7 +68,7 @@ const Tender = ({tender, isHidden=false, isSaved, userUuid, updateHiddenTenderBy
         </div>
         <h2 className="tender-title">
           <span className='w-[24px] h-[24px] tender-title-icon'>
-            <img src="%PUBLIC_URL%/logomini.png" alt="Logo Mini" />
+            <img src="/logomini.png" alt="Logo Mini" />
           </span>
           {title}</h2>
       </div>
