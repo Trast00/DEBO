@@ -1,3 +1,7 @@
+.hero-search-bar button {
+  z-index: 10;
+}
+
 /* About */
 .about .sections {
   display: flex;
