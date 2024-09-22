@@ -36,7 +36,6 @@ const Tender = ({tender, isHidden=false, isSaved=false, isViewed=false, userUuid
     }).then(result => {
       if (result.ok) {
         updateHiddenTenderById(_id, value)
-        setIsViewedTender(true)
       }
     })
   }
@@ -74,7 +73,7 @@ const Tender = ({tender, isHidden=false, isSaved=false, isViewed=false, userUuid
       })
     }).then(result => {
       if (result.ok) {
-        console.log('tender viewed')
+        setIsViewedTender(true)
       }
     })
   }
