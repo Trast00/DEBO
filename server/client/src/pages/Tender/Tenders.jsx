@@ -141,6 +141,7 @@ const Tenders = ({user}) => {
               <Tender tender={tender} userUuid={user?.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
               isSaved={user?.preference?.savedTender[tender._id]} 
               isHidden={user?.preference?.hiddenTender[tender._id]}
+              isViewed={user?.preference?.viewedTender[tender._id]}
               showModal={showModal} isPremuim={user?.isPremuim}/>
             </li>
           )
