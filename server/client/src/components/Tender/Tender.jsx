@@ -19,6 +19,7 @@ const Tender = ({tender, isHidden=false, isSaved=false, isViewed=false, userUuid
 
   const [isHiddenTender, setIsHiddenTender] = React.useState(isHidden)
   const [isSavedTender, setIsSavedTender] = React.useState(isSaved)
+  const [isViewedTender, setIsViewedTender] = React.useState(isViewed)
 
   const handleHide = (value) => {
     setIsHiddenTender(value)
@@ -35,6 +36,7 @@ const Tender = ({tender, isHidden=false, isSaved=false, isViewed=false, userUuid
     }).then(result => {
       if (result.ok) {
         updateHiddenTenderById(_id, value)
+        setIsViewedTender(true)
       }
     })
   }
@@ -70,11 +72,15 @@ const Tender = ({tender, isHidden=false, isSaved=false, isViewed=false, userUuid
         tenderId,
         isTenderViewed: true
       })
+    }).then(result => {
+      if (result.ok) {
+        console.log('tender viewed')
+      }
     })
   }
 
   return (
-    <div className="tender" data-tender-id={_id} data-viewed={isViewed}>
+    <div className="tender" data-tender-id={_id} data-viewed={isViewedTender}>
       <div className="d-flex">
         <div className="tender-icon d-none">
         <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.7204 2.0565C11.9012 1.9832 12.1034 1.9832 12.2841 2.0565L21.5343 5.80757C21.8173 5.92235 22.0025 6.19727 22.0024 6.50269C22.0024 6.52588 22.0014 6.5489 21.9993 6.57168L21.9993 17.504C21.9993 17.8094 21.814 18.0843 21.531 18.1991L12.2911 21.9435C12.1932 21.9832 12.0918 22.0007 11.9925 21.9984C11.8967 21.9986 11.8005 21.9805 11.7092 21.9435L2.46929 18.1991C2.18621 18.0843 2.00098 17.8094 2.00098 17.504L2.00098 6.55341C2.00098 6.53749 2.00147 6.52169 2.00245 6.50602L2.00244 6.50268C2.00241 6.19728 2.18757 5.92235 2.47059 5.80758L11.7204 2.0565ZM12.7418 20.1424L20.4993 16.9986L20.4993 7.61708L12.7499 10.7576L12.7418 20.1424ZM3.50098 7.61522L3.50098 16.9986L11.2418 20.1356L11.2499 10.7557L3.50098 7.61522ZM12.0023 3.56085L4.74871 6.50238L12.0023 9.44206L19.2561 6.50238L12.0023 3.56085Z" fill="#5D3E30"></path> </g></svg>

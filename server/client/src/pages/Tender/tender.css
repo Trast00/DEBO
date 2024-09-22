@@ -81,7 +81,7 @@
   padding: 24px;
 }
 
-.tender [data-viewed=true] {
+.tender[data-viewed="true"] {
   background: #dfdfdf94;
 }
 
@@ -158,6 +158,7 @@
 }
 
 .info-wrapper {
+  gap: 4px;
   padding-top: 8px;
   justify-content: space-between;
 }

@@ -16,18 +16,6 @@
   %>
   <p class="notification success">Success</p>
   <p class="notification fail">Failur</p>
-  <% 
-  /** writte me the html to made the tender post, get, getId, delete, update request each in different form: 
-  this.title = title
-  this.description = description
-  this.country = country
-  this.industryType = industryType
-  this.dates = dates
-  this.buyer = buyer
-  this.pdfUrl = pdfUrl
-  this.tags = tags
-  this.budget = budget */ 
-  %>
 
   <div class="dev-log-wrapper form-search-default">
     <h2>Response</h2>
@@ -39,6 +27,7 @@
     <form method="POST" action="/api/tenders">
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
+        <option value="">Select a country</option>
         <% listCountries.forEach(function(industry) { %>
           <option value="<%= industry.name %>"><%= industry.name %></option>
         <% }); %>
@@ -96,17 +85,18 @@
       <input type="text" name="id" placeholder="id" required minlength="3">
       <input type="text" name="title" placeholder="Title" required minlength="3">
       <select name="country" required>
+        <option value="">Select a country</option>
         <% listCountries.forEach(function(industry) { %>
           <option value="<%= industry.name %>"><%= industry.name %></option>
         <% }); %>
       </select>
-      <select name="industryType" id="industry-select" required>
-        <option value="">Select a industry type</option>
-        <% listIndustries.forEach(function(industry) { %>
+        <select name="industryType" id="industry-select" required>
+          <option value="">Select a industry type</option>
+          <% listIndustries.forEach(function(industry) { %>
             <option value="<%= industry.name %>"><%= industry.name %></option>
-        <% }); %>
-      </select>
-            <select name="companyType" id="market-select" required>
+          <% }); %>
+        </select>
+        <select name="companyType" id="market-select" required>
         <option value="">Select a type de marché</option>
         <option value="company">Marché de travaux</option>
         <option value="office">Prestation Intellectuelle</option>
