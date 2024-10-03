@@ -3,10 +3,11 @@ import './NavBar.css'
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const NavBar = ({userData}) => {
+const NavBar = ({userData, showModal}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
   const location = useLocation();
+  
   return (
     <div>
       <header>
@@ -20,7 +21,12 @@ const NavBar = ({userData}) => {
           
           <ul className={isOpen? "show" :  "hidden"}>
             <li>
-              { !isAuthenticated &&
+              { (isLoading) &&
+                <button onClick={_ => showModal()}>Connexion en cour ...</button>
+              }
+            </li>
+            <li>
+              { (!isAuthenticated && !isLoading) &&
                 <button onClick={loginWithRedirect}>Connexion/Inscription</button>
               }
             </li>

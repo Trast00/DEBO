@@ -13,10 +13,12 @@ import AuthCallBack from './pages/Auth/AuthCallBack';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import Contact from './components/Contact/Contact';
+import AuthErrorModal from './components/Modals/AuthErrorModal/AuthErrorModal.jsx';
 
 
 const App = () => {
   const [userData, setUserData] = useState(null);
+  const [showModal, setShowModal] = useState(true);
   const { isAuthenticated, isLoading, user } = useAuth0();
   // get server url from .env file
 
@@ -62,7 +64,8 @@ const App = () => {
   }
   return (
     <div className="App">
-      <NavBar userData={userData}></NavBar>
+      { showModal && <AuthErrorModal onClose={_ => setShowModal(false)}/> }
+      <NavBar userData={userData} showModal={_ => setShowModal(true)}></NavBar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tenders" element={<Tenders user={userData} />} />
@@ -70,7 +73,7 @@ const App = () => {
         <Route path="/payment" element={<Payement />} />
         <Route path="/NotFound" element={<NotFound />} />
         <Route path="/NotAllowed" element={<NotAllowed />} />
-        <Route path="/auth-callback" element={<AuthCallBack refreshApp={_ => refreshApp()} />} />
+        <Route path="/auth-callback" element={<AuthCallBack showAuthModal={_ => setShowModal(true)} refreshApp={_ => refreshApp()} />} />
       </Routes>
     </div>
   );

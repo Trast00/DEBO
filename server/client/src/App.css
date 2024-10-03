@@ -42,7 +42,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 }
 
 .text-primary-dark {
-  color: var(--primary-color-dark);
+  color: var(--primary-dark-color);
 }
 
 .text-error-color {
@@ -111,9 +111,21 @@ ul {
   transition-duration: 400ms;
 }
 
+.button-default.button-reversed {
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: white;
+  padding: 2px 8px;
+  border: 2px solid var(--primary-color);
+}
+
 .button-default:hover {
   background: var(--primary-dark-color);
   color: white;
+}
+
+.button-default.button-reversed:hover {
+  border-color: var(--primary-dark-color);
 }
 
 .button-warning {
@@ -260,3 +272,7 @@ input[type="radio"]:checked + .custom-radio-label::after {
   color: var(--primary-color)
 }
 
+.custom-modal {
+  display: block;
+  opacity: 1;
+}
