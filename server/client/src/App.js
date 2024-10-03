@@ -18,7 +18,7 @@ import AuthErrorModal from './components/Modals/AuthErrorModal/AuthErrorModal.js
 
 const App = () => {
   const [userData, setUserData] = useState(null);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const { isAuthenticated, isLoading, user } = useAuth0();
   // get server url from .env file
 
