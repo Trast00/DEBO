@@ -18,7 +18,7 @@ const Home = () => {
     <div>
       <Hero listCountries={listCountries} listActivities={listActivities} />
       <section class="country-activty">
-        <h2>Trouver des marchées adaptées au entreprise <br/>et Bureau en afrique de l'ouest</h2>
+        <h2>Trouvez des marchés adaptés aux entreprises et bureaux en Afrique de l'Ouest.</h2>
         <ListCountries onGetData={data => setListCountries([...data])} />
         <ListActivities onGetData={data => setListActivities([...data])} />
       </section>

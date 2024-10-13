@@ -46,12 +46,12 @@ const Hero = ({listActivities, listCountries}) => {
         <img src="/images/home/hero-img.png" alt="Les meilleurs appelles d'offres a traves UEMOA" />
       </div>
       <div class="hero-texts">
-        <h4>Ne manquer plus aucun appels d'offres</h4>
-        <h1>Retrouvez touts les appels d'offre des 8 pays de l'UEMOA</h1>
-        <p>Trouvez des marchés publics et privés près de chez vous dans les +8 Pays de l'UEMOA (Mali, Niger, Togo, Bénin, Sénégal, Côte d'Ivoire, Guinée-Bissau) avec une entreprise a l'écoutes des besoins de l'afrique de l'ouest
+        <h4>Ne manquez plus aucun appel d’offres</h4>
+        <h1>Retrouvez tous les appels d'offres des 8 pays de l'UEMOA</h1>
+        <p>Trouvez des marchés publics et privés près de chez vous dans les 8 pays de l'UEMOA (Mali, Niger, Togo, Bénin, Sénégal, Côte d'Ivoire, Guinée-Bissau) avec une entreprise à l'écoute des besoins de l'Afrique de l'Ouest.
           <br/>
           <br/>
-          Rechercher pour tester notre services
+          Recherchez pour tester notre service
         </p>
       </div>
       <div class="hero-search-bar">

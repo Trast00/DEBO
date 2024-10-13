@@ -37,13 +37,9 @@ const NavBar = ({userData, showModal}) => {
             <li>
                 <NavLink to="/" activeClassName="active-link" className={location.pathname === "/" ? "active-link" : ""}>Services</NavLink>
             </li>
-            {/*<li>
-                <NavLink to="/payment" activeClassName="active-link" className={location.pathname === "/payment" ? "active-link" : ""}>Tarifs</NavLink>
-            </li>*/}
             <li>
                 <NavLink to="/contact" activeClassName="active-link" className={location.pathname === "/contact" ? "active-link" : ""}>Contactes</NavLink>
             </li>
-            {/*(!isAuthenticated || !user || !user.isPremuim) && */}
             <li>
                 <NavLink to="/payment" activeClassName="active-link" className={location.pathname === "/payment" ? "active-link" : ""}>S'abonner</NavLink>
             </li>
