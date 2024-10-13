@@ -275,4 +275,5 @@ input[type="radio"]:checked + .custom-radio-label::after {
 .custom-modal {
   display: block;
   opacity: 1;
+  background: #0000008f;
 }
