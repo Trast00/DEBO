@@ -14,6 +14,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import Contact from './components/Contact/Contact';
 import AuthErrorModal from './components/Modals/AuthErrorModal/AuthErrorModal.jsx';
+import CookieConsentModal from './components/CookieModal/CookieConsentModal.jsx';
 
 
 const App = () => {
@@ -21,13 +22,6 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const { isAuthenticated, isLoading, user } = useAuth0();
   // get server url from .env file
-
-  // if base url contain .render then redirect to front end url from .env file
-  /*if (window.location.href.includes('.onrender')) {
-    window
-      .location
-      .replace("https://www.deboinfo.com");
-  }*/
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
@@ -66,6 +60,7 @@ const App = () => {
     <div className="App">
       { showModal && <AuthErrorModal onClose={_ => setShowModal(false)}/> }
       <NavBar userData={userData} showModal={_ => setShowModal(true)}></NavBar>
+      <CookieConsentModal />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tenders" element={<Tenders user={userData} />} />

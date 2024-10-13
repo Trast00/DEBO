@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = ({userData, showModal}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, isLoading } = useAuth0();
   const location = useLocation();
   
   return (
