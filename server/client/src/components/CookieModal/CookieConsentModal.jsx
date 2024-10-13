@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useAuth0 } from '@auth0/auth0-react';
-import { NavLink } from 'react-router-dom';
 import './CookieConsentModal.css';
 
 const CookieBlockedModal = () => {
@@ -65,10 +64,6 @@ const CookieBlockedModal = () => {
 
   const getCookie = (name) => {
     return Cookies.get(name);
-  };
-
-  const openCookieSettings = () => {
-    window.open('/enable-cookies', '_blank');
   };
 
   if (!isOpen) return null;
