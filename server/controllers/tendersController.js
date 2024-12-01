@@ -43,6 +43,7 @@ export const updateTender = (req, res, next) => {
     throw new Error("update tender: id is required")
   }
   const tender = new Tender({
+    createAt: new Date(),
     title: req.body.title,
     description: req.body.description,
     country: req.body.country,
@@ -101,4 +102,14 @@ export const searchTender = (req, res, next) => {
       }
     })
     .catch(err => {res.status(500).send(err)})
+}
+
+export const getTenderByCountries = (req, res, next) => {
+  console.log("Start looking for AGG")
+  const startDate = req.body["from-date"]
+  const endDate = req.body["to-date"]
+  Tender.getByDatesGroupedByCountry(startDate, endDate).then(result => {
+    // convert result into a text
+    res.json(result)
+  })
 }

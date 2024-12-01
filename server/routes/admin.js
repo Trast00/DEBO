@@ -14,7 +14,7 @@ const devurl = process.env.DEV_URL;
 router.get(`/api${devurl}/dashboard`, (req, res, next) => {
   // get all the industry types
   if (!req.session.moderator?.email) {
-    res.redirect(devurl)
+    res.redirect(`/api${devurl}`)
     return;
   }
   fetchAllIndustryTypes().then(industryTypes => {

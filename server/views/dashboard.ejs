@@ -58,6 +58,24 @@
       <button type="submit">Post</button>
     </form>
   </div>
+
+  <div class="dev-log-wrapper form-search-default">
+    <h2>Get All tender by add dates</h2>
+    <form method="POST" action="/api/tenders/countries">
+      <p>From</p>
+      <input type="date" name="from-date" required>
+      <p>To</p>
+      <input type="date" name="to-date" required>
+      <input type="hidden" name="moderator-email" value=<%= email %>>
+      <input type="hidden" name="moderator-password" value=<%= password %>>
+      <input type="hidden" name="moderator-credential" value=<%= credential %>>
+      <button type="submit">Get</button>
+    </form>
+
+    <div>
+
+    </div>
+  </div>
   <div class="dev-log-wrapper form-search-default">    
     <h2>Get Tender</h2>
     <form method="GET" action="/api/tenders">
@@ -205,45 +223,83 @@
 <script>
   // send request in json format
   const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  forms.forEach((form) => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const method = form.getAttribute('method').toUpperCase();
-      const action = form.getAttribute('action');
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      const isDataCorrect = checkFormData(data);
-      if (!isDataCorrect) return;
-      updateDataFormat(data)
-      const actionUrl = updateDataAction(action, data);
+    // Get form attributes and data
+    const method = form.getAttribute("method").toUpperCase();
+    const action = form.getAttribute("action");
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
 
-      let result = "Error"
-      let isSuccess = false;
-      if (method === 'GET') {
+    // Validate form data
+    const isDataCorrect = checkFormData(data);
+    if (!isDataCorrect) return;
+
+    // Update data and action if needed
+    updateDataFormat(data);
+    const actionUrl = updateDataAction(action, data);
+
+    let result = "Error";
+    let isSuccess = false;
+
+    try {
+      // Handle GET and other methods
+      if (method === "GET") {
         const response = await fetch(actionUrl);
-        isSuccess = (response.status >= 200 && response.status < 400)
+        isSuccess = response.status >= 200 && response.status < 400;
         result = await response.json();
       } else {
         const response = await fetch(actionUrl, {
           method: method,
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
-        isSuccess = (response.status >= 200 && response.status < 400)
+        isSuccess = response.status >= 200 && response.status < 400;
         result = await response.json();
       }
+
+      // Show a notification based on success
       showNotification(isSuccess);
-      if (isSuccess) {
-        //show reponse
-        document.getElementById('show-response').innerText = JSON.stringify(result);
-        //form.reset();
+
+      if (isSuccess && action === "/api/tenders/countries") {
+        const listCountries = result; // `result` should already be parsed as JSON
+        if (!Array.isArray(listCountries)) {
+          throw new Error("Invalid country data format received.");
+        }
+
+        // Start HTML generation
+        let emailHTML = '<div style="all: unset; font: small/1.5 Arial,Helvetica,sans-serif; color: #222;">';
+
+        listCountries.forEach((country) => {
+          emailHTML += `<b>${country._id}</b><br>`; // Country name in bold
+          if (country.tenders && Array.isArray(country.tenders)) {
+            country.tenders.forEach((tender) => {
+              emailHTML += `&nbsp;&nbsp;- <a href="${tender.pdfUrl}" target="_blank">${tender.title}</a> (expire le ${tender.dates.expire.split('T')[0]})<br>`;
+            });
+          }
+          emailHTML += "<br>"; // Add spacing between countries
+        });
+
+        emailHTML += "</div>";
+
+        // Update the UI with the generated HTML content
+        document.getElementById("show-response").innerHTML = emailHTML;
+      } else if (isSuccess) {
+        // Show response for other actions
+        document.getElementById("show-response").innerText = JSON.stringify(result, null, 2);
       }
-    });
+    } catch (error) {
+      console.error("Error occurred while processing the form:", error);
+      showNotification(false);
+    }
   });
-  //function that show notification for 5 seconds
+});
+
+//function that show notification for 5 seconds
   const showNotification = (isSucces) => {
     // show .notification.success or .notification.fail
     const notification = document.querySelector(`.notification.${isSucces ? 'success' : 'fail'}`);

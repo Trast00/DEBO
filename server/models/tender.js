@@ -95,6 +95,29 @@ class Tender {
       })
     }
 
+    static getByDatesGroupedByCountry(startDate, endDate) {
+      const db = getDb();
+      const pipeline = [
+        {
+          $match: {
+            //createAt: {
+            "dates.expire": {
+              $gt: startDate,
+              $lt: endDate,
+            }
+          }
+        },
+        {
+          $group: {
+            _id: '$country',
+            tenders: { $push: '$$ROOT' },
+            count: { $sum: 1 }
+          }
+        }
+      ];
+      return db.collection('tenders').aggregate(pipeline).toArray();
+    }    
+
     static search(body) {
       const { industryTypes, countries, keywords, marketTypes } = body
       const db = getDb()
