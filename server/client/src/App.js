@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import Contact from './components/Contact/Contact';
 import AuthErrorModal from './components/Modals/AuthErrorModal/AuthErrorModal.jsx';
 import CookieConsentModal from './components/CookieModal/CookieConsentModal.jsx';
+import TenderDetails from './pages/Tender/TenderDetails.jsx';
+import NoTracking from './pages/utils/NoTracking.jsx';
 
 
 const App = () => {
@@ -56,6 +58,7 @@ const App = () => {
   const refreshApp = () => {
     window.location.href = '/'
   }
+
   return (
     <div className="App">
       { showModal && <AuthErrorModal onClose={_ => setShowModal(false)}/> }
@@ -64,7 +67,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tenders" element={<Tenders user={userData} />} />
+        <Route path="/tenders/:id" element={<TenderDetails user={userData} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/NoTracking" element={<NoTracking />} />
         <Route path="/payment" element={<Payement />} />
         <Route path="/NotFound" element={<NotFound />} />
         <Route path="/NotAllowed" element={<NotAllowed />} />

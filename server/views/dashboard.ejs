@@ -66,6 +66,15 @@
       <input type="date" name="from-date" required>
       <p>To</p>
       <input type="date" name="to-date" required>
+      <div id="validate-email-tracker" class="validate-email-tracker hidden">
+        <p>Complete tracking informations</p>
+        <input type="text" name="emailName" id="emailName" placeholder="Name or title for email send">
+        <input type="email" name="userId" id="userId" placeholder="User id (email du destinataire)">
+        <input type="text" name="userName" id="userName" placeholder="User Name (Nom du destinataire: choississez un nom)">
+        <input type="text" name="source" id="source" placeholder="Source (ou sera placer url de redirection)" value="email">
+        <p>Verifier que tout les url marche correctement avant d'appuyer sur le boutton ci-dessou</p>
+        <button id="validate-email-btn">Validate and start tracking</button> <br><br>
+      </div>
       <input type="hidden" name="moderator-email" value=<%= email %>>
       <input type="hidden" name="moderator-password" value=<%= password %>>
       <input type="hidden" name="moderator-credential" value=<%= credential %>>
@@ -222,6 +231,7 @@
 
 <script>
   // send request in json format
+  let listCountries = []
   const forms = document.querySelectorAll('form');
   forms.forEach((form) => {
   form.addEventListener("submit", async (e) => {
@@ -266,28 +276,8 @@
       showNotification(isSuccess);
 
       if (isSuccess && action === "/api/tenders/countries") {
-        const listCountries = result; // `result` should already be parsed as JSON
-        if (!Array.isArray(listCountries)) {
-          throw new Error("Invalid country data format received.");
-        }
-
-        // Start HTML generation
-        let emailHTML = '<div style="all: unset; font: small/1.5 Arial,Helvetica,sans-serif; color: #222;">';
-
-        listCountries.forEach((country) => {
-          emailHTML += `<b>${country._id}</b><br>`; // Country name in bold
-          if (country.tenders && Array.isArray(country.tenders)) {
-            country.tenders.forEach((tender) => {
-              emailHTML += `&nbsp;&nbsp;- <a href="${tender.pdfUrl}" target="_blank">${tender.title}</a> (expire le ${tender.dates.expire.split('T')[0]})<br>`;
-            });
-          }
-          emailHTML += "<br>"; // Add spacing between countries
-        });
-
-        emailHTML += "</div>";
-
-        // Update the UI with the generated HTML content
-        document.getElementById("show-response").innerHTML = emailHTML;
+        listCountries = result; // `result` should already be parsed as JSON
+        showEmailInResponse(listCountries,   {source: "email", userId: "", userName: "test", emailId: "test", emailName: "", validated: false,})
       } else if (isSuccess) {
         // Show response for other actions
         document.getElementById("show-response").innerText = JSON.stringify(result, null, 2);
@@ -299,6 +289,83 @@
   });
 });
 
+
+
+document.getElementById("validate-email-btn").addEventListener("click", function () {
+      console.log('try to validated')
+      // Extract values from input fields
+      const emailName = document.getElementById("emailName").value.trim();
+      const userId = document.getElementById("userId").value.trim();
+      const userName = document.getElementById("userName").value.trim();
+      const source = document.getElementById("source").value.trim();
+      
+      console.log('try to validated: trimed done')
+      // Call the showEmailInResponse method
+      showEmailInResponse(listCountries, {
+        source,
+        userId,
+        userName,
+        emailId: generateId(), // Assuming emailId is the same as userId
+        emailName,
+        validated: true,
+      });
+      console.log('try to validated: show email done')
+
+      document.getElementById("validate-email-btn").disabled = true;
+    });
+
+  const showEmailInResponse = (listCountries,
+  {source,
+  userId,
+  userName,
+  emailId,
+  emailName,
+  validated,}
+  ) => {
+    console.log('Start validated: ', validated)
+    document.getElementById('validate-email-tracker').classList.remove('hidden');
+    if (!Array.isArray(listCountries)) {
+          throw new Error("Invalid country data format received.");
+        }
+
+        // Start HTML generation
+        let emailHTML = '<div style="all: unset; font: small/1.5 Arial,Helvetica,sans-serif; color: #222;">';
+
+        listCountries.forEach((country) => {
+          emailHTML += `<b>${country._id}</b><br>`; // Country name in bold
+          if (country.tenders && Array.isArray(country.tenders)) {
+            country.tenders.forEach((tender) => {
+              const id = tender._id; // Replace with actual ID
+              const basePath = `/tenders/${id}`;
+              const queryParams = new URLSearchParams({
+                eventType: "click",
+                source,
+                userId,
+                userName,
+                dataId: tender._id,
+                dataName: "tender",
+                emailId: generateId(),
+                emailName,
+                validated: validated
+              });
+              
+              const fullURL = `${basePath}?${queryParams.toString()}`;
+              console.log('validted: ', validated)
+              console.log('full Url: ', fullURL)
+              console.log('showEmailInResponse received:', { source, userId, userName, emailId, emailName, validated });
+
+              emailHTML += `&nbsp;&nbsp;- <a href="${fullURL}" target="_blank">${tender.title}</a> (expire le ${tender.dates.expire.split('T')[0]})<br>`;
+            });
+          }
+          emailHTML += "<br>"; // Add spacing between countries
+        });
+
+        emailHTML += "</div>";
+
+        // Update the UI with the generated HTML content
+        document.getElementById("show-response").innerHTML = emailHTML;
+  }
+
 //function that show notification for 5 seconds
   const showNotification = (isSucces) => {
     // show .notification.success or .notification.fail
@@ -307,6 +374,12 @@
     setTimeout(() => {
       notification.style.display = 'none';
     }, 5000);
+  }
+
+  const generateId = () => {
+    const timestamp = Date.now().toString(36); // Convert timestamp to base-36 string
+    const randomString = Math.random().toString(36).substring(2, 8); // Generate random alphanumeric string
+    return `${timestamp}-${randomString}`; // Combine timestamp and random string
   }
 
   const checkFormData = (formData) => {

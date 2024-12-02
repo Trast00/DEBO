@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './tender.css'
 import SearchTender from '../../components/Tender/SearchTender'
 import Tender from '../../components/Tender/Tender'
@@ -10,12 +10,6 @@ const Tenders = ({user}) => {
   const {isAuthenticated, isLoading} = useAuth0()
   const [currentPage, setCurrentPage] = useState(1)
   
-  // if user not authenticated, redirect to login page
-
-  // if user is authenticated, but not subscribed (guest user), redirect to payment page
-  if (user && user.isPremuim === false) {
-    
-  }
 
   const [listTender, setListTender] = useState([])
   const [listAllTender, setListAllTender] = useState([])
@@ -62,6 +56,42 @@ const Tenders = ({user}) => {
     if (searchOrder === 'last-added') {
       setListTender(tenders)
     }
+
+  }
+
+  const saveAnalyticalData = ({
+    startTracking,
+    eventType,
+    source,
+    userId,
+    userName,
+    dataId,
+    dataName,
+    emailId,
+  }) => {
+    if (startTracking && !(localStorage.getItem('isTester') === 'true')) {
+      const payload = {
+        eventType,
+        source,
+        userId,
+        userName,
+        dataId,
+        dataName,
+        emailId,
+      };
+
+      try {
+         fetch('/api/analytical_data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+      } catch {
+        throw Error('Couldn t save analytical data')
+      }
+    }
   }
 
   const[popupMessage, setPopupMessage] = useState('')
@@ -100,8 +130,22 @@ const Tenders = ({user}) => {
   const [openModal, setOpenModal] = useState(false)
   const [tenderModal, setTenderModal] = useState({})
   const showModal = (tender) => {
-    setOpenModal(true)
-    setTenderModal(tender)
+    try{
+      setTenderModal(tender)
+      setOpenModal(true)
+      saveAnalyticalData({
+        startTracking: true,
+        eventType: "click",
+        source: "site",
+        userId: user?.email || 'guest',
+        userName: user?.name || 'guest',
+        dataId: tender._id,
+        dataName: 'tender',
+        emailId: '',
+      })
+    } catch(e) { 
+      console.log("error:", e)
+      console.error(e); }
   }
 
   if (isLoading)  return (<main className="tenders">Loading</main>)
@@ -159,7 +203,7 @@ const Tenders = ({user}) => {
   <div className={`modal-tender modal-default ${(!openModal && 'd-none')}`}>
     <div className="modal-tender-wrapper">
       <button type="button" className="close button-default" onClick={_ => setOpenModal(false)}>X</button>
-      {tenderModal.dates && (<Tender tender={tenderModal} userUuid={user.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
+      {tenderModal.dates && (<Tender tender={tenderModal} userUuid={user?.uuid} updateHiddenTenderById={updateHiddenTenderById} updateSaveTenderById={updateSaveTenderById}
               isSaved={user?.preference?.savedTender[tenderModal._id]} 
               isHidden={user?.preference?.hiddenTender[tenderModal._id]}
               showModal={showModal}

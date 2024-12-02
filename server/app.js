@@ -9,6 +9,7 @@ import tenderRoutes from './routes/tender.js';
 import countryRoutes from './routes/country.js';
 import adminRoutes from './routes/admin.js';
 import industryTypeRoute from './routes/industryTypes.js';
+import analyticalDataRoutes from './routes/analyticalData.js'
 import { mongoConnect } from './utils/database.js';
 import session from 'express-session';
 import dotenv from 'dotenv';
@@ -69,6 +70,7 @@ app.use(industryTypeRoute)
 app.use(tenderRoutes)
 app.use(userPreferencesRoutes)
 app.use(userRoutes)
+app.use(analyticalDataRoutes)
 
 app.use("*", (req, res, next) => {
   console.log('Try to render the server')

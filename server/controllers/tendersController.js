@@ -33,7 +33,7 @@ export const getTenders = (req, res, next) => {
 export const getTenderById = (req, res, next) => {
   Tender.fetchById(req.params.id)
     .then(tender => {
-      res.json(tender)
+      return res.json(tender)
     })
     .catch(err => {res.status(500).send(err)})
 }
