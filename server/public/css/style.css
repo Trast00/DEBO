@@ -83,8 +83,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 .form-search-default button[disabled] {
   color: var(--primary-color);;
-  background: gray;
-  border: 2px solid var(--primary-color);;
+  background: #d2d2d2;
+  border: 1px solid var(--primary-color);;
 }
 
 ul {
@@ -100,6 +100,13 @@ ul {
   border-radius: 6px;
   box-shadow: 0 3px 3px var(--box-shadow-primary-color);
   transition-duration: 400ms;
+}
+
+.button-default.reversed-color {
+  background: white;
+  color: var(--primary-color);
+  font-weight: 500;
+  border: 3px solid var(--primary-color);
 }
 
 .button-default:hover {

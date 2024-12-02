@@ -280,7 +280,7 @@ input[type="radio"]:checked + .custom-radio-label::after {
 
 .pop-testing {
   position: fixed;
-  top: 36px;
+  top: 50px;
   right: 12px;
   z-index: 99;
   padding: 4px 6px;
