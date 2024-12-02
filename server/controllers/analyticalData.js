@@ -1,4 +1,4 @@
-import AnalyticalData from '../models/AnalyticalData.js'
+import AnalyticalData from '../models/analyticalData.js'
 
 export const postAnalyticalData = (req, res) => {
   const eventType = req.body["eventType"]
