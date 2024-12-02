@@ -65,7 +65,7 @@ const App = () => {
       {(isTester && isTester) && <div className='pop-testing'>Mode: testing</div>}
       { showModal && <AuthErrorModal onClose={_ => setShowModal(false)}/> }
       <NavBar userData={userData} showModal={_ => setShowModal(true)}></NavBar>
-      <CookieConsentModal />
+      {/* <CookieConsentModal /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tenders" element={<Tenders user={userData} />} />
