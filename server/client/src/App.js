@@ -23,6 +23,7 @@ const App = () => {
   const [userData, setUserData] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const { isAuthenticated, isLoading, user } = useAuth0();
+  const isTester = (localStorage.getItem('isTester') === 'true')
   // get server url from .env file
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const App = () => {
 
   return (
     <div className="App">
+      {(isTester && isTester) && <div className='pop-testing'>Mode: testing</div>}
       { showModal && <AuthErrorModal onClose={_ => setShowModal(false)}/> }
       <NavBar userData={userData} showModal={_ => setShowModal(true)}></NavBar>
       <CookieConsentModal />
@@ -69,7 +71,8 @@ const App = () => {
         <Route path="/tenders" element={<Tenders user={userData} />} />
         <Route path="/tenders/:id" element={<TenderDetails user={userData} />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/NoTracking" element={<NoTracking />} />
+        <Route path="/is-tester" element={<NoTracking isTester={true} />} />
+        <Route path="/isnot-tester" element={<NoTracking isTester={false} />} />
         <Route path="/payment" element={<Payement />} />
         <Route path="/NotFound" element={<NotFound />} />
         <Route path="/NotAllowed" element={<NotAllowed />} />

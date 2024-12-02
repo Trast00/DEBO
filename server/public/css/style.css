@@ -81,6 +81,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   opacity: 0.85;
 }
 
+.form-search-default button[disabled] {
+  color: var(--primary-color);;
+  background: gray;
+  border: 2px solid var(--primary-color);;
+}
+
 ul {
   list-style: none;
   padding: 0;

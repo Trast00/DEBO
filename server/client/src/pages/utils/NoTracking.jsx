@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NoTracking = () => {
+const NoTracking = ({isTester}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     // Set localStorage value
-    localStorage.setItem('isTester', 'true');
+    if (isTester) {
+      localStorage.setItem('isTester', 'true');
+  
+      // Display a popup message
+      alert('You are now excluded from tracking. You are a Tester (Vous êtes un tester maintenant)');
+    } else {
+      localStorage.removeItem('isTester')
+      alert('You are now included in tracking. You are a Tester (Vous n êtes plus un tester');
 
-    // Display a popup message
-    alert('You are now excluded from tracking.');
+    }
 
     // Redirect to home page
     navigate('/');

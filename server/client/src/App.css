@@ -277,3 +277,16 @@ input[type="radio"]:checked + .custom-radio-label::after {
   opacity: 1;
   background: #0000008f;
 }
+
+.pop-testing {
+  position: fixed;
+  top: 36px;
+  right: 12px;
+  z-index: 99;
+  padding: 4px 6px;
+  font-weight: 600;
+  background: white;
+  border-radius: 4px;
+  color: var(--primary-dark-color);
+  border: 1px solid var(--primary-dark-color);
+}
