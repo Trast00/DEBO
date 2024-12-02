@@ -277,6 +277,7 @@
 
       if (isSuccess && action === "/api/tenders/countries") {
         listCountries = result; // `result` should already be parsed as JSON
+        document.getElementById("validate-email-btn").disabled = false;
         showEmailInResponse(listCountries,   {source: "email", userId: "", userName: "test", emailId: "test", emailName: "", validated: false,})
       } else if (isSuccess) {
         // Show response for other actions
