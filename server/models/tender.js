@@ -101,7 +101,7 @@ class Tender {
         {
           $match: {
             //createAt: {
-            "dates.expire": {
+            "dates.publish": {
               $gt: startDate,
               $lt: endDate,
             }
